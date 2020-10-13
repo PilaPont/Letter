@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_letter_letter,letter.letter,model_letter_letter,base.group_user,1,1,1,0
+
+access_letterout,letter.letter.out,model_letter_letter_out,group_letter_out_see_follower,1,1,1,1
+
+access_letterin,letter.letter.in,model_letter_letter_in,group_letter_in_see_follower,1,1,1,1
+
+acc_letter_out_content_type,letter.content_type,model_letter_content_type,base.group_no_one,1,1,1,1
+acc_letter_out_content_type1,letter.content_type,model_letter_content_type,group_letter_out_see_follower,1,0,0,0
+
+acc_letter_in_content_type,letter.content_type,model_letter_content_type,base.group_no_one,1,1,1,1
+acc_letter_in_content_type1,letter.content_type,model_letter_content_type,group_letter_in_see_follower,1,0,0,0
+
+acc_letter_format,letter.format,model_letter_format,base.group_user,1,0,0,0
+
+acc_letter_header,letter.header,model_letter_header,base.group_no_one,1,1,1,1
+acc_letter_header1,letter.header,model_letter_header,group_letter_out_see_follower,1,0,0,0

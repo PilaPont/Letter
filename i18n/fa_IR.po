@@ -1,0 +1,1049 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* letter
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-25 10:48+0000\n"
+"PO-Revision-Date: 2019-12-25 10:48+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__letter_format_id
+msgid " Letter Format"
+msgstr "قالب نامه"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+msgid "<span style=\"color:blue\">Included</span>"
+msgstr "دارد"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+msgid "<span style=\"color:blue;\">Included</span>"
+msgstr "دارد"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+msgid "<span>Answer letter:</span>"
+msgstr "در جواب نامه: "
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+msgid "<span>E-Mail:</span>"
+msgstr "ایمیل: "
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+msgid "<span>Follow letter:</span>"
+msgstr "پیرونامه: "
+
+#. module: letter
+#: model:ir.model,name:letter.model_letter_letter
+msgid "A module to handle all sent and received letters/parcels/goods/catalogues/etc. in a company"
+msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Acknowledge"
+msgstr "تاییدیه دریافت"
+
+#. module: letter
+#: selection:letter.letter.out,state:0
+msgid "Acknowledged"
+msgstr "دریافت شده"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_needaction
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_needaction
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_needaction
+msgid "Action Needed"
+msgstr "اقدام مورد نیاز است"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_content_type__active
+#: model:ir.model.fields,field_description:letter.field_letter_format__is_active
+msgid "Active"
+msgstr "فعال"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__activity_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_ids
+msgid "Activities"
+msgstr "فعالیت‌ها"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__activity_state
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_state
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_state
+msgid "Activity State"
+msgstr "وضعیت فعالیت"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Addressee"
+msgstr "گیرنده"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Approve"
+msgstr "موافقت"
+
+#. module: letter
+#: selection:letter.letter.out,state:0
+msgid "Approved"
+msgstr "موافقت شده"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
+msgid "Assign"
+msgstr "تحویل به"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_assign_letter_wizard
+msgid "Assign Letter"
+msgstr "تحویل دادن نامه"
+
+#. module: letter
+#: selection:letter.letter.in,state:0
+msgid "Assigned"
+msgstr "محول شده"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__user_id
+msgid "Assignee"
+msgstr "دریافت کننده"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_attachment_count
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_attachment_count
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__attachment_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__attachment_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__attachment_ids
+msgid "Attachments"
+msgstr "پیوست‌ها"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+msgid "Attachments:"
+msgstr "پیوست: "
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+msgid "Best Regards"
+msgstr "با احترام"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__cc_ids
+msgid "CC"
+msgstr "رونوشت"
+
+#. module: letter
+#: model:res.groups,name:letter.group_can_sign_letter
+msgid "Can Sign Letter"
+msgstr "حق امضاء"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Cancel"
+msgstr "لغو"
+
+#. module: letter
+#: selection:letter.letter.out,state:0
+msgid "Canceled"
+msgstr "لغو شده"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Cc"
+msgstr "رونوشت"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+msgid "Cc:"
+msgstr "رونوشت: "
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__related_letter_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__related_letter_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__related_letter_ids
+msgid "Child letter"
+msgstr ""
+
+#. module: letter
+#: model:letter.format,name:letter.compact_format
+msgid "Compact"
+msgstr "فشرده"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_format__name
+msgid "Compact Format Name"
+msgstr "حالت فشرده شازی"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_content_type__company_id
+#: model:ir.model.fields,field_description:letter.field_letter_header__company_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter__company_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__company_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__company_id
+msgid "Company"
+msgstr "شرکت"
+
+#. module: letter
+#: model:ir.ui.menu,name:letter.letter_menu_config
+msgid "Configuration"
+msgstr "پیکربندی"
+
+#. module: letter
+#: selection:letter.letter.out,state:0
+msgid "Confirmed"
+msgstr "تایید شده"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_content_type__name
+msgid "Content"
+msgstr "محتوا"
+
+#. module: letter
+#: model:ir.actions.act_window,name:letter.action_content_type
+#: model:ir.model.fields,field_description:letter.field_letter_letter__content_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__content_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__content_id
+#: model:ir.ui.menu,name:letter.letter_menu_content_type
+msgid "Content Type"
+msgstr "نوع محتوا"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__create_uid
+#: model:ir.model.fields,field_description:letter.field_letter_content_type__create_uid
+#: model:ir.model.fields,field_description:letter.field_letter_format__create_uid
+#: model:ir.model.fields,field_description:letter.field_letter_header__create_uid
+#: model:ir.model.fields,field_description:letter.field_letter_letter__create_uid
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__create_uid
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__create_uid
+msgid "Created by"
+msgstr "ایجاد شده توسط"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__create_date
+#: model:ir.model.fields,field_description:letter.field_letter_content_type__create_date
+#: model:ir.model.fields,field_description:letter.field_letter_format__create_date
+#: model:ir.model.fields,field_description:letter.field_letter_header__create_date
+#: model:ir.model.fields,field_description:letter.field_letter_letter__create_date
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__create_date
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__create_date
+msgid "Created on"
+msgstr "ایجاد شده در"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+msgid "Date:"
+msgstr "تاریخ: "
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_format__is_default
+msgid "Default"
+msgstr "پیش فرض"
+
+#. module: letter
+#: selection:letter.letter.in,media_type:0
+#: selection:letter.letter.out,media_type:0
+msgid "Delivery Man"
+msgstr "پیک"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
+msgid "Delivery Media"
+msgstr "نوع دریافت "
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__is_digital_signature
+msgid "Digital Signature"
+msgstr "چاپ امضاء"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_assign_letter_wizard
+msgid "Discard"
+msgstr "رها کردن"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__display_name
+#: model:ir.model.fields,field_description:letter.field_letter_content_type__display_name
+#: model:ir.model.fields,field_description:letter.field_letter_format__display_name
+#: model:ir.model.fields,field_description:letter.field_letter_header__display_name
+#: model:ir.model.fields,field_description:letter.field_letter_letter__display_name
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__display_name
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__display_name
+msgid "Display Name"
+msgstr "نام نمایشی"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
+#: selection:letter.letter.in,state:0
+msgid "Done"
+msgstr "انجام شد"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+#: selection:letter.letter.out,state:0
+msgid "Draft"
+msgstr "پیش نویس"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+msgid "E-Mail:"
+msgstr "ایمیل:"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__role_based_email
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__role_based_email
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__role_based_email
+#: selection:letter.letter.in,media_type:0
+#: selection:letter.letter.out,media_type:0
+msgid "E-mail"
+msgstr "ایمیل"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+msgid "Executor:"
+msgstr "اقدام کننده:"
+
+#. module: letter
+#: selection:letter.letter.in,media_type:0
+#: selection:letter.letter.out,media_type:0
+msgid "Fax"
+msgstr "فکس"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__signatory_id
+msgid "Final Endorser"
+msgstr "تاییدکننده نهایی"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_follower_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_follower_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_follower_ids
+msgid "Followers"
+msgstr "دنبال‌کنندگان"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_channel_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_channel_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "پیروان (کانال ها)"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_partner_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_partner_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "پیروان (شرکاء)"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Following"
+msgstr "پیرو"
+
+#. module: letter
+#: selection:letter.letter,reference_type:0
+msgid "Following a Letter"
+msgstr "پیرو نامه"
+
+#. module: letter
+#: selection:letter.letter,reference_type:0
+msgid "Following a Meeting"
+msgstr "پیرو جلسه حضوری"
+
+#. module: letter
+#: selection:letter.letter,reference_type:0
+msgid "Following a Phone Call"
+msgstr "پیرو تماس تلفنی"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_format__font_size
+msgid "Font Size"
+msgstr "اندازه قلم"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_header__footer_img
+msgid "Footer Image"
+msgstr "تصویرپایین صفحه"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+msgid "Group By"
+msgstr "گروه‌بندی برمبنای"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__has_attachment
+msgid "Has Attachment"
+msgstr "پیوست"
+
+#. module: letter
+#: model:ir.actions.act_window,name:letter.action_header
+msgid "Header"
+msgstr "سربرگ"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_header__header_img
+msgid "Header Image"
+msgstr "تصویر بالای صفحه"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_header__name
+msgid "Header Name"
+msgstr "نام سربرگ"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__id
+#: model:ir.model.fields,field_description:letter.field_letter_content_type__id
+#: model:ir.model.fields,field_description:letter.field_letter_format__id
+#: model:ir.model.fields,field_description:letter.field_letter_header__id
+#: model:ir.model.fields,field_description:letter.field_letter_letter__id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__id
+msgid "ID"
+msgstr "شناسه"
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_letter__message_unread
+#: model:ir.model.fields,help:letter.field_letter_letter_in__message_unread
+#: model:ir.model.fields,help:letter.field_letter_letter_out__message_unread
+msgid "If checked new messages require your attention."
+msgstr "اگر این گزینه را انتخاب کنید، پیام‌های جدید به توجه شما نیاز خواهند داشت."
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_letter__message_needaction
+#: model:ir.model.fields,help:letter.field_letter_letter_in__message_needaction
+#: model:ir.model.fields,help:letter.field_letter_letter_out__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "اگر این گزینه را انتخاب کنید، پیام‌های جدید به توجه شما نیاز خواهند داشت."
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_letter__message_has_error
+#: model:ir.model.fields,help:letter.field_letter_letter_in__message_has_error
+#: model:ir.model.fields,help:letter.field_letter_letter_out__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: letter
+#: selection:letter.letter.in,state:0
+msgid "In Department"
+msgstr "در واحد سازمانی"
+
+#. module: letter
+#: selection:letter.letter,reference_type:0
+msgid "In Reply To a Letter"
+msgstr "در جواب نامه"
+
+#. module: letter
+#: selection:letter.letter.in,media_type:0
+#: selection:letter.letter.out,media_type:0
+msgid "In person"
+msgstr "حضوری"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__is_current_user
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__is_current_user
+msgid "Is Current User"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_is_follower
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_is_follower
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_is_follower
+msgid "Is Follower"
+msgstr "دنبال می کند"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__issue_date
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__issue_date
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__issue_date
+msgid "Issue Date"
+msgstr "تاریخ ایجاد"
+
+#. module: letter
+#: model:letter.format,name:letter.large_format
+msgid "Large"
+msgstr "بزرگ"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard____last_update
+#: model:ir.model.fields,field_description:letter.field_letter_content_type____last_update
+#: model:ir.model.fields,field_description:letter.field_letter_format____last_update
+#: model:ir.model.fields,field_description:letter.field_letter_header____last_update
+#: model:ir.model.fields,field_description:letter.field_letter_letter____last_update
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in____last_update
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out____last_update
+msgid "Last Modified on"
+msgstr "آخرین تغییر در"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__write_uid
+#: model:ir.model.fields,field_description:letter.field_letter_content_type__write_uid
+#: model:ir.model.fields,field_description:letter.field_letter_format__write_uid
+#: model:ir.model.fields,field_description:letter.field_letter_header__write_uid
+#: model:ir.model.fields,field_description:letter.field_letter_letter__write_uid
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__write_uid
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__write_uid
+msgid "Last Updated by"
+msgstr "آخرین تغییر توسط"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__write_date
+#: model:ir.model.fields,field_description:letter.field_letter_content_type__write_date
+#: model:ir.model.fields,field_description:letter.field_letter_format__write_date
+#: model:ir.model.fields,field_description:letter.field_letter_header__write_date
+#: model:ir.model.fields,field_description:letter.field_letter_letter__write_date
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__write_date
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__write_date
+msgid "Last Updated on"
+msgstr "آخرین به روز رسانی در"
+
+#. module: letter
+#: model:ir.actions.act_window,name:letter.action_letters
+#: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__letter_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__letter_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__letter_id
+#: model:mail.activity.type,name:letter.mail_activity_letter
+msgid "Letter"
+msgstr "نامه"
+
+#. module: letter
+#: model:ir.actions.act_window,name:letter.action_format
+msgid "Letter Format"
+msgstr "قالب نامه"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__header_id
+#: model:ir.ui.menu,name:letter.letter_menu_header
+msgid "Letter Header"
+msgstr "سربرگ نامه"
+
+#. module: letter
+#: model:ir.actions.act_window,name:letter.action_letter_in
+#: model:ir.model,name:letter.model_letter_letter_in
+#: model:ir.module.category,name:letter.model_category_letter_in
+#: model:ir.ui.menu,name:letter.letter_menu_in
+#: selection:letter.letter,type:0
+msgid "Letter In"
+msgstr "نامه وارده"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__name
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__name
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__name
+msgid "Letter Number"
+msgstr "شماره نامه"
+
+#. module: letter
+#: model:ir.actions.act_window,name:letter.action_letter_out
+#: model:ir.actions.report,name:letter.report_letter_out
+#: model:ir.model,name:letter.model_letter_letter_out
+#: model:ir.module.category,name:letter.model_category_letter_out
+#: model:ir.ui.menu,name:letter.letter_menu_out
+#: selection:letter.letter,type:0
+msgid "Letter Out"
+msgstr "نامه صادره"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Letter Series"
+msgstr "سابقه نامه"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__letter_text
+msgid "Letter Text"
+msgstr "متن نامه"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Letter text"
+msgstr "متن نامه"
+
+#. module: letter
+#: model:ir.ui.menu,name:letter.main_letters_menu
+msgid "Letters"
+msgstr "نامه‌ها"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_main_attachment_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_main_attachment_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__media_type
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__media_type
+msgid "Media Type"
+msgstr "نوع ارسال"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__meeting_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__meeting_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__meeting_id
+msgid "Meeting"
+msgstr "جلسه"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_has_error
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_has_error
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_ids
+msgid "Messages"
+msgstr "پیام‌ها"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+msgid "Mobile:"
+msgstr "همراه: "
+
+#. module: letter
+#: code:addons/letter/models/letterin.py:46
+#: code:addons/letter/models/letterout.py:118
+#: selection:letter.letter.in,state:0
+#, python-format
+msgid "New"
+msgstr "جدید"
+
+#. module: letter
+#: selection:letter.letter,reference_type:0
+msgid "New Letter"
+msgstr "نامه جدید"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__activity_date_deadline
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_date_deadline
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__activity_summary
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_summary
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__activity_type_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_type_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: letter
+#: model:letter.format,name:letter.normal_format
+msgid "Normal"
+msgstr "معمولی"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_needaction_counter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_needaction_counter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_needaction_counter
+msgid "Number of Actions"
+msgstr "تعداد اقدامات"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_has_error_counter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_has_error_counter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_has_error_counter
+msgid "Number of error"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_letter__message_needaction_counter
+#: model:ir.model.fields,help:letter.field_letter_letter_in__message_needaction_counter
+#: model:ir.model.fields,help:letter.field_letter_letter_out__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "تعداد پیام ها که نیاز به عمل"
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_letter__message_has_error_counter
+#: model:ir.model.fields,help:letter.field_letter_letter_in__message_has_error_counter
+#: model:ir.model.fields,help:letter.field_letter_letter_out__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_letter__message_unread_counter
+#: model:ir.model.fields,help:letter.field_letter_letter_in__message_unread_counter
+#: model:ir.model.fields,help:letter.field_letter_letter_out__message_unread_counter
+msgid "Number of unread messages"
+msgstr "تعداد پیام‌های خوانده نشده"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+msgid "Number, Addressee or Subject"
+msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
+msgid "Number, Sender or Subject"
+msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+msgid "Number:"
+msgstr "شماره: "
+
+#. module: letter
+#: selection:letter.letter,activity_state:0
+#: selection:letter.letter.in,activity_state:0
+#: selection:letter.letter.out,activity_state:0
+msgid "Overdue"
+msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+msgid "Page:"
+msgstr "صفحه: "
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+msgid "Page:\n"
+"                                <span class=\"page\" style=\"color:blue\"/>"
+msgstr "صفحه: "
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__partner_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__partner_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__partner_id
+msgid "Partner"
+msgstr "همکار"
+
+#. module: letter
+#: selection:letter.letter.in,media_type:0
+msgid "Personal E-mail"
+msgstr "ایمیل شخصی"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__email_id
+msgid "Personal E_mail"
+msgstr "ایمیل شخصی"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__phone_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__phone_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__phone_id
+msgid "Phone Call"
+msgstr "تلفن تماس"
+
+#. module: letter
+#: selection:letter.letter,activity_state:0
+#: selection:letter.letter.in,activity_state:0
+#: selection:letter.letter.out,activity_state:0
+msgid "Planned"
+msgstr ""
+
+#. module: letter
+#: selection:letter.letter.in,media_type:0
+#: selection:letter.letter.out,media_type:0
+msgid "Post"
+msgstr "پست"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__receipt_date
+msgid "Receipt Date"
+msgstr "تاریخ دریافت"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__reference_type
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__reference_type
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__reference_type
+msgid "Reference"
+msgstr "مرجع"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__reference_letter_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__reference_letter_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__reference_letter_id
+msgid "Reference Letter"
+msgstr "مرجع نامه"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__reference_letter_type
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__reference_letter_type
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__reference_letter_type
+msgid "Reference Letter Type"
+msgstr "نوع مرجع نامه"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
+msgid "Register"
+msgstr "ثبت"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
+msgid "Reply"
+msgstr "پاسخ"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Reply To"
+msgstr "در جواب"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__deadline_date
+msgid "Response Deadline"
+msgstr "مهلت پاسخ"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__user_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__user_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__user_id
+#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+msgid "Responsible"
+msgstr "پاسخگو"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__activity_user_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_user_id
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
+msgid "Return"
+msgstr "بازگشت"
+
+#. module: letter
+#: selection:letter.letter.in,state:0
+msgid "Returned"
+msgstr "بازگردانده شده"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_assign_letter_wizard
+msgid "Save"
+msgstr "ذخیره"
+
+#. module: letter
+#: model:res.groups,name:letter.group_access_secretariat
+msgid "Secretariat"
+msgstr "دبیرخانه"
+
+#. module: letter
+#: model:res.groups,name:letter.group_letter_in_see_all
+#: model:res.groups,name:letter.group_letter_out_see_all
+msgid "See All"
+msgstr ""
+
+#. module: letter
+#: model:res.groups,name:letter.group_letter_in_see_follower
+#: model:res.groups,name:letter.group_letter_out_see_follower
+msgid "See Following"
+msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Send"
+msgstr "ارسال"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__send_date
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__send_date
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__send_date
+msgid "Send Date"
+msgstr "تاریخ ارسال"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Send Media"
+msgstr "نحوه ارسال"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
+msgid "Sender"
+msgstr "فرستنده"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__sender_letter_number
+msgid "Sender Letter Number"
+msgstr "شماره نامه ارسال شده"
+
+#. module: letter
+#: selection:letter.letter.out,state:0
+msgid "Sent"
+msgstr "ارسال شده"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__series
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__series
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__series
+msgid "Series"
+msgstr "سلسله"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__signature
+msgid "Signature"
+msgstr "امضاء"
+
+#. module: letter
+#: selection:letter.letter.in,media_type:0
+#: selection:letter.letter.out,media_type:0
+msgid "Social Networks"
+msgstr "شبکه اجتماعی"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__state
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__state
+#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+msgid "State"
+msgstr "استان"
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_letter__activity_state
+#: model:ir.model.fields,help:letter.field_letter_letter_in__activity_state
+#: model:ir.model.fields,help:letter.field_letter_letter_out__activity_state
+msgid "Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__subject
+#: model:ir.model.fields,field_description:letter.field_letter_letter__subject
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__subject
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__subject
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Subject"
+msgstr "موضوع"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+msgid "Subject:"
+msgstr "موضوع: "
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
+msgid "Submit"
+msgstr "تکمیل"
+
+#. module: letter
+#: selection:letter.letter.out,state:0
+msgid "Submitted"
+msgstr "تکمیل شده"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+msgid "This letter has not been confirmed yet."
+msgstr "این نامه به تایید مدیریت نرسیده است."
+
+#. module: letter
+#: selection:letter.letter,activity_state:0
+#: selection:letter.letter.in,activity_state:0
+#: selection:letter.letter.out,activity_state:0
+msgid "Today"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__type
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__type
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__type
+msgid "Type"
+msgstr "نوع"
+
+#. module: letter
+#: model:letter.format,name:letter.ultra_format
+msgid "Ultra Compact"
+msgstr "بسیار فشرده"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_unread
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_unread
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_unread
+msgid "Unread Messages"
+msgstr "پیام های ناخوانده"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__message_unread_counter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_unread_counter
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "شمارنده پیام‌های خوانده‌نشده"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__user
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__user
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__user
+msgid "User"
+msgstr "کاربر"
+
+#. module: letter
+#: selection:letter.letter.in,media_type:0
+msgid "Working E-mail"
+msgstr "ایمیل کاری"
+
+#. module: letter
+#: selection:letter.letter,role_based_email:0
+msgid "info@ariabeniz.com"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_header__language_id
+msgid "language"
+msgstr "زبان"
+
+#. module: letter
+#: model:ir.model,name:letter.model_letter_assign_letter_wizard
+msgid "letter.assign_letter_wizard"
+msgstr ""
+
+#. module: letter
+#: model:ir.model,name:letter.model_letter_content_type
+msgid "letter.content_type"
+msgstr ""
+
+#. module: letter
+#: model:ir.model,name:letter.model_letter_format
+msgid "letter.format"
+msgstr ""
+
+#. module: letter
+#: model:ir.model,name:letter.model_letter_header
+msgid "letter.header"
+msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+msgid "of"
+msgstr "از"
+
+#. module: letter
+#: selection:letter.letter,role_based_email:0
+msgid "purchase@ariabeniz.com"
+msgstr ""
+
+#. module: letter
+#: selection:letter.letter,role_based_email:0
+msgid "sales@ariabeniz.com"
+msgstr ""
+

@@ -1,0 +1,74 @@
+                    <div t-attf-style="font-family:{{main_font_family}};font-size:{{magnification*12}}pt; font-weight:bold;">
+                        <t t-if="o.is_confirmed()">
+                            <div style="float:left; width:65%; position:relative; left:100px;">
+                                <t t-if="o.print_signature == True">
+                                    <t t-if="o.signer_id.signature_image">
+                                        <img t-att-src="'data:image/png;base64,%s' % o.signer_id.signature_image"
+                                             t-attf-style="position:absolute; z-index:-20; max-height: 170px; max-width:170px; margin:0px; left:70mm; top:-5mm;"/>
+                                    </t>
+                                    <t t-if="o.company_id.stamp_image">
+                                        <img t-att-src="'data:image/png;base64,%s' % o.company_id.stamp_image"
+                                             t-attf-style="position:absolute; z-index:-50; opacity: 0.9; max-height: 170px; max-width:170px; margin:0px; left:70mm; top:-5mm;"/>
+                                    </t>
+                                    <!--<span t-field="o.signer_id.signature_image" style="position:absolute; z-index:-20;"
+                                          t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
+                                    <span t-field="o.company_id.stamp_image"
+                                          t-attf-style="position:absolute; z-index:-50; opacity: 0.9; transform: rotate({{rand}}deg);"
+                                          t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>-->
+                                    <br/>
+                                </t>
+                            </div>
+                            <div style="float:right width:35%">
+                                Best Regards
+                                <br/>
+                                <l t-field="o.signer_id.partner_id.name"
+                                   t-attf-style="line-height:{{magnification*25}}px;"/>
+                                <br/>
+                                <l t-field="o.signer_id.partner_id.function"
+                                   t-attf-style="line-height:{{magnification*25}}px;"/>
+                                <br/>
+                                <t t-if="o.signer_id.partner_id.mobile">Mobile:
+                                    <l t-esc="o.trim_ccode(o.signer_id.partner_id.mobile)"
+                                       t-attf-style="line-height:{{magnification*25}}px;"/>
+                                    <br/>
+                                </t>
+                                <div>
+                                    <span>
+                                        E-Mail:
+                                    </span>
+                                    <l t-field="o.signer_id.partner_id.email"
+                                       t-attf-style="line-height:{{magnification*25}}px;"/>
+                                    <br/>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-if="not o.is_confirmed()">
+                            <div calss="autofit col-xs-10">
+                                This letter has not been confirmed yet.
+                            </div>
+                        </t>
+                    </div>
+
+
+
+
+
+                    <div t-attf-style="font-family:{{main_font}};font-size:{{font_size*12}}pt; font-weight:bold;float:right width:35%">
+                            <div>Best Regards</div>
+                            <l t-field="o.signatory_id.partner_id.name"
+                               t-attf-style="line-height:{{font_size*12}}pt;"/>
+                            <br/>
+                            <l t-field="o.signatory_id.partner_id.function"
+                               t-attf-style="line-height:{{font_size*12}}pt;"/>
+                            <br/>
+                            <t t-if="o.signatory_id.partner_id.mobile">Mobile:
+                                <l t-esc="o.signatory_id.partner_id.mobile"
+                                   t-attf-style="line-height:{{font_size*12}}pt;"/>
+                            </t>
+                            <br/>
+                            <t t-if="o.signatory_id.partner_id.email">E-Mail:
+                                <l t-field="o.signatory_id.partner_id.email"
+                                   t-attf-style="line-height:{{font_size*5}}pt;"/>
+                            </t>
+                            <br/>
+                    </div>

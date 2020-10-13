@@ -1,0 +1,329 @@
+<openerp>
+    <data>
+
+        <record id="paperformat_letter" model="report.paperformat">
+            <field name="name">Letter Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">280</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">65</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_letter_out"
+                file="letter.letter_out_report"
+                name="letter.letter_out_report"
+                attachment_use="True"
+                model="letter.letter.out"
+                string="Letter Out"
+                report_type="qweb-pdf"
+                attachment="False"
+                print_report_name="'Letter Number -%s' %(object.name)"
+        />
+
+        <record id="letter.report_letter_out" model="ir.actions.report">
+            <field name="paperformat_id" ref="letter.paperformat_letter"/>
+        </record>
+
+        <template id="letter_out_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.user_id.lang"/>
+                    <t t-call="letter.letter_out_report_doc" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+
+        <!--    template letter out -->
+        <template id="letter_out_report_doc">
+            <t t-set="font_size" t-value="o.letter_format_id.font_size / 100.0"/>
+            <t t-set="numeric" t-value="Eng_num"/>
+            <t t-set="date_widget" t-value='"date"'/>
+            <t t-set="background_preview" t-value="'background-repeat:repeat;'"/>
+            <t t-set="background_header" t-value="'background-repeat:repeat;'"/>
+            <t t-set="main_font" t-value="'Calibri'"/>
+            <t t-set="title_font" t-value="'Calibri'"/>
+            <t t-set="lang" t-value="o.partner_id.lang"/>
+            <t t-if="o.user_id.lang=='fa_IR'">
+                <t t-set="title_font" t-value="'Titr'"/>
+                <t t-set="main_font" t-value="'Beniz'"/>
+                <t t-set="numeric" t-value="per_num"/>
+                <t t-set="date_widget" t-value="'jalali'"/>
+            </t>
+            <!--    background letter-->
+            <t t-if="not o.check_state()">
+                <t t-set="background_preview"
+                   t-value="&quot;background-repeat:repeat; background-image:url(letter/static/src/img/preview.jpg);&quot;"/>
+            </t>
+
+            <t t-set="client" t-value="o.partner_id"/>
+            <t t-if="client.is_company">
+                <t t-if="o.user_id.lang=='fa_IR'">
+                    <t t-set="client_full_name"
+                       t-value="'%s %s' % (client.title.shortcut or '',client.name)"/>
+                </t>
+                <t t-else="">
+                    <t t-set="client_full_name"
+                       t-value="'%s %s' % (client.name,client.title.shortcut or '')"/>
+                </t>
+            </t>
+            <t t-else="">
+                <t t-set="client_full_name"
+                   t-value="'%s %s' % (client.title.shortcut or '',client.name)"/>
+            </t>
+
+            <t t-call="letter.external_layout">
+                <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
+                    <div class="page" t-attf-style="direction:{{lang_direction}}; {{background_preview}};margin-left:25mm;margin-right:25mm;">
+                        <br/>
+                        <br/>
+                        <div t-attf-style="font-family:{{title_font}};font-size:{{font_size*13}}pt;font-weight:bold;">
+                                <t t-if="o.partner_id.parent_id">
+                                    <t t-if="o.partner_id.parent_id.parent_id">
+                                        <div t-attf-style="font-weight:bold;">
+                                            <t t-esc="'%s %s, %s %s' % (o.partner_id.parent_id.parent_id.title.shortcut or '',
+                                            o.partner_id.parent_id.parent_id.name,o.partner_id.parent_id.title.shortcut or '',
+                                            o.partner_id.parent_id.name)"/>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div>
+                                            <t t-esc="'%s %s'% (o.partner_id.parent_id.title.name or'',o.partner_id.parent_id.name)"/>
+                                        </div>
+                                    </t>
+                                </t>
+                                <t t-if="o.partner_id.function">
+                                    <div t-attf-style="font-weight:bold;" >
+                                        <t t-esc="o.partner_id.function"/>
+                                    </div>
+                                </t>
+                                <div class="autofit col-xs-12">
+                                    <t t-esc="client_full_name"/>
+                                </div>
+                            <br/>
+                        </div>
+
+                        <div t-attf-style="font-family:{{main_font}}; font-size:{{font_size*13}}pt; font-weight:bold;">
+                            <span> Subject: <l t-field="o.subject"/> </span><br/>
+                            <t t-if="o.reference_type == 'reply_to'">
+                                <span>Answer letter:</span>
+                                <l t-field="o.reference_letter_id"/>
+                            </t>
+                            <t t-if="o.reference_type == 'following'">
+                                <span>Follow letter:</span>
+                                <l t-field="o.reference_letter_id"/>
+                            </t>
+                        </div>
+                        <br/>
+
+                        <div t-attf-style="font-family:{{main_font}}; font-size:{{font_size*13}}pt;">
+                            <l t-field="o.letter_text"/>
+                        </div>
+
+                        <br/>
+
+                        <div t-attf-style="font-family:{{main_font}}; font-size:{{font_size*12}}pt; font-weight:bold;">
+                            <t t-if="o.check_state()">
+                                <t t-if="o.user_id.lang=='en_US'">
+                                    <div t-attf-style="float:left; width:75%; position:absolute; left:230px;">
+                                        <t t-if="o.is_digital_signature == True">
+                                            <t t-if="o.signature" t-attf-style="position:absolute; z-index:-20; max-height: 170px; max-width:170px; margin:0px; left:70mm; top:-5mm;">
+                                                 <l t-field="o.signature"/>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </t>
+                                <t t-if="o.user_id.lang=='fa_IR'">
+                                    <div t-attf-style="float:left; width:75%; position:absolute; right:150px;">
+                                        <t t-if="o.is_digital_signature == True">
+                                            <t t-if="o.signature" t-attf-style="position:absolute; z-index:-20; max-height: 170px; max-width:170px; margin:0px; left:70mm; top:-5mm;">
+                                                 <l t-field="o.signature"/>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </t>
+
+                                <div style="float:right width:35%">
+                                    <div>Best Regards</div>
+                                        <l t-field="o.signatory_id.partner_id.name"
+                                           t-attf-style="line-height:{{font_size*12}}pt;"/>
+                                        <br/>
+                                        <l t-field="o.signatory_id.partner_id.function"
+                                           t-attf-style="line-height:{{font_size*12}}pt;"/>
+                                        <br/>
+                                        <t t-if="o.signatory_id.partner_id.mobile">Mobile:
+                                            <l t-esc="o.signatory_id.partner_id.mobile"
+                                               t-attf-style="line-height:{{font_size*12}}pt;"/>
+                                        </t>
+                                        <br/>
+                                        <t t-if="o.signatory_id.partner_id.email">E-Mail:
+                                            <l t-field="o.signatory_id.partner_id.email"
+                                               t-attf-style="line-height:{{font_size*12}}pt;"/>
+                                        </t>
+                                        <br/>
+                                </div>
+                            </t>
+
+                            <t t-else="">
+                                <div calss="autofit col-xs-10" t-attf-style="font-size:{{font_size*12}}pt; font-weight:bold;">
+                                    This letter has not been confirmed yet.
+                                </div>
+                            </t>
+                        </div>
+
+                        <br/>
+                        <br/>
+
+                        <div t-attf-style="font-family:{{main_font}}; font-size:{{font_size*12}}pt;">
+                            <span t-attf-style="font-weight:bold;">Executor:</span>
+                            <l t-field="o.create_uid.partner_id.name" t-attf-style="line-height:{{font_size*13}}pt;"/>
+                            <span>/</span>
+                            <l t-field="o.create_uid.partner_id.function" t-attf-style="line-height:{{font_size*13}}pt;"/>
+                            <span>/</span>
+                            <t t-if="o.create_uid.employee_ids.mobile_phone">Mobile:
+                                <l t-esc="o.create_uid.employee_ids.mobile_phone" t-attf-style="line-height:{{font_size*13}}pt;"/>
+                                <span>/</span>
+                            </t>
+                            <span>
+                                <span>E-Mail:</span>
+                                <span>
+                                    <l t-field="o.create_uid.partner_id.email" t-attf-style="line-height:{{font_size*13}}pt;"/>
+                                </span>
+                            </span>
+                            <br/>
+                        </div>
+
+                        <t t-if="o.cc_ids">
+                            <div t-attf-style="font-family:{{main_font}};font-size:{{font_size*13}}pt;">
+                                <div style="font-weight:bold;">Cc:</div>
+                                <t t-foreach="o.cc_ids" t-as="cc">
+                                    <l t-esc="cc_index + 1" />
+                                    <span>-</span>
+                                    <l t-field="cc.title.name" t-attf-style="line-height:{{font_size*13}}pt;"/>
+                                    <span></span>
+                                    <l t-field="cc.name" t-attf-style="line-height:{{font_size*13}}pt;"/>
+                                    <span>/</span>
+                                    <l t-field="cc.function" t-attf-style="line-height:{{font_size*13}}pt;"/>
+                                    <span>/</span>
+                                    <l t-field="cc.parent_id.title.name" t-attf-style="line-height:{{font_size*13}}pt;"/>
+                                    <span></span>
+                                    <l t-field="cc.parent_id" t-attf-style="line-height:{{font_size*13}}pt;"/>
+                                    <br/>
+                                </t>
+                            </div>
+                        </t>
+
+                        <t t-if="o.attachment_ids">
+                            <div t-attf-style="font-family:{{main_font}};font-size:{{font_size*13}}pt;">
+                                <div style="font-weight:bold;">Attachments:</div>
+                                <t t-foreach="o.attachment_ids" t-as="at">
+                                    <l t-esc="at_index + 1" />
+                                    <span>-</span>
+                                    <l t-field="at.name" />
+                                    <br/>
+                                </t>
+                            </div>
+                        </t>
+
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!--    template layout for letter-->
+        <template id="letter.external_layout">
+            <t t-call="letter.external_layout_header"/>
+            <t t-raw="0"/>
+            <t t-call="letter.external_layout_footer"/>
+        </template>
+
+        <!--    header letter out-->
+        <template id="external_layout_header">
+            <div class="header" t-attf-style="min-height:200px;height:200px;background-size:100%;
+                background-image:url('data:image/png;base64,{{o.header_id.header_img}}');
+                background-repeat: no-repeat; width:100%;margin-top:-5mm;">
+                <t t-if="o.user_id.lang=='en_US'">
+                    <div class="row"
+                         t-attf-style="font-family:{{main_font}};font-size:1em; min-height: 144px;">
+                        <div t-attf-style="background-color:lavenderbl;margin-left:28mm;margin-top:2cm;">
+                            <div>Date:
+                                <t t-if="o.issue_date">
+                                    <span style="color:blue">
+                                        <t t-esc="o.issue_date.strftime('%m/%d/%Y')"/>
+                                    </span>
+                                </t>
+                            </div>
+                            <div>Number:
+                                <span t-field="o.name" style="color:blue"/>
+                            </div>
+                            <div>Attachments:
+                                <t t-if="o.has_attachment">
+                                    <span style="color:blue">Included</span>
+                                </t>
+                                <t t-else="">
+                                    <span style="color:blue">-</span>
+                                </t>
+                            </div>
+                            <div>Page:
+                                <span class="page" style="color:blue"/>
+                                <t>of</t>
+                                <span class="topage" style="color:blue"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-if="o.user_id.lang=='fa_IR'">
+                    <div class="row"
+                         t-attf-style="font-family:{{main_font}};font-size:1.2em; min-height: 144px;">
+                        <div style="background-color:lavenderbl;margin-right:18cm;margin-top:2cm;">
+                            <div  >Date:
+                                <t t-if="o.issue_date">
+                                    <span style="color:blue">
+                                        <t t-esc="o.issue_date.strftime('%Y/%m/%d')"/>
+                                    </span>
+                                </t>
+                            </div>
+                            <div >Number:
+                                <span t-field="o.name" style="color:blue;font-size:12pt;"/>
+                            </div>
+
+                            <div>Attachments:
+                                <t t-if="o.has_attachment">
+                                    <span style="color:blue;">Included</span>
+                                </t>
+                                <t t-else="">
+                                    <span style="color:blue;">-</span>
+                                </t>
+                            </div>
+                            <div>
+                                <t>Page:</t>
+                                <span class="page" style="color:blue"/>
+                                <t>of</t>
+                                <span class="topage" style="color:blue"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </template>
+
+
+        <!--    footer letter out-->
+        <template id="external_layout_footer">
+            <div class="footer" t-attf-style="min-height:220px;height:250px;background-size:100%;
+            background-image: url('data:image/png;base64,{{o.header_id.footer_img}}');
+            background-position: center;background-repeat: no-repeat; width:100%; background-size:contain;">
+            </div>
+        </template>
+
+    </data>
+</openerp>
