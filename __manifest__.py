@@ -14,9 +14,8 @@
     'category': 'Business',
     'application': 'True',
     'version': '0.1',
-    'depends': ['base', 'mail', 'access_group'],
+    'depends': ['base', 'mail'],
     'data': [
-        'views/letter_template.xml',
         'security/letter_out_security.xml',
         'security/letter_in_security.xml',
         'security/ir.model.access.csv',

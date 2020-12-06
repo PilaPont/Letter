@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-25 10:48+0000\n"
-"PO-Revision-Date: 2019-12-25 10:48+0000\n"
+"POT-Creation-Date: 2020-12-06 11:18+0000\n"
+"PO-Revision-Date: 2020-12-06 11:18+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,16 +19,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__letter_format_id
 msgid " Letter Format"
 msgstr "قالب نامه"
-
-#. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
-msgid "<span style=\"color:blue\">Included</span>"
-msgstr "دارد"
-
-#. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
-msgid "<span style=\"color:blue;\">Included</span>"
-msgstr "دارد"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
@@ -44,6 +34,11 @@ msgstr "ایمیل: "
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
 msgid "<span>Follow letter:</span>"
 msgstr "پیرونامه: "
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+msgid "<span>Included</span>"
+msgstr "دارد"
 
 #. module: letter
 #: model:ir.model,name:letter.model_letter_letter
@@ -127,7 +122,7 @@ msgstr "دریافت کننده"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_attachment_count
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "تعداد پیوست"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__attachment_ids
@@ -155,7 +150,7 @@ msgstr "رونوشت"
 #. module: letter
 #: model:res.groups,name:letter.group_can_sign_letter
 msgid "Can Sign Letter"
-msgstr "حق امضاء"
+msgstr "حق امضاء نامه"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
@@ -209,11 +204,6 @@ msgid "Configuration"
 msgstr "پیکربندی"
 
 #. module: letter
-#: selection:letter.letter.out,state:0
-msgid "Confirmed"
-msgstr "تایید شده"
-
-#. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_content_type__name
 msgid "Content"
 msgstr "محتوا"
@@ -252,12 +242,12 @@ msgstr "ایجاد شده در"
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.external_layout_header
 msgid "Date:"
-msgstr "تاریخ: "
+msgstr "تاریخ:‌"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_format__is_default
 msgid "Default"
-msgstr "پیش فرض"
+msgstr "پیش‌فرض"
 
 #. module: letter
 #: selection:letter.letter.in,media_type:0
@@ -301,7 +291,7 @@ msgstr "انجام شد"
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
 #: selection:letter.letter.out,state:0
 msgid "Draft"
-msgstr "پیش نویس"
+msgstr "پیشنویس"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
@@ -387,6 +377,12 @@ msgstr "تصویرپایین صفحه"
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_in_search
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+msgid "Future Activities"
+msgstr "اقدامات آتی"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
 msgid "Group By"
 msgstr "گروه‌بندی برمبنای"
 
@@ -440,12 +436,7 @@ msgstr "اگر این گزینه را انتخاب کنید، پیام‌های 
 #: model:ir.model.fields,help:letter.field_letter_letter_in__message_has_error
 #: model:ir.model.fields,help:letter.field_letter_letter_out__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
-
-#. module: letter
-#: selection:letter.letter.in,state:0
-msgid "In Department"
-msgstr "در واحد سازمانی"
+msgstr "اگر این گزینه علامت خورده باشد، تحویل برخی از پیام‌ها با خطا مواجه شده است."
 
 #. module: letter
 #: selection:letter.letter,reference_type:0
@@ -515,6 +506,12 @@ msgstr "آخرین تغییر توسط"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__write_date
 msgid "Last Updated on"
 msgstr "آخرین به روز رسانی در"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+msgid "Late Activities"
+msgstr "اقدامات اخیر"
 
 #. module: letter
 #: model:ir.actions.act_window,name:letter.action_letters
@@ -588,7 +585,7 @@ msgstr "نامه‌ها"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_main_attachment_id
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_main_attachment_id
 msgid "Main Attachment"
-msgstr ""
+msgstr "پیوست اصلی"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__media_type
@@ -608,7 +605,7 @@ msgstr "جلسه"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_has_error
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "خطای تحویل پیام"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__message_ids
@@ -620,13 +617,10 @@ msgstr "پیام‌ها"
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
 msgid "Mobile:"
-msgstr "همراه: "
+msgstr "تلفن همراه:"
 
 #. module: letter
-#: code:addons/letter/models/letterin.py:46
-#: code:addons/letter/models/letterout.py:118
 #: selection:letter.letter.in,state:0
-#, python-format
 msgid "New"
 msgstr "جدید"
 
@@ -640,21 +634,21 @@ msgstr "نامه جدید"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_date_deadline
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr ""
+msgstr "مهلت اقدام بعدی"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__activity_summary
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_summary
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_summary
 msgid "Next Activity Summary"
-msgstr ""
+msgstr "خلاصه اقدام بعدی"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__activity_type_id
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_type_id
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
+msgstr "نوع اقدام بعدی"
 
 #. module: letter
 #: model:letter.format,name:letter.normal_format
@@ -673,7 +667,7 @@ msgstr "تعداد اقدامات"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_has_error_counter
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_has_error_counter
 msgid "Number of error"
-msgstr ""
+msgstr "تعداد خطاها"
 
 #. module: letter
 #: model:ir.model.fields,help:letter.field_letter_letter__message_needaction_counter
@@ -687,7 +681,7 @@ msgstr "تعداد پیام ها که نیاز به عمل"
 #: model:ir.model.fields,help:letter.field_letter_letter_in__message_has_error_counter
 #: model:ir.model.fields,help:letter.field_letter_letter_out__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "تعداد پیام‌های با خطای تحویل"
 
 #. module: letter
 #: model:ir.model.fields,help:letter.field_letter_letter__message_unread_counter
@@ -699,42 +693,36 @@ msgstr "تعداد پیام‌های خوانده نشده"
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_search
 msgid "Number, Addressee or Subject"
-msgstr ""
+msgstr "شماره، گیرنده یا عنوان"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_in_search
 msgid "Number, Sender or Subject"
-msgstr ""
+msgstr "شماره، فرستنده یا عنوان"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.external_layout_header
 msgid "Number:"
-msgstr "شماره: "
+msgstr "شماره:"
 
 #. module: letter
 #: selection:letter.letter,activity_state:0
 #: selection:letter.letter.in,activity_state:0
 #: selection:letter.letter.out,activity_state:0
 msgid "Overdue"
-msgstr ""
+msgstr "سررسید گذشته"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.external_layout_header
 msgid "Page:"
-msgstr "صفحه: "
-
-#. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
-msgid "Page:\n"
-"                                <span class=\"page\" style=\"color:blue\"/>"
-msgstr "صفحه: "
+msgstr "صفحه:"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__partner_id
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__partner_id
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__partner_id
 msgid "Partner"
-msgstr "همکار"
+msgstr "مخاطب"
 
 #. module: letter
 #: selection:letter.letter.in,media_type:0
@@ -758,7 +746,7 @@ msgstr "تلفن تماس"
 #: selection:letter.letter.in,activity_state:0
 #: selection:letter.letter.out,activity_state:0
 msgid "Planned"
-msgstr ""
+msgstr "برنامه‌ریزی شده"
 
 #. module: letter
 #: selection:letter.letter.in,media_type:0
@@ -776,7 +764,7 @@ msgstr "تاریخ دریافت"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__reference_type
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__reference_type
 msgid "Reference"
-msgstr "مرجع"
+msgstr "مرجع‌"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__reference_letter_id
@@ -796,6 +784,11 @@ msgstr "نوع مرجع نامه"
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
 msgid "Register"
 msgstr "ثبت"
+
+#. module: letter
+#: selection:letter.letter.in,state:0
+msgid "Registered"
+msgstr "ثبت‌شده"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
@@ -826,7 +819,7 @@ msgstr "پاسخگو"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_user_id
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_user_id
 msgid "Responsible User"
-msgstr ""
+msgstr "کاربر مسئول"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
@@ -852,13 +845,13 @@ msgstr "دبیرخانه"
 #: model:res.groups,name:letter.group_letter_in_see_all
 #: model:res.groups,name:letter.group_letter_out_see_all
 msgid "See All"
-msgstr ""
+msgstr "مشاهده همه"
 
 #. module: letter
 #: model:res.groups,name:letter.group_letter_in_see_follower
 #: model:res.groups,name:letter.group_letter_out_see_follower
 msgid "See Following"
-msgstr ""
+msgstr "مشاهده دنبال‌کنندگان"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
@@ -900,9 +893,15 @@ msgid "Series"
 msgstr "سلسله"
 
 #. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+msgid "Show all opportunities for which the next action date is before today"
+msgstr "نمایش تمام موقعیت‌های فروشی که تاریخ سررسید اقدام بعدی آنها گدشته است."
+
+#. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__signature
 msgid "Signature"
-msgstr "امضاء"
+msgstr "امضا"
 
 #. module: letter
 #: selection:letter.letter.in,media_type:0
@@ -916,7 +915,7 @@ msgstr "شبکه اجتماعی"
 #: model_terms:ir.ui.view,arch_db:letter.letter_in_search
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_search
 msgid "State"
-msgstr "استان"
+msgstr "وضعیت"
 
 #. module: letter
 #: model:ir.model.fields,help:letter.field_letter_letter__activity_state
@@ -926,7 +925,10 @@ msgid "Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
-msgstr ""
+msgstr "وضعیت بر مبنای اقدامات\n"
+"سررسید گذشته: مهلت اقدام گذشته است\n"
+"امروز: تاریخ اقدام امروز است\n"
+"برنامه‌ریزی شده: اقدامات آتی"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__subject
@@ -940,7 +942,7 @@ msgstr "موضوع"
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
 msgid "Subject:"
-msgstr "موضوع: "
+msgstr "موضوع:"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
@@ -950,7 +952,7 @@ msgstr "تکمیل"
 #. module: letter
 #: selection:letter.letter.out,state:0
 msgid "Submitted"
-msgstr "تکمیل شده"
+msgstr "تکمیل‌شده"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
@@ -963,6 +965,12 @@ msgstr "این نامه به تایید مدیریت نرسیده است."
 #: selection:letter.letter.out,activity_state:0
 msgid "Today"
 msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+msgid "Today Activities"
+msgstr "اقدامات امروز"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__type
@@ -981,7 +989,7 @@ msgstr "بسیار فشرده"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_unread
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_unread
 msgid "Unread Messages"
-msgstr "پیام های ناخوانده"
+msgstr "پیام‌های خوانده‌نشده"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__message_unread_counter

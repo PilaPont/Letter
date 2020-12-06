@@ -11,7 +11,7 @@ class LetterIn(models.Model):
 
     _description = 'Letter In'
 
-    letter_id = fields.Many2one('letter.letter', ondelete="cascade")
+    letter_id = fields.Many2one('letter.letter', required=True, ondelete="cascade")
     sender_letter_number = fields.Char(string='Sender Letter Number')
     receipt_date = fields.Date(string='Receipt Date', required=True)
     deadline_date = fields.Date(string='Response Deadline')
