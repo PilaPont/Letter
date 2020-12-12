@@ -11,12 +11,12 @@ class LetterOut(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Letter Out'
 
-    letter_id = fields.Many2one('letter.letter', ondelete="cascade")
+    letter_id = fields.Many2one('letter.letter', required=True, ondelete="cascade")
     signatory_id = fields.Many2one('res.users', string='Final Endorser',
                 domain=lambda self: "[('groups_id','in',[" + str(
                 self.env.ref('letter.group_can_sign_letter').id) + "])]", required=True, track_visibility='onchange')
 
-    signature = fields.Html(related='signatory_id.signature')
+    # signature = fields.Html(related='signatory_id.signature')
     is_digital_signature = fields.Boolean(string='Digital Signature', default=True)
     letter_text = fields.Html(string='Letter Text')
 
