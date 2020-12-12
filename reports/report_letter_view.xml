@@ -233,7 +233,7 @@
                         </div>
 
                         <t t-if="o.cc_ids">
-                            <div t-attf-style="font-size:{{font_size*13}}pt;">
+                            <div t-attf-style="font-size:{{font_size*10}}pt;">
                                 <div style="font-weight:bold;">Cc:</div>
                                 <t t-foreach="o.cc_ids" t-as="cc">
                                     <l t-esc="cc_index + 1"/>
@@ -254,7 +254,7 @@
                         </t>
 
                         <t t-if="o.attachment_ids">
-                            <div t-attf-style="font-size:{{font_size*13}}pt;">
+                            <div t-attf-style="font-size:{{font_size*10}}pt;">
                                 <div style="font-weight:bold;">Attachments:</div>
                                 <t t-foreach="o.attachment_ids" t-as="at">
                                     <l t-esc="at_index + 1"/>
