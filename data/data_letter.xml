@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mail_activity_letter" model="mail.activity.type">
+            <field name="name">Letter</field>
+            <field name="icon">fa-envelope</field>
+            <field name="delay_count">10</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="sequence_letter_out" model="ir.sequence">
+            <field name="name">Letter Number</field>
+            <field name="code">letter.letter.out</field>
+            <field name="prefix">LO-%(year)s-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="ultra_format" model="letter.format">
+            <field name="name">Ultra Compact</field>
+            <field name="font_size">80</field>
+        </record>
+
+        <record id="compact_format" model="letter.format">
+            <field name="name">Compact</field>
+            <field name="font_size">90</field>
+        </record>
+
+        <record id="normal_format" model="letter.format">
+            <field name="name">Normal</field>
+            <field name="font_size">110</field>
+            <field name="is_default">True</field>
+        </record>
+
+        <record id="large_format" model="letter.format">
+            <field name="name">Large</field>
+            <field name="font_size">115</field>
+        </record>
+
+<!--letter number in-->
+        <record id="sequence_letter_in" model="ir.sequence">
+            <field name="name">Letter Number</field>
+            <field name="code">letter.letter.in</field>
+            <field name="prefix">LI-%(year)s-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>
