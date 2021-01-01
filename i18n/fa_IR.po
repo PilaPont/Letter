@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* letter
+# 	* letter
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-22 14:34+0000\n"
-"PO-Revision-Date: 2020-12-22 14:34+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2021-01-01 13:26+0000\n"
+"PO-Revision-Date: 2021-01-01 13:26+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,6 +19,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__letter_format_id
 msgid " Letter Format"
 msgstr "قالب نامه"
+
+#. module: letter
+#: model:ir.actions.report,print_report_name:letter.report_letter_out
+msgid "'Letter Number -%s' %(object.name)"
+msgstr "'شماره نامه -%s' %(object.name)"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
@@ -42,7 +47,9 @@ msgstr "دارد"
 
 #. module: letter
 #: model:ir.model,name:letter.model_letter_letter
-msgid "A module to handle all sent and received letters/parcels/goods/catalogues/etc. in a company"
+msgid ""
+"A module to handle all sent and received "
+"letters/parcels/goods/catalogues/etc. in a company"
 msgstr ""
 
 #. module: letter
@@ -51,9 +58,9 @@ msgid "Acknowledge"
 msgstr "تاییدیه دریافت"
 
 #. module: letter
-#: selection:letter.letter.out,state:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__state__acknowledged
 msgid "Acknowledged"
-msgstr "دریافت شده"
+msgstr "تایید دریافت"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__message_needaction
@@ -76,11 +83,25 @@ msgid "Activities"
 msgstr "اقدامات"
 
 #. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__activity_exception_decoration
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_exception_decoration
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "دکوراسیون استثنا فعالیت"
+
+#. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__activity_state
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_state
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_state
 msgid "Activity State"
 msgstr "وضعیت اقدام"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__activity_type_icon
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_type_icon
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "آیکون نوع فعالیت"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
@@ -93,7 +114,7 @@ msgid "Approve"
 msgstr "موافقت"
 
 #. module: letter
-#: selection:letter.letter.out,state:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__state__approved
 msgid "Approved"
 msgstr "موافقت شده"
 
@@ -108,7 +129,7 @@ msgid "Assign Letter"
 msgstr "تحویل دادن نامه"
 
 #. module: letter
-#: selection:letter.letter.in,state:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__state__assigned
 msgid "Assigned"
 msgstr "محول شده"
 
@@ -150,7 +171,7 @@ msgstr "رونوشت"
 #. module: letter
 #: model:res.groups,name:letter.group_can_sign_letter
 msgid "Can Sign Letter"
-msgstr "حق امضاء نامه"
+msgstr "حق امضای نامه"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
@@ -158,9 +179,9 @@ msgid "Cancel"
 msgstr "لغو"
 
 #. module: letter
-#: selection:letter.letter.out,state:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__state__canceled
 msgid "Canceled"
-msgstr "لغو شده"
+msgstr "لغو‌شده"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
@@ -177,7 +198,7 @@ msgstr "رونوشت: "
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__related_letter_ids
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__related_letter_ids
 msgid "Child letter"
-msgstr ""
+msgstr "سابقه نامه"
 
 #. module: letter
 #: model:letter.format,name:letter.compact_format
@@ -187,7 +208,7 @@ msgstr "فشرده"
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_format__name
 msgid "Compact Format Name"
-msgstr "حالت فشرده شازی"
+msgstr "حالت فشرده‌سازی"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_content_type__company_id
@@ -250,20 +271,20 @@ msgid "Default"
 msgstr "پیش‌فرض"
 
 #. module: letter
-#: selection:letter.letter.in,media_type:0
-#: selection:letter.letter.out,media_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__delivery
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__media_type__delivery
 msgid "Delivery Man"
 msgstr "پیک"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
 msgid "Delivery Media"
-msgstr "نوع دریافت "
+msgstr "نوع دریافت"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__is_digital_signature
 msgid "Digital Signature"
-msgstr "چاپ امضاء"
+msgstr "چاپ امضا"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_assign_letter_wizard
@@ -282,14 +303,14 @@ msgid "Display Name"
 msgstr "نام نمایشی"
 
 #. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__state__done
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
-#: selection:letter.letter.in,state:0
 msgid "Done"
 msgstr "انجام شد"
 
 #. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__state__draft
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
-#: selection:letter.letter.out,state:0
 msgid "Draft"
 msgstr "پیش‌نویس"
 
@@ -302,8 +323,8 @@ msgstr "ایمیل:"
 #: model:ir.model.fields,field_description:letter.field_letter_letter__role_based_email
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__role_based_email
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__role_based_email
-#: selection:letter.letter.in,media_type:0
-#: selection:letter.letter.out,media_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__email
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__media_type__email
 msgid "E-mail"
 msgstr "ایمیل"
 
@@ -313,8 +334,8 @@ msgid "Executor:"
 msgstr "اقدام کننده:"
 
 #. module: letter
-#: selection:letter.letter.in,media_type:0
-#: selection:letter.letter.out,media_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__fax
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__media_type__fax
 msgid "Fax"
 msgstr "فکس"
 
@@ -350,17 +371,17 @@ msgid "Following"
 msgstr "پیرو"
 
 #. module: letter
-#: selection:letter.letter,reference_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__reference_type__following
 msgid "Following a Letter"
 msgstr "پیرو نامه"
 
 #. module: letter
-#: selection:letter.letter,reference_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__reference_type__meeting
 msgid "Following a Meeting"
 msgstr "پیرو جلسه حضوری"
 
 #. module: letter
-#: selection:letter.letter,reference_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__reference_type__phone
 msgid "Following a Phone Call"
 msgstr "پیرو تماس تلفنی"
 
@@ -368,6 +389,13 @@ msgstr "پیرو تماس تلفنی"
 #: model:ir.model.fields,field_description:letter.field_letter_format__font_size
 msgid "Font Size"
 msgstr "اندازه قلم"
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_letter__activity_type_icon
+#: model:ir.model.fields,help:letter.field_letter_letter_in__activity_type_icon
+#: model:ir.model.fields,help:letter.field_letter_letter_out__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_header__footer_img
@@ -418,16 +446,26 @@ msgid "ID"
 msgstr "شناسه"
 
 #. module: letter
-#: model:ir.model.fields,help:letter.field_letter_letter__message_unread
-#: model:ir.model.fields,help:letter.field_letter_letter_in__message_unread
-#: model:ir.model.fields,help:letter.field_letter_letter_out__message_unread
-msgid "If checked new messages require your attention."
-msgstr "اگر این گزینه را انتخاب کنید، پیام‌های جدید به توجه شما نیاز خواهند داشت."
+#: model:ir.model.fields,field_description:letter.field_letter_letter__activity_exception_icon
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_exception_icon
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_exception_icon
+msgid "Icon"
+msgstr "آیکون"
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_letter__activity_exception_icon
+#: model:ir.model.fields,help:letter.field_letter_letter_in__activity_exception_icon
+#: model:ir.model.fields,help:letter.field_letter_letter_out__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "آیکون برای نشان دادن یک فعالیت استثنا."
 
 #. module: letter
 #: model:ir.model.fields,help:letter.field_letter_letter__message_needaction
+#: model:ir.model.fields,help:letter.field_letter_letter__message_unread
 #: model:ir.model.fields,help:letter.field_letter_letter_in__message_needaction
+#: model:ir.model.fields,help:letter.field_letter_letter_in__message_unread
 #: model:ir.model.fields,help:letter.field_letter_letter_out__message_needaction
+#: model:ir.model.fields,help:letter.field_letter_letter_out__message_unread
 msgid "If checked, new messages require your attention."
 msgstr "اگر این گزینه را انتخاب کنید، پیام‌های جدید به توجه شما نیاز خواهند داشت."
 
@@ -439,13 +477,18 @@ msgid "If checked, some messages have a delivery error."
 msgstr "اگر این گزینه علامت خورده باشد، تحویل برخی از پیام‌ها با خطا مواجه شده است."
 
 #. module: letter
-#: selection:letter.letter,reference_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__state__registered
+msgid "In Department"
+msgstr "در واحد سازمانی"
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__reference_type__reply_to
 msgid "In Reply To a Letter"
 msgstr "در جواب نامه"
 
 #. module: letter
-#: selection:letter.letter.in,media_type:0
-#: selection:letter.letter.out,media_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__in_person
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__media_type__in_person
 msgid "In person"
 msgstr "حضوری"
 
@@ -536,9 +579,9 @@ msgstr "سربرگ نامه"
 #. module: letter
 #: model:ir.actions.act_window,name:letter.action_letter_in
 #: model:ir.model,name:letter.model_letter_letter_in
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__type__in
 #: model:ir.module.category,name:letter.model_category_letter_in
 #: model:ir.ui.menu,name:letter.letter_menu_in
-#: selection:letter.letter,type:0
 msgid "Letter In"
 msgstr "نامه وارده"
 
@@ -553,9 +596,9 @@ msgstr "شماره نامه"
 #: model:ir.actions.act_window,name:letter.action_letter_out
 #: model:ir.actions.report,name:letter.report_letter_out
 #: model:ir.model,name:letter.model_letter_letter_out
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__type__out
 #: model:ir.module.category,name:letter.model_category_letter_out
 #: model:ir.ui.menu,name:letter.letter_menu_out
-#: selection:letter.letter,type:0
 msgid "Letter Out"
 msgstr "نامه صادره"
 
@@ -620,12 +663,12 @@ msgid "Mobile:"
 msgstr "تلفن همراه:"
 
 #. module: letter
-#: selection:letter.letter.in,state:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__state__new
 msgid "New"
 msgstr "جدید"
 
 #. module: letter
-#: selection:letter.letter,reference_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__reference_type__new
 msgid "New Letter"
 msgstr "نامه جدید"
 
@@ -666,7 +709,7 @@ msgstr "تعداد اقدامات"
 #: model:ir.model.fields,field_description:letter.field_letter_letter__message_has_error_counter
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_has_error_counter
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_has_error_counter
-msgid "Number of error"
+msgid "Number of errors"
 msgstr "تعداد خطا"
 
 #. module: letter
@@ -706,11 +749,9 @@ msgid "Number:"
 msgstr "شماره:"
 
 #. module: letter
-#: selection:letter.letter,activity_state:0
-#: selection:letter.letter.in,activity_state:0
-#: selection:letter.letter.out,activity_state:0
-msgid "Overdue"
-msgstr "سررسید گذشته"
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__email_id
+msgid "PW_mail"
+msgstr "ایمیل"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.external_layout_header
@@ -725,14 +766,9 @@ msgid "Partner"
 msgstr "مخاطب"
 
 #. module: letter
-#: selection:letter.letter.in,media_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__p_email
 msgid "Personal E-mail"
 msgstr "ایمیل شخصی"
-
-#. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_letter_in__email_id
-msgid "PW_mail"
-msgstr "ایمیل"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__phone_id
@@ -742,17 +778,10 @@ msgid "Phone Call"
 msgstr "تلفن تماس"
 
 #. module: letter
-#: selection:letter.letter,activity_state:0
-#: selection:letter.letter.in,activity_state:0
-#: selection:letter.letter.out,activity_state:0
-msgid "Planned"
-msgstr "برنامه‌ریزی شده"
-
-#. module: letter
-#: selection:letter.letter.in,media_type:0
-#: selection:letter.letter.out,media_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__post
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__media_type__post
 msgid "Post"
-msgstr "پست"
+msgstr "ارسال"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__receipt_date
@@ -784,11 +813,6 @@ msgstr "نوع مرجع نامه"
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
 msgid "Register"
 msgstr "ثبت"
-
-#. module: letter
-#: selection:letter.letter.in,state:0
-msgid "Registered"
-msgstr "ثبت‌شده"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
@@ -824,10 +848,10 @@ msgstr "کاربر مسئول"
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
 msgid "Return"
-msgstr "بازگشت"
+msgstr "بازگرداندن"
 
 #. module: letter
-#: selection:letter.letter.in,state:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__state__returned
 msgid "Returned"
 msgstr "بازگردانده شده"
 
@@ -881,16 +905,16 @@ msgid "Sender Letter Number"
 msgstr "شماره نامه ارسال شده"
 
 #. module: letter
-#: selection:letter.letter.out,state:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__state__sent
 msgid "Sent"
-msgstr "ارسال شده"
+msgstr "ارسال‌شده"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__series
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__series
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__series
 msgid "Series"
-msgstr "سلسله"
+msgstr "سابقه"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_in_search
@@ -899,8 +923,8 @@ msgid "Show all opportunities for which the next action date is before today"
 msgstr "نمایش تمام موقعیت‌های فروشی که تاریخ سررسید اقدام بعدی آنها گدشته است."
 
 #. module: letter
-#: selection:letter.letter.in,media_type:0
-#: selection:letter.letter.out,media_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__network
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__media_type__network
 msgid "Social Networks"
 msgstr "شبکه اجتماعی"
 
@@ -916,7 +940,8 @@ msgstr "وضعیت"
 #: model:ir.model.fields,help:letter.field_letter_letter__activity_state
 #: model:ir.model.fields,help:letter.field_letter_letter_in__activity_state
 #: model:ir.model.fields,help:letter.field_letter_letter_out__activity_state
-msgid "Status based on activities\n"
+msgid ""
+"Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
@@ -945,7 +970,7 @@ msgid "Submit"
 msgstr "تکمیل"
 
 #. module: letter
-#: selection:letter.letter.out,state:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__state__submitted
 msgid "Submitted"
 msgstr "تکمیل‌شده"
 
@@ -953,13 +978,6 @@ msgstr "تکمیل‌شده"
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
 msgid "This letter has not been confirmed yet."
 msgstr "این نامه به تایید مدیریت نرسیده است."
-
-#. module: letter
-#: selection:letter.letter,activity_state:0
-#: selection:letter.letter.in,activity_state:0
-#: selection:letter.letter.out,activity_state:0
-msgid "Today"
-msgstr ""
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_in_search
@@ -973,6 +991,13 @@ msgstr "اقدامات امروز"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__type
 msgid "Type"
 msgstr "نوع"
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_letter__activity_exception_decoration
+#: model:ir.model.fields,help:letter.field_letter_letter_in__activity_exception_decoration
+#: model:ir.model.fields,help:letter.field_letter_letter_out__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "نوع فعالیت استثنایی برای رکورد."
 
 #. module: letter
 #: model:letter.format,name:letter.ultra_format
@@ -1001,12 +1026,26 @@ msgid "User"
 msgstr "کاربر"
 
 #. module: letter
-#: selection:letter.letter.in,media_type:0
+#: model:ir.model.fields,field_description:letter.field_letter_letter__website_message_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__website_message_ids
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__website_message_ids
+msgid "Website Messages"
+msgstr "پیام‌های وب‌سایت"
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_letter__website_message_ids
+#: model:ir.model.fields,help:letter.field_letter_letter_in__website_message_ids
+#: model:ir.model.fields,help:letter.field_letter_letter_out__website_message_ids
+msgid "Website communication history"
+msgstr "تاریخچه ارتباطات با وبسایت"
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__w_email
 msgid "Working E-mail"
 msgstr "ایمیل کاری"
 
 #. module: letter
-#: code:addons/letter/models/letterout.py:173
+#: code:addons/letter/models/letterout.py:0
 #, python-format
 msgid "You are not allowed to see letter content."
 msgstr "شما مجاز به دیدن متن این نامه نیستید."

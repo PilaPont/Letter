@@ -4,15 +4,15 @@
     'summary': """ letter module """,
     
     'description': """
-        Long description of module's purpose
     """,
 
-    'author': "Assan Ideh",
-    'website': "http://www.assanidea.com",
+    'author': "Kenevist",
+    'website': "https://kenevist.ir",
 
     'category': 'Business',
     'application': 'True',
     'version': "14.0.1.0.0",
+
     'depends': ['base', 'mail', 'user_signature'],
     'data': [
         'security/letter_out_security.xml',
@@ -30,6 +30,5 @@
     'css': ['static/src/css/style_report.css'],
 
     'demo': [
-        'demo/demo.xml',
     ],
 }
