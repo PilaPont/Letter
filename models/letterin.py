@@ -36,13 +36,19 @@ class LetterIn(models.Model):
     email_id = fields.Many2one('res.users', string='PW_mail')
     is_current_user = fields.Boolean(compute='_compute_check_user', store=False)
 
+    @api.model
+    def default_get(self, fields):
+        res = super(LetterIn, self).default_get(fields)
+        res['type'] = 'in'
+        return res
+
     def _compute_check_user(self):
         self.is_current_user = self.user_id.id == self.env.uid
         return self.is_current_user
 
     def write(self, values):
         if values.get('user_id'):
-            self.activity(values, 'New letter has received')
+            self.activity(values)
         return super(LetterIn, self).write(values)
 
     def register_button(self):
@@ -83,7 +89,7 @@ class LetterIn(models.Model):
             if self.user_id.id == self.env.uid:
                 letter.write({'state': 'done'})
             else:
-                raise exceptions.except_orm('Access Denied', 'only the responsible one can do it.')
+                raise exceptions.ValidationError('Access Denied, only the responsible one can do it.')
 
     def answer_button(self):
         return {
@@ -105,11 +111,11 @@ class LetterIn(models.Model):
         if self.reference_type == 'new':
             self.reference_letter_id = None
 
-    def activity(self, values, summery=''):
+    def activity(self, values):
         self.activity_schedule(
             'letter.mail_activity_letter',
             user_id=values.get('user_id'),
-            summary=summery, )
+            note="The send letter Assign to ")
 
     def name_get(self):
         res = []
