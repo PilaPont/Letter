@@ -109,19 +109,24 @@ class LetterOut(models.Model):
     def action_cancel(self):
         self.write({'state': 'canceled'})
 
-    def activity(self, values):
+    def activity(self, values, summery):
         """use model letter.mail_activity_letter for alert letter
         :param values:user_id
+        :param summery
         """
-        self.activity_schedule(
-            'letter.mail_activity_letter',
-            user_id=values.get('user_id'))
+        if (self.user_id.id == self.env.uid) and self.state == 'draft' and self.user == 1:
+            self.user = 0
+        else:
+            self.activity_schedule(
+                'letter.mail_activity_letter',
+                user_id=values.get('user_id'),
+                summary=summery, )
 
     @api.model
     def create(self, vals):
         record = super(LetterOut, self).create(vals)
         if vals.get('user_id'):
-            record.activity(vals)
+            record.activity(vals, 'New letter has created')
         return record
 
     def write(self, values):
@@ -130,7 +135,7 @@ class LetterOut(models.Model):
         :return: write information in database
         """
         if values.get('user_id'):
-            self.activity(values)
+            self.activity(values, 'Letter responsible is changed')
         return super(LetterOut, self).write(values)
 
     def check_state(self):
@@ -149,6 +154,7 @@ class LetterOut(models.Model):
         if self.reference_type == 'new':
             self.reference_letter_id = None
 
+    @api.multi
     def read(self, fields=None, load='_classic_read'):
         PRIVATEFIELDS = ('letter_text', 'attachment_ids')
         if self.env.user.has_group('letter.group_letter_out_see_all') or not any(

@@ -11,8 +11,7 @@
 
     'category': 'Business',
     'application': 'True',
-    'version': "14.0.1.0.0",
-
+    'version': '0.1',
     'depends': ['base', 'mail', 'user_signature'],
     'data': [
         'security/letter_out_security.xml',
