@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-22 14:34+0000\n"
-"PO-Revision-Date: 2020-12-22 14:34+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2021-01-01 13:26+0000\n"
+"PO-Revision-Date: 2021-01-01 13:26+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,11 +83,25 @@ msgid "Activities"
 msgstr "اقدامات"
 
 #. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__activity_exception_decoration
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_exception_decoration
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "دکوراسیون استثنا فعالیت"
+
+#. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__activity_state
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_state
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_state
 msgid "Activity State"
 msgstr "وضعیت اقدام"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__activity_type_icon
+#: model:ir.model.fields,field_description:letter.field_letter_letter_in__activity_type_icon
+#: model:ir.model.fields,field_description:letter.field_letter_letter_out__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "آیکون نوع فعالیت"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
@@ -695,7 +709,7 @@ msgstr "تعداد اقدامات"
 #: model:ir.model.fields,field_description:letter.field_letter_letter__message_has_error_counter
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__message_has_error_counter
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__message_has_error_counter
-msgid "Number of error"
+msgid "Number of errors"
 msgstr "تعداد خطا"
 
 #. module: letter
@@ -755,11 +769,6 @@ msgstr "مخاطب"
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__p_email
 msgid "Personal E-mail"
 msgstr "ایمیل شخصی"
-
-#. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_letter_in__email_id
-msgid "PW_mail"
-msgstr "ایمیل"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__phone_id
@@ -914,8 +923,8 @@ msgid "Show all opportunities for which the next action date is before today"
 msgstr "نمایش تمام موقعیت‌های فروشی که تاریخ سررسید اقدام بعدی آنها گدشته است."
 
 #. module: letter
-#: selection:letter.letter.in,media_type:0
-#: selection:letter.letter.out,media_type:0
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__network
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__media_type__network
 msgid "Social Networks"
 msgstr "شبکه اجتماعی"
 
@@ -1036,7 +1045,7 @@ msgid "Working E-mail"
 msgstr "ایمیل کاری"
 
 #. module: letter
-#: code:addons/letter/models/letterout.py:173
+#: code:addons/letter/models/letterout.py:0
 #, python-format
 msgid "You are not allowed to see letter content."
 msgstr "شما مجاز به دیدن متن این نامه نیستید."

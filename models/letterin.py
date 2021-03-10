@@ -48,7 +48,7 @@ class LetterIn(models.Model):
 
     def write(self, values):
         if values.get('user_id'):
-            self.activity(values, 'New letter has received')
+            self.activity(values)
         return super(LetterIn, self).write(values)
 
     def register_button(self):
@@ -111,11 +111,11 @@ class LetterIn(models.Model):
         if self.reference_type == 'new':
             self.reference_letter_id = None
 
-    def activity(self, values, summery=''):
+    def activity(self, values):
         self.activity_schedule(
             'letter.mail_activity_letter',
             user_id=values.get('user_id'),
-            summary=summery, )
+            note="The send letter Assign to ")
 
     def name_get(self):
         res = []
@@ -126,7 +126,6 @@ class LetterIn(models.Model):
             res.append((letter.id, name))
         return res
 
-    @api.multi
     def read(self, fields=None, load='_classic_read'):
         if self.env.user.has_group('letter.group_letter_in_see_all') or (fields and 'attachment_ids' not in fields):
             return super(LetterIn, self).read(fields=fields, load=load)
