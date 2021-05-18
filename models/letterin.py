@@ -21,7 +21,7 @@ class LetterIn(models.Model):
         ('returned', 'Returned'),
         ('assigned', 'Assigned'),
         ('done', 'Done')
-    ], readonly=True, default='new', track_visibility='onchange')
+    ], readonly=True, default='new', tracking=True)
 
     media_type = fields.Selection([
         ('fax', 'Fax'),
