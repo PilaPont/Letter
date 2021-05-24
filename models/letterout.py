@@ -15,7 +15,7 @@ class LetterOut(models.Model):
     signatory_id = fields.Many2one('res.users', string='Final Endorser',
                                    domain=lambda self: "[('groups_id','in',[" + str(
                                        self.env.ref('letter.group_can_sign_letter').id) + "])]", required=True,
-                                   track_visibility='onchange')
+                                   tracking=True)
 
     is_digital_signature = fields.Boolean(string='Digital Signature', default=True)
     letter_text = fields.Html(string='Letter Text')
@@ -30,7 +30,7 @@ class LetterOut(models.Model):
         ('approved', 'Approved'),
         ('sent', 'Sent'),
         ('acknowledged', 'Acknowledged'),
-        ('canceled', 'Canceled')], default='draft', readonly=True, track_visibility='onchange')
+        ('canceled', 'Canceled')], default='draft', readonly=True, tracking=True)
 
     media_type = fields.Selection([
         ('fax', 'Fax'),

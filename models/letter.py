@@ -8,12 +8,12 @@ class Letter(models.Model):
 
     name = fields.Char(string="Letter Number", readonly=True, copy=False)
     type = fields.Selection([('in', 'Letter In'), ('out', 'Letter Out')], required=True, readonly=True)
-    subject = fields.Char(string='Subject', required=True, track_visibility='onchange')
-    partner_id = fields.Many2one(comodel_name='res.partner', required=True, track_visibility='onchange')
+    subject = fields.Char(string='Subject', required=True, tracking=True)
+    partner_id = fields.Many2one(comodel_name='res.partner', required=True, tracking=True)
     issue_date = fields.Date(string='Issue Date', default=None)
-    send_date = fields.Date(string='Send Date', default=None, track_visibility='onchange')
+    send_date = fields.Date(string='Send Date', default=None, tracking=True)
     content_id = fields.Many2one(comodel_name='letter.content_type', string='Content Type',
-                                 required=True, track_visibility='onchange')
+                                 required=True, tracking=True)
     reference_type = fields.Selection([
         ('new', 'New Letter'),
         ('reply_to', 'In Reply To a Letter'),
@@ -23,7 +23,7 @@ class Letter(models.Model):
 
     attachment_ids = fields.Many2many('ir.attachment', string='Attachments')
     user_id = fields.Many2one('res.users', string='Responsible',
-                              default=lambda self: self.env.user, track_visibility='onchange')
+                              default=lambda self: self.env.user, tracking=True)
 
     role_based_email = fields.Many2one(comodel_name='ir.mail_server', string='E-mail')
 
