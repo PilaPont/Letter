@@ -19,6 +19,7 @@
         'security/letter_in_security.xml',
         'security/ir.model.access.csv',
         'data/data_letter.xml',
+        'data/letter_content.xml',
         'reports/report_letter_view.xml',
         'views/letter.xml',
         'views/letter_out.xml',

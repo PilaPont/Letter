@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="letter_content_letter" model="letter.content_type">
+            <field name="name">Letter</field>
+        </record>
+        <record id="letter_content_package" model="letter.content_type">
+            <field name="name">Package</field>
+        </record>
+        <record id="letter_content_magazine" model="letter.content_type">
+            <field name="name">Magazine/Newspaper</field>
+        </record>
+        <record id="letter_content_summons" model="letter.content_type">
+            <field name="name">Summons</field>
+        </record>
+        <record id="letter_content_catalog" model="letter.content_type">
+            <field name="name">Catalog</field>
+        </record>
+    </data>
+</odoo>

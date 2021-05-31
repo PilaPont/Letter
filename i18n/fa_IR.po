@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-01 13:26+0000\n"
-"PO-Revision-Date: 2021-01-01 13:26+0000\n"
+"POT-Creation-Date: 2021-05-31 12:53+0000\n"
+"PO-Revision-Date: 2021-05-31 12:53+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -182,6 +182,11 @@ msgstr "لغو"
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__state__canceled
 msgid "Canceled"
 msgstr "لغو‌شده"
+
+#. module: letter
+#: model:letter.content_type,name:letter.letter_content_catalog
+msgid "Catalog"
+msgstr "کاتالوگ/بروشور"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_out_form
@@ -467,19 +472,16 @@ msgstr "آیکون برای نشان دادن یک فعالیت استثنا."
 #: model:ir.model.fields,help:letter.field_letter_letter_out__message_needaction
 #: model:ir.model.fields,help:letter.field_letter_letter_out__message_unread
 msgid "If checked, new messages require your attention."
-msgstr "اگر این گزینه را انتخاب کنید، پیام‌های جدید به توجه شما نیاز خواهند داشت."
+msgstr ""
+"اگر این گزینه را انتخاب کنید، پیام‌های جدید به توجه شما نیاز خواهند داشت."
 
 #. module: letter
 #: model:ir.model.fields,help:letter.field_letter_letter__message_has_error
 #: model:ir.model.fields,help:letter.field_letter_letter_in__message_has_error
 #: model:ir.model.fields,help:letter.field_letter_letter_out__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr "اگر این گزینه علامت خورده باشد، تحویل برخی از پیام‌ها با خطا مواجه شده است."
-
-#. module: letter
-#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__state__registered
-msgid "In Department"
-msgstr "در واحد سازمانی"
+msgstr ""
+"اگر این گزینه علامت خورده باشد، تحویل برخی از پیام‌ها با خطا مواجه شده است."
 
 #. module: letter
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter__reference_type__reply_to
@@ -561,6 +563,7 @@ msgstr "اقدامات مهلت‌گذشته"
 #: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__letter_id
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__letter_id
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__letter_id
+#: model:letter.content_type,name:letter.letter_content_letter
 #: model:mail.activity.type,name:letter.mail_activity_letter
 msgid "Letter"
 msgstr "نامه"
@@ -622,6 +625,11 @@ msgstr "متن نامه"
 #: model:ir.ui.menu,name:letter.main_letters_menu
 msgid "Letters"
 msgstr "نامه‌ها"
+
+#. module: letter
+#: model:letter.content_type,name:letter.letter_content_magazine
+msgid "Magazine/Newspaper"
+msgstr "مجله/روزنامه"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__message_main_attachment_id
@@ -754,6 +762,11 @@ msgid "PW_mail"
 msgstr "ایمیل"
 
 #. module: letter
+#: model:letter.content_type,name:letter.letter_content_package
+msgid "Package"
+msgstr "بسته"
+
+#. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.external_layout_header
 msgid "Page:"
 msgstr "صفحه:"
@@ -813,6 +826,11 @@ msgstr "نوع مرجع نامه"
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
 msgid "Register"
 msgstr "ثبت"
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__state__registered
+msgid "Registered"
+msgstr "ثبت‌شده"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_letter_in_form
@@ -920,7 +938,8 @@ msgstr "سابقه"
 #: model_terms:ir.ui.view,arch_db:letter.letter_in_search
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_search
 msgid "Show all opportunities for which the next action date is before today"
-msgstr "نمایش تمام موقعیت‌های فروشی که تاریخ سررسید اقدام بعدی آنها گدشته است."
+msgstr ""
+"نمایش تمام موقعیت‌های فروشی که تاریخ سررسید اقدام بعدی آنها گدشته است."
 
 #. module: letter
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__network
@@ -945,7 +964,8 @@ msgid ""
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
-msgstr "وضعیت بر مبنای اقدامات\n"
+msgstr ""
+"وضعیت بر مبنای اقدامات\n"
 "سررسید گذشته: مهلت اقدام گذشته است\n"
 "امروز: تاریخ اقدام امروز است\n"
 "برنامه‌ریزی شده: اقدامات آتی"
@@ -973,6 +993,11 @@ msgstr "تکمیل"
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter_out__state__submitted
 msgid "Submitted"
 msgstr "تکمیل‌شده"
+
+#. module: letter
+#: model:letter.content_type,name:letter.letter_content_summons
+msgid "Summons"
+msgstr "احضاریه"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
@@ -1024,20 +1049,6 @@ msgstr "شمارنده پیام‌های خوانده‌نشده"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__user
 msgid "User"
 msgstr "کاربر"
-
-#. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_letter__website_message_ids
-#: model:ir.model.fields,field_description:letter.field_letter_letter_in__website_message_ids
-#: model:ir.model.fields,field_description:letter.field_letter_letter_out__website_message_ids
-msgid "Website Messages"
-msgstr "پیام‌های وب‌سایت"
-
-#. module: letter
-#: model:ir.model.fields,help:letter.field_letter_letter__website_message_ids
-#: model:ir.model.fields,help:letter.field_letter_letter_in__website_message_ids
-#: model:ir.model.fields,help:letter.field_letter_letter_out__website_message_ids
-msgid "Website communication history"
-msgstr "تاریخچه ارتباطات با وبسایت"
 
 #. module: letter
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__w_email
