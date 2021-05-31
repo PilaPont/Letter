@@ -775,7 +775,7 @@ msgstr "ایمیل شخصی"
 #: model:ir.model.fields,field_description:letter.field_letter_letter_in__phone_id
 #: model:ir.model.fields,field_description:letter.field_letter_letter_out__phone_id
 msgid "Phone Call"
-msgstr "تلفن تماس"
+msgstr "تماس تلفنی"
 
 #. module: letter
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter_in__media_type__post
