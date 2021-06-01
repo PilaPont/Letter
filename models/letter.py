@@ -30,10 +30,17 @@ class Letter(models.Model):
     reference_letter_id = fields.Many2one(comodel_name='letter.letter')
     reference_letter_type = fields.Char()
 
-    phone_id = fields.Many2one('mail.activity', domain=lambda self: "[('activity_type_id','='," + str(
-        self.env.ref('mail.mail_activity_data_call').id) + ")]", string='Phone Call')
-    meeting_id = fields.Many2one('mail.activity', domain=lambda self: "[('activity_type_id','='," + str(
-        self.env.ref('mail.mail_activity_data_meeting').id) + ")]", string='Meeting')
+    phone_id = fields.Many2one('mail.activity',
+                               domain=lambda self: ['|', ('activity_type_id.category', '=', 'phonecall'),
+                                                    ('activity_type_id', '=',
+                                                     self.env.ref('mail.mail_activity_data_call').id)],
+                               string='Phone Call')
+    meeting_id = fields.Many2one('mail.activity',
+                                 domain=lambda self: ['|',
+                                                      ('activity_type_id.category', '=', 'meeting'),
+                                                      ('activity_type_id', '=', self.env.ref(
+                                                          'mail.mail_activity_data_meeting').id)],
+                                 string='Meeting')
 
     related_letter_ids = fields.Many2many('letter.letter', string='Child letter', compute='_get_related_letter',
                                           store=False, copy=False)

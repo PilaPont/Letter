@@ -87,10 +87,14 @@
                                        'invisible': [('reference_type', '!=', 'reply_to')], 'readonly': [('state','!=','draft')]}"
                                        domain="[('type', '=', reference_letter_type),('name','!=',False)]"/>
 
-                                <field name="phone_id" attrs="{'required': [('reference_type', '=', 'phone')],
-                                                       'invisible': [('reference_type', '!=', 'phone')]}"/>
-                                <field name="meeting_id" attrs="{'required': [('reference_type', '=', 'meeting')],
-                                                       'invisible': [('reference_type', '!=', 'meeting')]}"/>
+                                <field name="phone_id"
+                                       attrs="{'required': [('reference_type', '=', 'phone')],
+                                                       'invisible': [('reference_type', '!=', 'phone')]}"
+                                       options="{'no_create': True, 'no_create_edit':True}"/>
+                                <field name="meeting_id"
+                                       attrs="{'required': [('reference_type', '=', 'meeting')],
+                                                       'invisible': [('reference_type', '!=', 'meeting')]}"
+                                       options="{'no_create': True, 'no_create_edit':True}"/>
 
                                 <field name="media_type" string='Send Media'
                                        attrs="{'readonly': [('state','!=','draft')]}"
