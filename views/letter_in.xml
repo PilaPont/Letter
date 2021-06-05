@@ -49,7 +49,7 @@
                         </group>
                         <group colspan="2" col="2">
                             <group>
-                                <field name="company_id"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
                                 <field name="partner_id" string="Sender" attrs="{'readonly': [('state','!=','new')]}"/>
                                 <field name="issue_date" required="True" attrs="{'readonly': [('state','!=','new')]}"/>
                                 <field name="receipt_date" attrs="{'readonly': [('state','!=','new')]}"/>

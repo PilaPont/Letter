@@ -70,9 +70,8 @@
                                 <field name="partner_id" string='Addressee'
                                        attrs="{'readonly': [('state','!=','draft')]}"
                                        required="True"/>
-
                                 <field name="user_id" attrs="{'readonly': [('state','!=','draft')],'required': True}"/>
-                                <field name="company_id"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
                                 <field name="reference_type" attrs="{'readonly': [('state','!=','draft')]}"
                                        required="True"/>
 
@@ -104,15 +103,15 @@
                                        'required': [('media_type', '=', 'email')]}"/>
                             </group>
                             <group>
-                                <field name="is_digital_signature" attrs="{'readonly': [('state','!=','draft')]}"
-                                       required="True"/>
-                                <field name="signatory_id" attrs="{'readonly': [('state','!=','draft')]}"
-                                       required="True" domain=""/>
                                 <field name="content_id" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="header_id" attrs="{'readonly': [('state','!=','draft')]}"
-                                       required="True" options="{'no_create': True,'no_open': True}"/>
+                                <field name="header_id" attrs="{'readonly': [('state','!=','draft')]}" required="True"
+                                       options="{'no_create': True,'no_open': True}"/>
                                 <field name="letter_format_id" required="1"
                                        options="{'no_create': True,'no_open': True}"/>
+                                <field name="signatory_id" attrs="{'readonly': [('state','!=','draft')]}"
+                                       required="True" domain=""/>
+                                <field name="is_digital_signature" attrs="{'readonly': [('state','!=','draft')]}"
+                                       required="True"/>
                                 <field name="attachment_ids" attrs="{'readonly': [('state','!=','draft')]}"
                                        widget="many2many_binary"/>
 

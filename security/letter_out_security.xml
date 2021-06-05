@@ -1,35 +1,35 @@
 <odoo>
     <data>
-<!-- CATEGORY -->
+        <!-- CATEGORY -->
         <record id="model_category_letter_out" model="ir.module.category">
             <field name="name">Letter Out</field>
             <field name="sequence">1000</field>
         </record>
 
-
-<!-- CAN SIGN -->
-        <record id="group_can_sign_letter" model="res.groups">
-            <field name="name">Can Sign Letter</field>
-        </record>
-
-<!--SECRETARIAT-->
-        <record id="group_access_secretariat" model="res.groups">
-            <field name="name">Secretariat</field>
-        </record>
-
-<!--SEE FOLLOWING-->
+        <!--SEE FOLLOWING-->
         <record id="group_letter_out_see_follower" model="res.groups">
             <field name="name">See Following</field>
             <field name="category_id" ref="model_category_letter_out"/>
-<!--            <field name="implied_ids" eval="[(4,ref('base.group_user'))]"/>-->
         </record>
 
-<!--SEE ALL-->
+        <!--SEE ALL-->
         <record model="res.groups" id="group_letter_out_see_all">
             <field name="name">See All</field>
             <field name="category_id" ref="model_category_letter_out"/>
             <field name="implied_ids" eval="[(4,ref('group_letter_out_see_follower'))]"/>
         </record>
+
+        <!-- CAN SIGN -->
+        <record id="group_can_sign_letter" model="res.groups">
+            <field name="name">Can Sign Letter</field>
+        </record>
+
+        <!--SECRETARIAT-->
+        <record id="group_access_secretariat" model="res.groups">
+            <field name="name">Secretariat</field>
+            <field name="implied_ids" eval="[(4,ref('group_letter_out_see_all')), (4,ref('letter.group_letter_in_see_all'))]"/>
+        </record>
+
         <record model="ir.rule" id="rule_see_all">
             <field name="name">see all rules</field>
             <field name="model_id" ref="model_letter_letter_out"/>
