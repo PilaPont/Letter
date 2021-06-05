@@ -139,9 +139,10 @@
         <menuitem id="main_letters_menu" name="Letters" web_icon="letter,static/description/icon.png"/>
         <menuitem id="letter_menu_out" name="Letter Out" parent="main_letters_menu" action="letter.action_letter_out" sequence="10" />
         <menuitem id="letter_menu_in" name="Letter In" parent="main_letters_menu" action="letter.action_letter_in" sequence="15" />
-        <menuitem id="letter_menu_config" name="Configuration" parent="main_letters_menu" sequence="20" groups="base.group_no_one"/>
+        <menuitem id="letter_menu_config" name="Configuration" parent="main_letters_menu" sequence="20" groups="letter.group_letter_manager"/>
         <menuitem id="letter_menu_header" name="Letter Header" parent="letter_menu_config" action="letter.action_header" sequence="5"/>
         <menuitem id="letter_menu_content_type" name="Content Type" parent="letter_menu_config" action="letter.action_content_type" sequence="10"/>
+        <menuitem id="letter_menu_format" name="Format" parent="letter_menu_config" action="letter.action_format" sequence="15"/>
   </data>
 </odoo>
 
