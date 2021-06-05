@@ -27,7 +27,7 @@
         <!--SECRETARIAT-->
         <record id="group_access_secretariat" model="res.groups">
             <field name="name">Secretariat</field>
-            <field name="implied_ids" eval="[(4,ref('group_letter_out_see_all')), (4,ref('letter.group_letter_in_see_all'))]"/>
+            <field name="implied_ids" eval="[(4,ref('group_letter_out_see_all')), (4,ref('group_letter_in_see_all'))]"/>
         </record>
 
         <record model="ir.rule" id="rule_see_all">
@@ -44,12 +44,6 @@
             <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
         </record>
 
-        <record model="ir.rule" id="letter_header_rule">
-            <field name="name">letter header</field>
-            <field name="model_id" ref="model_letter_header"/>
-            <field name="global" eval="True"/>
-            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
-        </record>
     </data>
 </odoo>
 

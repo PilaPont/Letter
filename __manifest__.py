@@ -15,8 +15,9 @@
 
     'depends': ['base', 'mail', 'user_signature'],
     'data': [
-        'security/letter_out_security.xml',
         'security/letter_in_security.xml',
+        'security/letter_out_security.xml',
+        'security/template_security.xml',
         'security/ir.model.access.csv',
         'data/data_letter.xml',
         'data/letter_content.xml',

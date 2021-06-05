@@ -1,29 +1,35 @@
 <odoo>
     <data>
 
-<!--view and action letter.format-->
+        <!--view and action letter.format-->
         <record model="ir.ui.view" id="letter.format_view_list">
-            <field name="name">letter format</field>
+            <field name="name">letter format tree</field>
             <field name="model">letter.format</field>
             <field name="arch" type="xml">
                 <tree>
-                  <field name="name"/>
-                  <field name="font_size"/>
-                  <field name="is_default" />
-                  <field name="is_active" />
+                    <field name="name"/>
+                    <field name="font_size"/>
+                    <field name="is_default"/>
+                    <field name="is_active"/>
                 </tree>
             </field>
         </record>
 
         <record model="ir.ui.view" id="letter.format_view_form">
-            <field name="name">letter Form</field>
+            <field name="name">letter Format form</field>
             <field name="model">letter.format</field>
             <field name="arch" type="xml">
                 <form>
-                  <field name="name"/>
-                  <field name="font_size"/>
-                  <field name="is_default" />
-                  <field name="is_active" />
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="font_size"/>
+                                <field name="is_default"/>
+                                <field name="is_active"/>
+                            </group>
+                        </group>
+                    </sheet>
                 </form>
             </field>
         </record>
@@ -52,8 +58,8 @@
                                 <field name="name"/>
                                 <field name="company_id"/>
                                 <field name="language_id"/>
-                                <field name="header_img"  class="oe_avatar" widget="image"/>
-                                <field name="footer_img"  class="oe_avatar" widget="image"/>
+                                <field name="header_img" class="oe_avatar" widget="image"/>
+                                <field name="footer_img" class="oe_avatar" widget="image"/>
                             </group>
                         </group>
                     </sheet>
