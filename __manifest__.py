@@ -1,26 +1,36 @@
 {
     'name': "Letters",
-    'version': '14.0.0.2.0.0+210615',
+
+    'summary': """ letter module """,
+    
     'description': """
-    A module to handle all sent and received letters, parcels, goods, catalogues and etc. in a company
     """,
-    'category': 'Marketing',
-    'author': "Kenevist, Maryam Kia, PmN",
+
+    'author': "Kenevist",
     'website': "https://kenevist.ir",
 
-    'depends': ['report_core', 'mail', 'user_signature', 'calendar'],
+    'category': 'Business',
+    'application': 'True',
+    'version': "14.0.1.0.0",
+
+    'depends': ['base', 'mail', 'user_signature'],
     'data': [
-        'security/letter_security.xml',
-        'security/letter_layout_security.xml',
+        'security/letter_in_security.xml',
+        'security/letter_out_security.xml',
+        'security/template_security.xml',
         'security/ir.model.access.csv',
         'data/data_letter.xml',
         'data/letter_content.xml',
-        'reports/letter_templates.xml',
-        'reports/letter_reports.xml',
-        'views/letter_views.xml',
-        'views/letter_layout_views.xml',
+        'reports/report_letter_view.xml',
+        'views/letter.xml',
+        'views/letter_out.xml',
+        'views/template_view.xml',
+        'views/letter_in.xml',
         'wizard/wizard_views.xml',
     ],
 
-    'application': 'True',
+    'css': ['static/src/css/style_report.css'],
+
+    'demo': [
+    ],
 }
