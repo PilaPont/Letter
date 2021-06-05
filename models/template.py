@@ -3,6 +3,7 @@ from odoo import models, fields
 
 class LetterFormat(models.Model):
     _name = 'letter.format'
+    _description = 'Letter Format'
 
     name = fields.Char(string="Compact Format Name", required=True, translate=True)
     font_size = fields.Integer(string='Font Size', required=True)
@@ -12,6 +13,7 @@ class LetterFormat(models.Model):
 
 class Header(models.Model):
     _name = 'letter.header'
+    _description = 'Letter Header'
 
     name = fields.Char(string="Header Name", required=True, translate=True)
     header_img = fields.Binary(string="Header Image", attachment=True)
@@ -22,6 +24,7 @@ class Header(models.Model):
 
 class ContentType(models.Model):
     _name = 'letter.content_type'
+    _description = 'Letter Content Type'
 
     name = fields.Char('Content', required=True, translate=True)
     active = fields.Boolean(string='Active', default=True)

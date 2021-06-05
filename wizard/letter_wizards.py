@@ -3,6 +3,7 @@ from odoo import models, fields
 
 class AssignLetterWizard(models.TransientModel):
     _name = 'letter.assign_letter_wizard'
+    _description = 'Letter Assign Wizard'
 
     letter_id = fields.Many2one(comodel_name='letter.letter.in', required=True, readonly=True)
     subject = fields.Char(related='letter_id.subject', string='Subject', readonly=True)
