@@ -60,7 +60,8 @@ class LetterIn(models.Model):
                 letter.name = self.env['ir.sequence'].next_by_code('letter.letter.in')
 
             secretariat = list(self.env.ref('letter.group_access_secretariat').users.ids)
-
+            if not secretariat:
+                raise exceptions.UserError(_('At least one user should be set as secretary!'))
             user = random.choice(secretariat)
             letter.write({'state': 'registered', 'user_id': user})
 

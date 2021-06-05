@@ -85,6 +85,8 @@ class LetterOut(models.Model):
     def action_approve(self):
         if list(self.env.ref('letter.group_access_secretariat').users.ids):
             secretariat = list(self.env.ref('letter.group_access_secretariat').users.ids)
+            if not secretariat:
+                raise exceptions.UserError(_('At least one user should be set as secretary!'))
             secretary = random.choice(secretariat)
             for letter in self:
                 letter.issue_date = datetime.now().strftime(DATETIME_FORMAT)
