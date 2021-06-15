@@ -18,13 +18,13 @@ class TestLetterOut(TestLetter):
         print('Start submit')
         letter_out = self.Letter_out.create({
             'type': 'out',
-            'subject': 'Outgoing Letter test',
+            'subject': 'letter out test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
-            'delivery_method': 'fax',
+            'media_type': 'fax',
             'signatory_id': 1,
             'content_id': self.create_content.id,
-            'layout_id': self.create_layout.id,
+            'header_id': self.create_header.id,
             'state': 'draft',
             'name': 'Lo-2020-00001'
 
@@ -38,13 +38,13 @@ class TestLetterOut(TestLetter):
 
         letter_out = self.Letter_out.create({
             'type': 'out',
-            'subject': 'Outgoing Letter test',
+            'subject': 'letter out test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
-            'delivery_method': 'fax',
+            'media_type': 'fax',
             'signatory_id': 1,
             'content_id': self.create_content.id,
-            'layout_id': self.create_layout.id,
+            'header_id': self.create_header.id,
             'state': 'registered',
             'name': 'Lo-2020-00001',
             'user_id': random.choice(list(self.env.ref('letter.group_access_secretariat').users.ids)),
@@ -64,13 +64,13 @@ class TestLetterOut(TestLetter):
 
         letter_out = self.Letter_out.create({
             'type': 'out',
-            'subject': 'Outgoing Letter test',
+            'subject': 'letter out test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
-            'delivery_method': 'fax',
+            'media_type': 'fax',
             'signatory_id': 1,
             'content_id': self.create_content.id,
-            'layout_id': self.create_layout.id,
+            'header_id': self.create_header.id,
             'state': 'approved',
             'name': 'Lo-2020-00001',
             'letter_date': '2020-01-27',
@@ -88,13 +88,13 @@ class TestLetterOut(TestLetter):
 
         letter_out = self.Letter_out.create({
             'type': 'out',
-            'subject': 'Outgoing Letter test',
+            'subject': 'letter out test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
-            'delivery_method': 'fax',
+            'media_type': 'fax',
             'signatory_id': 1,
             'content_id': self.create_content.id,
-            'layout_id': self.create_layout.id,
+            'header_id': self.create_header.id,
             'state': 'sent',
             'name': 'Lo-2020-00001',
             'letter_date': '2020-01-27',
