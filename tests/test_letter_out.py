@@ -45,17 +45,17 @@ class TestLetterOut(TestLetter):
             'signatory_id': 1,
             'content_id': self.create_content.id,
             'header_id': self.create_header.id,
-            'state': 'submitted',
+            'state': 'registered',
             'name': 'Lo-2020-00001',
             'user_id': random.choice(list(self.env.ref('letter.group_access_secretariat').users.ids)),
-            'issue_date': datetime.now().strftime(DATETIME_FORMAT),
+            'letter_date': datetime.now().strftime(DATETIME_FORMAT),
 
         })
         print(list(self.env.ref('letter.group_access_secretariat').users.ids))
 
         letter_out.action_approve()
         self.assertEqual(letter_out.state, 'approved')
-        self.assertEquals(str(letter_out.issue_date), datetime.now().strftime('%Y-%m-%d'))
+        self.assertEquals(str(letter_out.letter_date), datetime.now().strftime('%Y-%m-%d'))
         self.assertEqual(letter_out.user_id.id, 2)
         print('End action approve')
 
@@ -73,13 +73,13 @@ class TestLetterOut(TestLetter):
             'header_id': self.create_header.id,
             'state': 'approved',
             'name': 'Lo-2020-00001',
-            'issue_date': '2020-01-27',
-            'send_date': datetime.now().strftime(DATETIME_FORMAT),
+            'letter_date': '2020-01-27',
+            'send_receive_date': datetime.now().strftime(DATETIME_FORMAT),
         })
 
         letter_out.action_sent()
         self.assertEqual(letter_out.state, 'sent')
-        self.assertEquals(str(letter_out.send_date), datetime.now().strftime('%Y-%m-%d'))
+        self.assertEquals(str(letter_out.send_receive_date), datetime.now().strftime('%Y-%m-%d'))
 
         print('End Send')
 
@@ -97,8 +97,8 @@ class TestLetterOut(TestLetter):
             'header_id': self.create_header.id,
             'state': 'sent',
             'name': 'Lo-2020-00001',
-            'issue_date': '2020-01-27',
-            'send_date': '2020-01-27',
+            'letter_date': '2020-01-27',
+            'send_receive_date': '2020-01-27',
         })
 
         letter_out.action_acknowledge()

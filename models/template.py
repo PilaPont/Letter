@@ -8,7 +8,7 @@ class LetterFormat(models.Model):
     name = fields.Char(string="Compact Format Name", required=True, translate=True)
     font_size = fields.Integer(string='Font Size', required=True)
     is_default = fields.Boolean(string='Default')
-    is_active = fields.Boolean(string='Active', default=True)
+    active = fields.Boolean(string='Active', default=True)
 
 
 class Header(models.Model):

@@ -7,7 +7,7 @@ class TestLetter(TransactionCase):
 
     def setUp(self):
         super(TestLetter, self).setUp()
-        self.Letter_out = self.env['letter.letter.out']
+        self.Letter_out = self.env['letter.letter']
         self.ResUser = self.env['res.users']
         self.Partner = self.env['res.partner']
         self.Content = self.env['letter.content_type']

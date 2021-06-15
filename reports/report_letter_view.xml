@@ -10,7 +10,7 @@
             <field name="name">Letter Format</field>
             <field name="default" eval="True"/>
             <field name="format">custom</field>
-            <field name="page_height">280</field>
+            <field name="page_height">297</field>
             <field name="page_width">210</field>
             <field name="orientation">Portrait</field>
             <field name="margin_top">50</field>
@@ -22,20 +22,17 @@
             <field name="dpi">90</field>
         </record>
 
-        <report
-                id="report_letter_out"
-                file="letter.letter_out_report"
-                name="letter.letter_out_report"
-                attachment_use="True"
-                model="letter.letter.out"
-                string="Letter Out"
-                report_type="qweb-pdf"
-                attachment="False"
-                print_report_name="'Letter Number -%s' %(object.name)"
-        />
-
-        <record id="letter.report_letter_out" model="ir.actions.report">
+        <record id="report_letter_out" model="ir.actions.report">
+            <field name="model">letter.letter</field>
+            <field name="name">Letter Out</field>
+            <field name="report_name">letter.letter_out_report</field>
+            <field name="report_file">letter.letter_out_report</field>
+            <field name="report_type">qweb-pdf</field>
             <field name="paperformat_id" ref="letter.paperformat_letter"/>
+            <field name="print_report_name">'Letter Number -%s' %(object.name)</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="attachment">False</field>
+            <field name="attachment_use">True</field>
         </record>
 
         <template id="letter_out_report">
@@ -57,13 +54,10 @@
                     }
 
                 </style>
-
-                <div>
-                    <t t-foreach="docs" t-as="o">
-                        <t t-set="lang" t-value="o.user_id.lang"/>
-                        <t t-call="letter.letter_out_report_doc" t-lang="lang"/>
-                    </t>
-                </div>
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.user_id.lang"/>
+                    <t t-call="letter.letter_out_report_doc" t-lang="lang"/>
+                </t>
             </t>
         </template>
 
@@ -97,8 +91,9 @@
             </t>
 
             <t t-call="letter.external_layout">
-                <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
-                     t-att-style="'font-family:PersianDigits;' if lang=='fa_IR' else ''">
+                <div class="article o_letter_header_img" t-att-data-oe-model="o and o._name"
+                     t-att-data-oe-id="o and o.id"
+                     t-att-style="('font-family:PersianDigits;' if lang=='fa_IR' else '')+'background-position-y: -50mm; min-height:185mm; background-image:url('+image_data_uri(o.header_id.header_img)+');'">
                     <style>
                         @font-face {
                         font-family: 'PersianDigits';
@@ -276,7 +271,7 @@
         <!--    header letter out-->
         <template id="external_layout_header">
             <div class="header o_letter_header_img"
-                 t-attf-style="{{'font-family:PersianDigits;' if lang=='fa_IR' else ''}} background-image:url('data:image/png;base64,{{o.header_id.header_img}}');">
+                 t-attf-style="{{'font-family:PersianDigits;' if lang=='fa_IR' else ''}}; background-image: url('data:image/png;base64,{{o.header_id.header_img}}')">
                 <style>
                     @font-face {
                     font-family: 'PersianDigits';
@@ -303,9 +298,9 @@
                                     Date:
                                 </td>
                                 <td class="align-middle o_letter_header_td_value">
-                                    <t t-if="lang=='fa_IR'" t-esc="o.issue_date"
+                                    <t t-if="lang=='fa_IR'" t-esc="o.letter_date"
                                        t-options='{"widget": "date", "calender": "jalali"}'/>
-                                    <t t-else="" t-esc="o.issue_date"/>
+                                    <t t-else="" t-esc="o.letter_date"/>
                                 </td>
                             </tr>
                             <tr>
@@ -348,9 +343,8 @@
 
         <!--    footer letter out-->
         <template id="external_layout_footer">
-            <div class="footer" t-attf-style="min-height:220px;height:250px;background-size:100%;
-            background-image: url('data:image/png;base64,{{o.header_id.footer_img}}');
-            background-position: center;background-repeat: no-repeat; width:100%; background-size:contain;">
+            <div class="footer o_letter_header_img"
+                 t-attf-style="min-height:62mm;height:70mm;background-position-y:-235mm; background-image: url('data:image/png;base64,{{o.header_id.header_img}}')">
             </div>
         </template>
 
