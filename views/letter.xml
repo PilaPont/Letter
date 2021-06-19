@@ -56,7 +56,7 @@
                             ,('is_current_user','=',False)]}" class="oe_highlight" icon="fa-times"/>
 
                         <button name="register_button" type="object" class="oe_highlight" string="Register"
-                                attrs="{'invisible':['|','|' ,('type', '=', 'out'), ('is_current_user','=',False),('state','!=','draft')]}"/>
+                                attrs="{'invisible':['|','|' ,('type', '=', 'out'), ('is_current_user','=',False),('state','not in', ('draft', 'returned'))]}"/>
 
                         <button name="assign_button" type="object" class="oe_highlight" string="Assign"
                                 attrs="{'invisible':['|','|' ,('type', '=', 'out'), ('is_current_user','=',False),('state','not in', ('registered', 'returned'))]}"/>
@@ -78,7 +78,6 @@
                         <field name="state" widget="statusbar" statusbar_visible="draft,registered,to_do,done"/>
                         <field name="is_current_user" attrs="{'invisible':True}"/>
                         <field name="has_attachment" attrs="{'invisible':True}"/>
-                        <field name="user" attrs="{'invisible':True}"/>
                         <field name="type" invisible="True"/>
                         <field name="reference_letter_type" invisible="True"/>
                     </header>
@@ -355,9 +354,9 @@
         <!--menu item view-->
         <menuitem id="main_letters_menu" name="Letters" web_icon="letter,static/description/icon.png"/>
         <menuitem id="letter_menu_out" name="Letter Out" parent="main_letters_menu" action="letter.action_letter_out"
-                  sequence="10"/>
+                  sequence="10" groups="letter.group_letter_see_follower"/>
         <menuitem id="letter_menu_in" name="Letter In" parent="main_letters_menu" action="letter.action_letter_in"
-                  sequence="15"/>
+                  sequence="15" groups="letter.group_letter_see_follower"/>
         <menuitem id="letter_menu_config" name="Configuration" parent="main_letters_menu" sequence="20"
                   groups="letter.group_letter_manager"/>
         <menuitem id="letter_menu_header" name="Letter Header" parent="letter_menu_config" action="letter.action_header"

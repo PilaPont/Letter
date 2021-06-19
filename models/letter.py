@@ -49,7 +49,6 @@ class Letter(models.Model):
     related_letter_ids = fields.Many2many('letter.letter', string='Child letter', compute='_get_related_letter',
                                           store=False, copy=False)
     series = fields.Integer('Series', copy=False)
-    user = fields.Integer()
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id.id)
 
     sender_letter_number = fields.Char(string='Sender Letter Number')
@@ -58,6 +57,7 @@ class Letter(models.Model):
         ('draft', 'New'),
         ('registered', 'Registered'),
         ('returned', 'Returned'),
+        ('in_department', 'Department Manager'),
         ('to_do', 'To Do'),
         ('sent', 'Sent'),
         ('done', 'Done'),
@@ -154,7 +154,6 @@ class Letter(models.Model):
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'letter.assign_letter_wizard',
-            'context': {'default_letter_id': self.id}
         }
 
     def return_button(self):
@@ -233,7 +232,7 @@ class Letter(models.Model):
             secretary = random.choice(secretariat)
             for letter in self:
                 letter.letter_date = datetime.now().strftime(DATETIME_FORMAT)
-                if self.user_id and self.user_id != secretary:
+                if self.user_id and self.user_id.id != secretary:
                     letter.write({'user_id': secretary, 'state': 'to_do'})
                 else:
                     letter.write({'state': 'to_do'})
@@ -275,15 +274,24 @@ class Letter(models.Model):
                 extra_fields.append('message_partner_ids')
 
             data = super(Letter, self).read(fields=fields + extra_fields, load=load)
+            invisible_letters = self.concealed_letter_ids(data)
+            for record in invisible_letters:
+                record['attachment_ids'] = []
+                if self.type == 'out':
+                    record['letter_text'] = _('You are not allowed to see letter content.')
             for record in data:
-                if self.env.user.partner_id.id not in record['message_partner_ids']:
-                    record['attachment_ids'] = []
-                    if self.type == 'out':
-                        record['letter_text'] = _('You are not allowed to see letter content.')
                 if extra_fields:
                     for field in extra_fields:
                         del record[field]
             return data
+
+    def concealed_letter_ids(self, data):
+        invisible_letters = []
+        for record in data:
+            if self.env.user.has_group('letter.group_letter_see_follower') and self.env.user.partner_id.id not in \
+                    record['message_partner_ids']:
+                invisible_letters.append(record)
+        return invisible_letters
 
     def print_letter(self):
         return self.env.ref('letter.report_letter_out').report_action(self)
