@@ -2,16 +2,29 @@
     <data>
         <!-- CATEGORY -->
         <record id="model_manager" model="ir.module.category">
+            <field name="parent_id" ref="letter.letter_category"/>
             <field name="name">Letter Management</field>
             <field name="sequence">1005</field>
+        </record>
+
+        <record id="sign_letter" model="ir.module.category">
+            <field name="parent_id" ref="letter.letter_category"/>
+            <field name="name">Sign Letter</field>
+            <field name="sequence">1006</field>
         </record>
 
         <!--MANAGE CONFIG-->
         <record id="group_letter_manager" model="res.groups">
             <field name="name">Letter Manager</field>
-            <field name="category_id" ref="model_manager"/>
+            <field name="category_id" ref="letter.model_manager"/>
         </record>
 
+        <!-- CAN SIGN -->
+        <record id="group_can_sign_letter" model="res.groups">
+            <field name="name">Can Sign Letter</field>
+            <field name="implied_ids" eval="[(4,ref('letter.group_letter_see_follower'))]"/>
+            <field name="category_id" ref="letter.sign_letter"/>
+        </record>
 
         <record model="ir.rule" id="letter_header_rule">
             <field name="name">letter header</field>
