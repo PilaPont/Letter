@@ -238,7 +238,7 @@ class Letter(models.Model):
                     letter.write({'state': 'to_do'})
 
         else:
-            raise exceptions.ValidationError('No secretary has defined!')
+            raise exceptions.ValidationError(_('No secretary has defined!'))
 
     def action_sent(self):
         """ change state and write field date  """
