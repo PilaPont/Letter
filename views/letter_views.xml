@@ -4,7 +4,7 @@
             <field name="name">letter.letter.view.list</field>
             <field name="model">letter.letter</field>
             <field name="arch" type="xml">
-                <tree decoration-danger="type=='in' and state not in ('done', 'cancel') and date_deadline &lt; now">
+                <tree>
                     <field name="name"/>
                     <field name="type" invisible="True"/>
                     <field name="subject"/>
@@ -17,7 +17,6 @@
                            invisible="context.get('default_type','') in ('in')"/>
                     <field name="send_receive_date" string="Receiving Date"
                            invisible="context.get('default_type','') in ('out')"/>
-                    <field name="date_deadline" invisible="context.get('default_type','') in ('out')"/>
                     <field name="signatory_id" invisible="context.get('default_type','') in ('in')"/>
                     <field name="state"/>
                 </tree>
@@ -53,7 +52,7 @@
                                 groups="letter.group_access_secretariat" icon="fa-check"/>
 
                         <button name="action_cancel" type="object"
-                                string="Cancel" attrs="{'invisible':['|','|',('type', '=', 'in'), ('state','in',('sent','done','draft','cancel'))
+                                string="Cancel" attrs="{'invisible':['|','|',('type', '=', 'in'), ('state','in',('sent','done','draft','canceled'))
                             ,('is_current_user','=',False)]}" class="oe_highlight" icon="fa-times"/>
 
                         <button name="action_register" type="object" class="oe_highlight" string="Register"
@@ -84,10 +83,25 @@
                     </header>
                     <sheet>
                         <group>
-                            <group name="summery" string="Summery">
+                            <group name="date_and_ref">
                                 <field name="name"/>
                                 <field name="letter_date"
                                        attrs="{'readonly': ['|', ('state','!=','draft'), ('type', '=', 'out')], 'required': [('type', '=', 'in')]}"/>
+                                <div class="o_td_label">
+                                    <label for="send_receive_date" string="Receiving Date" style="font-weight:bold;"
+                                           attrs="{'invisible': [('type', '=', 'out')]}"/>
+                                    <label for="send_receive_date" string="Sending date" style="font-weight:bold;"
+                                           attrs="{'invisible': [('type', '=', 'in')]}"/>
+                                </div>
+                                <field name="send_receive_date" nolabel="1"
+                                       attrs="{'readonly': [('type', '=', 'out')], 'required': [('type', '=', 'in')]}"/>
+                            </group>
+                        </group>
+                        <group colspan="2" col="2">
+                            <group>
+                                <field name="subject"
+                                       attrs="{'readonly': [('state','!=','draft')]}"
+                                       required="True" placeholder="Subject"/>
                                 <div class="o_td_label">
                                     <label for="partner_id" string="Addressee" style="font-weight:bold;"
                                            attrs="{'invisible': [('type', '=', 'in')]}"/>
@@ -99,37 +113,12 @@
                                        required="True"/>
                                 <field name="sender_letter_number"
                                        attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'out')]}"/>
-                                <field name="subject"
-                                       attrs="{'readonly': [('state','!=','draft')]}"
-                                       required="True" placeholder="Subject"/>
-                            </group>
-                            <group name="send_receive" string="Send/Receive">
-                                <div class="o_td_label">
-                                    <label for="send_receive_date" string="Receiving Date" style="font-weight:bold;"
-                                           attrs="{'invisible': [('type', '=', 'out')]}"/>
-                                    <label for="send_receive_date" string="Sending date" style="font-weight:bold;"
-                                           attrs="{'invisible': [('type', '=', 'in')]}"/>
-                                </div>
-                                <field name="send_receive_date" nolabel="1"
-                                       attrs="{'readonly': [('type', '=', 'out')], 'required': [('type', '=', 'in')]}"/>
-                                <field name="delivery_method" string='Delivery Media' required="True"/>
-                                <field name="outgoing_mail_server_id"
-                                       attrs="{'invisible': ['|',('delivery_method', '!=', 'email'),('type','!=','out')]}"/>
-                                <field name="messenger" attrs="{'invisible': ['|',('delivery_method', '!=', 'in_person'),('type','!=','in')],
-                                       'readonly': [('state','!=','draft')]}"/>
-                                <field name="content_id" attrs="{'readonly': [('state','!=','draft')]}"/>
-                            </group>
-                            <group name="follow_up" string="Follow up">
-                                <field name="company_id" groups="base.group_multi_company"/>
                                 <field name="user_id"
                                        attrs="{'readonly': [('state','!=','draft')],'required': True}"/>
-                                <field name="date_deadline"
-                                       attrs="{'required': [('state','!=','draft'),('type', '=', 'in')], 'invisible': [('type', '=', 'out')]}"/>
-                                <field name="signatory_id"
-                                       attrs="{'readonly': [('state','!=','draft')] , 'invisible': [('type', '=', 'in')], 'required': [('type', '=', 'out')]}"/>
-
+                                <field name="company_id" groups="base.group_multi_company"/>
                                 <field name="reference_type" attrs="{'readonly': [('state','!=','draft')]}"
                                        required="True"/>
+
                                 <div class="o_td_label">
                                     <label for="reference_letter_id" string="Following" style="font-weight:bold;"
                                            attrs="{'invisible': [('reference_type', '!=', 'following')],}"/>
@@ -140,6 +129,7 @@
                                        attrs="{'required': [('reference_type', 'in', ('following', 'reply_to'))],
                                         'invisible': [('reference_type', 'not in', ('following', 'reply_to'))],'readonly': [('state','!=','draft')]}"
                                        domain="[('type', '=', reference_letter_type),('name','!=',False)]"/>
+
                                 <field name="phone_id"
                                        attrs="{'required': [('reference_type', '=', 'phone')],
                                                        'invisible': [('reference_type', '!=', 'phone')]}"
@@ -150,18 +140,32 @@
                                        options="{'no_create': True, 'no_create_edit':True}"/>
 
                             </group>
-                            <group name="content" string="Content">
+                            <group>
+                                <field name="media_type" string='Send Media'
+                                       attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'in')]}"
+                                       required="True"/>
+                                <field name="media_type" string='Delivery Media'
+                                       required="True"
+                                       attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'out')]}"/>
 
-                                <field name="layout_id"
+                                <field name="role_based_email"
+                                       attrs="{'invisible': [('media_type', '!=', 'email')],
+                                       'required': [('media_type', '=', 'email')],'readonly': [('state','!=','draft')]}"/>
+                                <field name="content_id" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="header_id"
                                        attrs="{'readonly': [('state','!=','draft')] , 'invisible': [('type', '=', 'in')], 'required': [('type', '=', 'out')],}"
                                        options="{'no_create': True,'no_open': True}"/>
 
-                                <field name="letter_magnitude_id" required="True"
+                                <field name="letter_format_id" required="True"
                                        options="{'no_create': True,'no_open': True}"
                                        attrs="{'invisible': [('type', '=', 'in')]}"/>
 
+                                <field name="signatory_id"
+                                       attrs="{'readonly': [('state','!=','draft')] , 'invisible': [('type', '=', 'in')], 'required': [('type', '=', 'out')]}"/>
                                 <field name="use_signature_image"
                                        attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'in')], 'required': [('type', '=', 'out')]}"/>
+                                <field name="date_deadline"
+                                       attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'out')]}"/>
                                 <field name="attachment_ids" attrs="{'readonly': [('state','!=','draft')]}"
                                        widget="many2many_binary"/>
 
@@ -330,9 +334,9 @@
         </record>
 
         <!--action mod letter-->
-        <record id="letter_magnitude_action" model="ir.actions.act_window">
-            <field name="name">Letter magnitude</field>
-            <field name="res_model">letter.magnitude</field>
+        <record id="letter_format_action" model="ir.actions.act_window">
+            <field name="name">Letter Format</field>
+            <field name="res_model">letter.format</field>
             <field name="view_mode">tree,form</field>
             <field name="context"/>
         </record>
@@ -347,18 +351,15 @@
 
         <!--menu item view-->
         <menuitem id="main_letters_menu" name="Letters" web_icon="letter,static/description/icon.png"/>
-        <menuitem id="letter_letter_menu_outgoing" name="Outgoing Letter" parent="main_letters_menu"
-                  action="letter.letter_letter_action_outgoing"
-                  sequence="10" groups="letter.group_letter_see_following"/>
-        <menuitem id="letter_letter_menu_incomming" name="Incoming Letter" parent="main_letters_menu"
-                  action="letter.letter_letter_action_incoming"
-                  sequence="15" groups="letter.group_letter_see_following"/>
+        <menuitem id="letter_letter_menu_outgoing" name="Outgoing Letter" parent="main_letters_menu" action="letter.letter_letter_action_outgoing"
+                  sequence="10" groups="letter.group_letter_see_follower"/>
+        <menuitem id="letter_letter_menu_incomming" name="Incoming Letter" parent="main_letters_menu" action="letter.letter_letter_action_incoming"
+                  sequence="15" groups="letter.group_letter_see_follower"/>
         <menuitem id="letter_menu_config" name="Configuration" parent="main_letters_menu" sequence="20"
                   groups="letter.group_letter_manager"/>
         <menuitem id="letter_content_type_menu" name="Content Type" parent="letter_menu_config"
                   action="letter.letter_content_type_action" sequence="10"/>
-        <menuitem id="letter_magnitude_menu" name="magnitude" parent="letter_menu_config"
-                  action="letter.letter_magnitude_action"
+        <menuitem id="letter_format_menu" name="Format" parent="letter_menu_config" action="letter.letter_format_action"
                   sequence="15"/>
 
         <record id="letter_content_type_view_list" model="ir.ui.view">
@@ -392,10 +393,10 @@
                 </form>
             </field>
         </record>
-        <!--view and action letter.magnitude-->
-        <record id="letter_magnitude_view_list" model="ir.ui.view">
-            <field name="name">letter.magnitude.view.list</field>
-            <field name="model">letter.magnitude</field>
+        <!--view and action letter.format-->
+        <record id="letter_format_view_list" model="ir.ui.view">
+            <field name="name">letter.format.view.list</field>
+            <field name="model">letter.format</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
@@ -406,9 +407,9 @@
             </field>
         </record>
 
-        <record id="letter_magnitude_view_form" model="ir.ui.view">
-            <field name="name">letter.magnitude.view.form</field>
-            <field name="model">letter.magnitude</field>
+        <record id="letter_format_view_form" model="ir.ui.view">
+            <field name="name">letter.format.view.form</field>
+            <field name="model">letter.format</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
