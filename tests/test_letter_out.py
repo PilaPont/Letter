@@ -18,7 +18,7 @@ class TestLetterOut(TestLetter):
         print('Start submit')
         letter_out = self.Letter_out.create({
             'type': 'out',
-            'subject': 'letter out test',
+            'subject': 'Outgoing Letter test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
             'media_type': 'fax',
@@ -38,7 +38,7 @@ class TestLetterOut(TestLetter):
 
         letter_out = self.Letter_out.create({
             'type': 'out',
-            'subject': 'letter out test',
+            'subject': 'Outgoing Letter test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
             'media_type': 'fax',
@@ -64,7 +64,7 @@ class TestLetterOut(TestLetter):
 
         letter_out = self.Letter_out.create({
             'type': 'out',
-            'subject': 'letter out test',
+            'subject': 'Outgoing Letter test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
             'media_type': 'fax',
@@ -88,7 +88,7 @@ class TestLetterOut(TestLetter):
 
         letter_out = self.Letter_out.create({
             'type': 'out',
-            'subject': 'letter out test',
+            'subject': 'Outgoing Letter test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
             'media_type': 'fax',

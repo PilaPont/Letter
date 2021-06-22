@@ -3,7 +3,7 @@ from odoo.tests.common import TransactionCase, tagged
 
 @tagged('post_install', '-at_install')
 class TestLetter(TransactionCase):
-    print('letter out test')
+    print('Outgoing Letter test')
 
     def setUp(self):
         super(TestLetter, self).setUp()
@@ -28,7 +28,7 @@ class TestLetter(TransactionCase):
 
         self.Create_lo = self.Letter_out.create({
             'type': 'out',
-            'subject': 'letter out test',
+            'subject': 'Outgoing Letter test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
             'media_type': 'fax',

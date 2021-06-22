@@ -16,8 +16,8 @@
         'data/data_letter.xml',
         'data/letter_content.xml',
         'reports/report_letter_view.xml',
-        'views/letter.xml',
-        'views/template_view.xml',
+        'views/letter_views.xml',
+        'views/letter_header_views.xml',
         'wizard/wizard_views.xml',
     ],
 

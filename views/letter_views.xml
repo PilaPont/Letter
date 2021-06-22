@@ -1,7 +1,7 @@
 <odoo>
     <data>
-        <record id="view_letter_list" model="ir.ui.view">
-            <field name="name">letter tree</field>
+        <record id="letter_letter_view_list" model="ir.ui.view">
+            <field name="name">letter.letter.view.list</field>
             <field name="model">letter.letter</field>
             <field name="arch" type="xml">
                 <tree>
@@ -23,8 +23,8 @@
             </field>
         </record>
 
-        <record id="view_letter_form" model="ir.ui.view">
-            <field name="name">letter form</field>
+        <record id="letter_letter_view_form" model="ir.ui.view">
+            <field name="name">letter.letter.view.form</field>
             <field name="model">letter.letter</field>
             <field name="arch" type="xml">
                 <form>
@@ -55,23 +55,23 @@
                                 string="Cancel" attrs="{'invisible':['|','|',('type', '=', 'in'), ('state','in',('sent','done','draft','canceled'))
                             ,('is_current_user','=',False)]}" class="oe_highlight" icon="fa-times"/>
 
-                        <button name="register_button" type="object" class="oe_highlight" string="Register"
+                        <button name="action_register" type="object" class="oe_highlight" string="Register"
                                 attrs="{'invisible':['|','|' ,('type', '=', 'out'), ('is_current_user','=',False),('state','not in', ('draft', 'returned'))]}"/>
 
-                        <button name="assign_button" type="object" class="oe_highlight" string="Assign"
+                        <button name="action_assign" type="object" class="oe_highlight" string="Assign"
                                 attrs="{'invisible':['|','|' ,('type', '=', 'out'), ('is_current_user','=',False),('state','not in', ('registered', 'returned'))]}"/>
 
-                        <button name="return_button" type="object" class="oe_highlight" string="Return"
+                        <button name="action_return" type="object" class="oe_highlight" string="Return"
                                 attrs="{'invisible':['|','|' ,('type', '=', 'out'), ('is_current_user','=',False),('state','!=','to_do')]}"/>
 
-                        <button name="done_button" type="object" class="oe_highlight" string="Done"
+                        <button name="action_done" type="object" class="oe_highlight" string="Done"
                                 attrs="{'invisible':['|','|' ,('type', '=', 'out'), ('is_current_user','=',False),('state','!=','to_do')]}"
                                 icon="fa-check"/>
 
-                        <button name="answer_button" type="object" string="Reply"
+                        <button name="action_reply" type="object" string="Reply"
                                 attrs="{'invisible':['|','|' ,('type', '=', 'out'), ('is_current_user','=',False),('state','=', 'draft')]}"
                                 icon="fa-reply" class="oe_highlight"/>
-                        <button name="print_letter" string="Print" type="object"
+                        <button name="action_print" string="Print" type="object"
                                 attrs="{'invisible':[('type', '=', 'in')]}" class="oe_highlight"/>
 
 
@@ -83,7 +83,7 @@
                     </header>
                     <sheet>
                         <group>
-                            <group>
+                            <group name="date_and_ref">
                                 <field name="name"/>
                                 <field name="letter_date"
                                        attrs="{'readonly': ['|', ('state','!=','draft'), ('type', '=', 'out')], 'required': [('type', '=', 'in')]}"/>
@@ -162,9 +162,9 @@
 
                                 <field name="signatory_id"
                                        attrs="{'readonly': [('state','!=','draft')] , 'invisible': [('type', '=', 'in')], 'required': [('type', '=', 'out')]}"/>
-                                <field name="is_digital_signature"
+                                <field name="use_signature_image"
                                        attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'in')], 'required': [('type', '=', 'out')]}"/>
-                                <field name="deadline_date"
+                                <field name="date_deadline"
                                        attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'out')]}"/>
                                 <field name="attachment_ids" attrs="{'readonly': [('state','!=','draft')]}"
                                        widget="many2many_binary"/>
@@ -209,8 +209,8 @@
             </field>
         </record>
 
-        <record id="letter_kanban" model="ir.ui.view">
-            <field name="name">kanban.letter</field>
+        <record id="letter_letter_view_kanban" model="ir.ui.view">
+            <field name="name">letter.letter.view.kanban</field>
             <field name="model">letter.letter</field>
             <field name="arch" type="xml">
                 <kanban quick_create="false">
@@ -244,9 +244,9 @@
             </field>
         </record>
 
-        <!--search for letter out-->
-        <record model="ir.ui.view" id="letter_out_search">
-            <field name="name">search letter out</field>
+        <!--search for Outgoing Letter-->
+        <record id="letter_letter_view_search_outgoing" model="ir.ui.view">
+            <field name="name">letter.letter.view.search.outgoing</field>
             <field name="model">letter.letter</field>
             <field name="arch" type="xml">
                 <search>
@@ -269,8 +269,8 @@
         </record>
 
         <!--search for letter in-->
-        <record model="ir.ui.view" id="letter_in_search">
-            <field name="name">search letter in</field>
+        <record id="letter_letter_view_search_incoming" model="ir.ui.view">
+            <field name="name">letter.letter.view.search.incoming</field>
             <field name="model">letter.letter</field>
             <field name="arch" type="xml">
                 <search>
@@ -293,18 +293,18 @@
         </record>
 
 
-        <!--action view letter out-->
-        <record model="ir.actions.act_window" id="letter.action_letter_out">
-            <field name="name">Letter Out</field>
+        <!--action view Outgoing Letter-->
+        <record id="letter_letter_action_outgoing" model="ir.actions.act_window">
+            <field name="name">Outgoing Letter</field>
             <field name="res_model">letter.letter</field>
             <field name="view_mode">tree,form,kanban</field>
             <field name="view_ids"
                    eval="[(5, 0, 0),
-                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_letter_list')}),
-                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_letter_form')}),
-                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('letter_kanban')}),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('letter_letter_view_list')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('letter_letter_view_form')}),
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('letter_letter_view_kanban')}),
                           ]"/>
-            <field name="search_view_id" ref="letter.letter_out_search"/>
+            <field name="search_view_id" ref="letter.letter_letter_view_search_outgoing"/>
             <field name="context">{
                 'default_type': 'out',
                 'default_user': 1,
@@ -312,38 +312,32 @@
             <field name="domain" eval="[('type', '=', 'out')]"/>
         </record>
         <!--action view in-->
-        <record model="ir.actions.act_window" id="letter.action_letter_in">
-            <field name="name">Letter In</field>
+        <record id="letter_letter_action_incoming" model="ir.actions.act_window">
+            <field name="name">Incoming Letter</field>
             <field name="res_model">letter.letter</field>
             <field name="view_mode">tree,form,kanban</field>
             <field name="view_ids"
                    eval="[(5, 0, 0),
-                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_letter_list')}),
-                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_letter_form')}),
-                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('letter_kanban')}),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('letter_letter_view_list')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('letter_letter_view_form')}),
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('letter_letter_view_kanban')}),
                           ]"/>
-            <field name="search_view_id" ref="letter.letter_in_search"/>
+            <field name="search_view_id" ref="letter.letter_letter_view_search_incoming"/>
             <field name="context">{
                 'default_type': 'in',
             }</field>
             <field name="domain" eval="[('type', '=', 'in')]"/>
         </record>
-        <!--action header letter-->
-        <record model="ir.actions.act_window" id="letter.action_header">
-            <field name="name">Header</field>
-            <field name="res_model">letter.header</field>
-            <field name="view_mode">tree,form</field>
-            <field name="context"/>
-        </record>
+
         <!--action mod letter-->
-        <record model="ir.actions.act_window" id="letter.action_format">
+        <record id="letter_format_action" model="ir.actions.act_window">
             <field name="name">Letter Format</field>
             <field name="res_model">letter.format</field>
             <field name="view_mode">tree,form</field>
             <field name="context"/>
         </record>
         <!--view content type        -->
-        <record model="ir.actions.act_window" id="letter.action_content_type">
+        <record id="letter_content_type_action" model="ir.actions.act_window">
             <field name="name">Content Type</field>
             <field name="res_model">letter.content_type</field>
             <field name="view_mode">tree,form,activity</field>
@@ -353,18 +347,81 @@
 
         <!--menu item view-->
         <menuitem id="main_letters_menu" name="Letters" web_icon="letter,static/description/icon.png"/>
-        <menuitem id="letter_menu_out" name="Letter Out" parent="main_letters_menu" action="letter.action_letter_out"
+        <menuitem id="letter_letter_menu_outgoing" name="Outgoing Letter" parent="main_letters_menu" action="letter.letter_letter_action_outgoing"
                   sequence="10" groups="letter.group_letter_see_follower"/>
-        <menuitem id="letter_menu_in" name="Letter In" parent="main_letters_menu" action="letter.action_letter_in"
+        <menuitem id="letter_letter_menu_incomming" name="Incoming Letter" parent="main_letters_menu" action="letter.letter_letter_action_incoming"
                   sequence="15" groups="letter.group_letter_see_follower"/>
         <menuitem id="letter_menu_config" name="Configuration" parent="main_letters_menu" sequence="20"
                   groups="letter.group_letter_manager"/>
-        <menuitem id="letter_menu_header" name="Letter Header" parent="letter_menu_config" action="letter.action_header"
-                  sequence="5"/>
-        <menuitem id="letter_menu_content_type" name="Content Type" parent="letter_menu_config"
-                  action="letter.action_content_type" sequence="10"/>
-        <menuitem id="letter_menu_format" name="Format" parent="letter_menu_config" action="letter.action_format"
+        <menuitem id="letter_content_type_menu" name="Content Type" parent="letter_menu_config"
+                  action="letter.letter_content_type_action" sequence="10"/>
+        <menuitem id="letter_format_menu" name="Format" parent="letter_menu_config" action="letter.letter_format_action"
                   sequence="15"/>
+
+        <record id="letter_content_type_view_list" model="ir.ui.view">
+            <field name="name">letter.content_type.view.list</field>
+            <field name="model">letter.content_type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="letter_content_type_view_form" model="ir.ui.view">
+            <field name="name">letter.content_type.view.form</field>
+            <field name="model">letter.content_type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="company_id"/>
+                                <field name="active"/>
+                            </group>
+                            <group></group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--view and action letter.format-->
+        <record id="letter_format_view_list" model="ir.ui.view">
+            <field name="name">letter.format.view.list</field>
+            <field name="model">letter.format</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="font_size"/>
+                    <field name="is_default"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="letter_format_view_form" model="ir.ui.view">
+            <field name="name">letter.format.view.form</field>
+            <field name="model">letter.format</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="font_size"/>
+                                <field name="is_default"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
     </data>
 </odoo>
 
