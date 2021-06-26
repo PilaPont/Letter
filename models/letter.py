@@ -42,12 +42,7 @@ class Letter(models.Model):
         ('post', 'Post'),
         ('in_person', 'In person'),
         ('network', 'Social Networks')])
-    meeting_id = fields.Many2one('mail.activity', #fixme: use calendar.event
-                                 domain=lambda self: ['|',
-                                                      ('activity_type_id.category', '=', 'meeting'),
-                                                      ('activity_type_id', '=', self.env.ref(
-                                                          'mail.mail_activity_data_meeting').id)],
-                                 string='Meeting')
+    meeting_id = fields.Many2one(comodel_name='calendar.event')
     partner_id = fields.Many2one(comodel_name='res.partner', required=True, tracking=True)
     phone_id = fields.Many2one('mail.activity',
                                domain=lambda self: ['|', ('activity_type_id.category', '=', 'phonecall'),

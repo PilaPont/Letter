@@ -5,10 +5,10 @@
     A module to handle all sent and received letters, parcels, goods, catalogues and etc. in a company
     """,
     'category': 'Marketing',
-    'author': "Kenevist, Maryam Kia",
+    'author': "Kenevist, Maryam Kia, PmN",
     'website': "https://kenevist.ir",
 
-    'depends': ['base', 'mail', 'user_signature'],
+    'depends': ['base_core', 'mail', 'user_signature', 'calendar'],
     'data': [
         'security/letter_security.xml',
         'security/letter_layout_security.xml',
