@@ -46,7 +46,7 @@ msgid "Access Letter"
 msgstr "دسترسی نامه"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Acknowledge"
 msgstr "تاییدیه دریافت"
 
@@ -82,18 +82,18 @@ msgid "Activity Type Icon"
 msgstr "آیکون نوع فعالیت"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_list
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_list
 msgid "Addressee"
 msgstr "گیرنده"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Approve"
 msgstr "موافقت"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Assign"
 msgstr "تحویل به"
 
@@ -145,7 +145,7 @@ msgid "Can Sign Letter"
 msgstr "حق امضای نامه"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Cancel"
 msgstr "لغو"
 
@@ -160,7 +160,7 @@ msgid "Catalog"
 msgstr "کاتالوگ/بروشور"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Cc"
 msgstr "رونوشت"
 
@@ -202,9 +202,9 @@ msgid "Content"
 msgstr "محتوا"
 
 #. module: letter
-#: model:ir.actions.act_window,name:letter.action_content_type
+#: model:ir.actions.act_window,name:letter.letter_content_type_action
 #: model:ir.model.fields,field_description:letter.field_letter_letter__content_id
-#: model:ir.ui.menu,name:letter.letter_menu_content_type
+#: model:ir.ui.menu,name:letter.letter_content_type_menu
 msgid "Content Type"
 msgstr "نوع محتوا"
 
@@ -242,7 +242,7 @@ msgid "Delivery Man"
 msgstr "پیک"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Delivery Media"
 msgstr "نحوه دریافت"
 
@@ -252,8 +252,8 @@ msgid "Department Manager"
 msgstr "مدیر واحد"
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_letter__is_digital_signature
-msgid "Digital Signature"
+#: model:ir.model.fields,field_description:letter.field_letter_letter__use_signature_image
+msgid "Print Signature"
 msgstr "چاپ امضا"
 
 #. module: letter
@@ -272,12 +272,12 @@ msgstr "نام نمایشی"
 
 #. module: letter
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter__state__done
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Done"
 msgstr "انجام شد"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Draft"
 msgstr "پیش‌نویس"
 
@@ -323,7 +323,7 @@ msgid "Followers (Partners)"
 msgstr "دنبال‌کنندگان (مخاطبین)"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Following"
 msgstr "پیرو"
 
@@ -358,19 +358,19 @@ msgid "Footer Image"
 msgstr "تصویرپایین صفحه"
 
 #. module: letter
-#: model:ir.ui.menu,name:letter.letter_menu_format
+#: model:ir.ui.menu,name:letter.letter_format_menu
 msgid "Format"
 msgstr "قالب"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_incoming
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_outgoing
 msgid "Future Activities"
 msgstr "اقدامات آتی"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_incoming
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_outgoing
 msgid "Group By"
 msgstr "گروه‌بندی برمبنای"
 
@@ -480,8 +480,8 @@ msgid "Last Updated on"
 msgstr "آخرین به‌روزرسانی در"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_incoming
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_outgoing
 msgid "Late Activities"
 msgstr "اقدامات مهلت‌گذشته"
 
@@ -510,7 +510,7 @@ msgid "Letter Date"
 msgstr "تاریخ نامه"
 
 #. module: letter
-#: model:ir.actions.act_window,name:letter.action_format
+#: model:ir.actions.act_window,name:letter.letter_format_action
 #: model:ir.model,name:letter.model_letter_format
 #: model:ir.model.fields,field_description:letter.field_letter_letter__letter_format_id
 msgid "Letter Format"
@@ -524,10 +524,10 @@ msgid "Letter Header"
 msgstr "سربرگ نامه"
 
 #. module: letter
-#: model:ir.actions.act_window,name:letter.action_letter_in
+#: model:ir.actions.act_window,name:letter.letter_letter_action_incoming
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter__type__in
-#: model:ir.ui.menu,name:letter.letter_menu_in
-msgid "Letter In"
+#: model:ir.ui.menu,name:letter.letter_letter_menu_incomming
+msgid "Incoming Letter"
 msgstr "نامه وارده"
 
 #. module: letter
@@ -546,15 +546,15 @@ msgid "Letter Number"
 msgstr "شماره نامه"
 
 #. module: letter
-#: model:ir.actions.act_window,name:letter.action_letter_out
+#: model:ir.actions.act_window,name:letter.letter_letter_action_outgoing
 #: model:ir.actions.report,name:letter.report_letter_out
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter__type__out
-#: model:ir.ui.menu,name:letter.letter_menu_out
-msgid "Letter Out"
+#: model:ir.ui.menu,name:letter.letter_letter_menu_outgoing
+msgid "Outgoing Letter"
 msgstr "نامه صادره"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Letter Series"
 msgstr "سابقه نامه"
 
@@ -564,7 +564,7 @@ msgid "Letter Text"
 msgstr "متن نامه"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Letter text"
 msgstr "متن نامه"
 
@@ -675,12 +675,12 @@ msgid "Number of unread messages"
 msgstr "تعداد پیام‌های خوانده‌نشده"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_outgoing
 msgid "Number, Addressee or Subject"
 msgstr "شماره نامه، گیرنده یا عنوان"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_incoming
 msgid "Number, Sender or Subject"
 msgstr "شماره نامه، فرستنده یا عنوان"
 
@@ -715,13 +715,13 @@ msgid "Post"
 msgstr "پست"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Print"
 msgstr "چاپ"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_list
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_list
 msgid "Receiving Date"
 msgstr "تاریخ دریافت"
 
@@ -741,7 +741,7 @@ msgid "Reference Letter Type"
 msgstr "نوع مرجع نامه"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Register"
 msgstr "ثبت"
 
@@ -751,24 +751,24 @@ msgid "Registered"
 msgstr "ثبت‌شده"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Reply"
 msgstr "پاسخ"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Reply To"
 msgstr "در جواب"
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_letter__deadline_date
+#: model:ir.model.fields,field_description:letter.field_letter_letter__date_deadline
 msgid "Response Deadline"
 msgstr "مهلت پاسخ"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__user_id
-#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_incoming
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_outgoing
 msgid "Responsible"
 msgstr "متصدی"
 
@@ -778,7 +778,7 @@ msgid "Responsible User"
 msgstr "کاربر مسئول"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Return"
 msgstr "بازگرداندن"
 
@@ -813,12 +813,12 @@ msgid "See Following"
 msgstr "نامه‌های خود"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Send"
 msgstr "ارسال"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Send Media"
 msgstr "نحوه ارسال"
 
@@ -828,8 +828,8 @@ msgid "Send Receive Date"
 msgstr "تاریخ ارسال/دریافت"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_list
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_list
 msgid "Sender"
 msgstr "فرستنده"
 
@@ -839,12 +839,12 @@ msgid "Sender Letter Number"
 msgstr "شماره نامه ارسالی"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_list
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_list
 msgid "Sending Date"
 msgstr "تاریخ ارسال"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Sending date"
 msgstr "تاریخ ارسال"
 
@@ -859,8 +859,8 @@ msgid "Series"
 msgstr "سابقه"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_incoming
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_outgoing
 msgid "Show all opportunities for which the next action date is before today"
 msgstr ""
 "نمایش تمام موقعیت‌های فروشی که تاریخ سررسید اقدام بعدی آنها گدشته است."
@@ -877,8 +877,8 @@ msgstr "شبکه‌های اجتماعی"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__state
-#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_incoming
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_outgoing
 msgid "State"
 msgstr "وضعیت"
 
@@ -898,7 +898,7 @@ msgstr ""
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__subject
 #: model:ir.model.fields,field_description:letter.field_letter_letter__subject
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Subject"
 msgstr "موضوع"
 
@@ -908,7 +908,7 @@ msgid "Subject:"
 msgstr "موضوع:"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.view_letter_form
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Submit"
 msgstr "تکمیل"
 
@@ -928,8 +928,8 @@ msgid "To Do"
 msgstr "اقدام"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_in_search
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_search
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_incoming
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_outgoing
 msgid "Today Activities"
 msgstr "اقدامات امروز"
 
