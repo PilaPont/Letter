@@ -51,10 +51,10 @@ class TestAccessRights(TestLetter):
             'subject': 'Outgoing Letter test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
-            'delivery_method': 'fax',
+            'media_type': 'fax',
             'signatory_id': 1,
             'content_id': self.create_content.id,
-            'layout_id': self.create_layout.id,
+            'layout_id': self.create_header.id,
             'state': 'draft',
         })
 
@@ -62,7 +62,7 @@ class TestAccessRights(TestLetter):
             'name': 'test1',
         })
 
-        self.layout = self.Layout.create({
+        self.header = self.Header.create({
             'name': 'temp',
             'language_id': 2,
         })
@@ -87,18 +87,18 @@ class TestAccessRights(TestLetter):
             self.content.with_user(self.user_signa).read()
 
         self.content.with_user(self.user_config).read()
-        self.layout.with_user(self.user_config).read()
+        self.header.with_user(self.user_config).read()
 
         self.content.with_user(self.user_config).write({
             'name': 'testk',
         })
 
-        self.layout.with_user(self.user_config).write({
+        self.header.with_user(self.user_config).write({
             'name': 'temp two',
             'language_id': 1,
         })
         with self.assertRaises(AccessError):
-            self.layout.with_user(self.user_signa).write({
+            self.header.with_user(self.user_signa).write({
                 'name': 'temp two',
             })
 
@@ -111,22 +111,22 @@ class TestAccessRights(TestLetter):
             })
 
         self.env['letter.layout'].with_user(self.user_config).create({
-            'name': 'layout aria',
+            'name': 'header aria',
             'language_id': 1,
         })
         with self.assertRaises(AccessError):
             self.env['letter.layout'].with_user(self.user_see_all).create({
-                'name': 'layout aria',
+                'name': 'header aria',
                 'language_id': 1,
             })
 
         with self.assertRaises(AccessError):
-            self.layout.with_user(self.user_see_all).unlink()
+            self.header.with_user(self.user_see_all).unlink()
 
         with self.assertRaises(AccessError):
             self.content.with_user(self.user_signa).unlink()
 
         self.content.with_user(self.user_config).unlink()
-        self.layout.with_user(self.user_config).unlink()
+        self.header.with_user(self.user_config).unlink()
 
         print('ended config user 222')

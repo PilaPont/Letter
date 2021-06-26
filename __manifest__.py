@@ -11,13 +11,13 @@
     'depends': ['base', 'mail', 'user_signature'],
     'data': [
         'security/letter_security.xml',
-        'security/template_security.xml',
+        'security/letter_layout_security.xml',
         'security/ir.model.access.csv',
         'data/data_letter.xml',
         'data/letter_content.xml',
         'reports/report_letter_view.xml',
         'views/letter_views.xml',
-        'views/letter_header_views.xml',
+        'views/letter_layout_views.xml',
         'wizard/wizard_views.xml',
     ],
 

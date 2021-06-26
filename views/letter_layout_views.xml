@@ -2,7 +2,7 @@
     <data>
 
 
-        <record id="letter_layout_view_list" model="ir.ui.view">
+        <record id="letter_header_view_list" model="ir.ui.view">
             <field name="name">letter.layout.view.list</field>
             <field name="model">letter.layout</field>
             <field name="arch" type="xml">
@@ -13,7 +13,7 @@
             </field>
         </record>
 
-        <record id="letter_layout_view_form" model="ir.ui.view">
+        <record id="letter_header_view_form" model="ir.ui.view">
             <field name="name">letter.layout.view.form</field>
             <field name="model">letter.layout</field>
             <field name="arch" type="xml">
@@ -29,31 +29,39 @@
                             <group>
                                 <field name="header_height"/>
                                 <field name="footer_height"/>
+                                <field name="text_start" attrs="{'invisible':[('layout_type','!=','split')]}"/>
                             </group>
                             <group>
                                 <field name="page_size"/>
                                 <field name="page_height" attrs="{'invisible':[('page_size','!=','custom')]}"/>
                                 <field name="page_width" attrs="{'invisible':[('page_size','!=','custom')]}"/>
-                            </group>
-                            <group>
-                                <field name="is_default"/>
+                                <field name="orientation"/>
                             </group>
                         </group>
+                        <group>
+                            <field name="layout_type"/>
+                        </group>
+                        <group string="Header" attrs="{'invisible':[('layout_type','!=','split')]}">
+                            <field name="header_image" widget="image" nolabel="1"/>
+                        </group>
                         <group string="Background">
-                            <field name="background_image" widget="pdf_viewer" nolabel="1" class="text-center"/>
+                            <field name="background_image" widget="image" nolabel="1"/>
+                        </group>
+                        <group string="Footer" attrs="{'invisible':[('layout_type','!=','split')]}">
+                            <field name="footer_image" widget="image" nolabel="1"/>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-        <!--action layout letter-->
-        <record model="ir.actions.act_window" id="letter.action_layout">
-            <field name="name">Layout</field>
+        <!--action header letter-->
+        <record model="ir.actions.act_window" id="letter.action_header">
+            <field name="name">Header</field>
             <field name="res_model">letter.layout</field>
             <field name="view_mode">tree,form</field>
             <field name="context"/>
         </record>
-        <menuitem id="letter_menu_layout" name="Layouts" parent="letter_menu_config" action="letter.action_layout"
+        <menuitem id="letter_menu_header" name="Letter Header" parent="letter_menu_config" action="letter.action_header"
                   sequence="5"/>
 
     </data>

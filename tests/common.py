@@ -11,9 +11,9 @@ class TestLetter(TransactionCase):
         self.ResUser = self.env['res.users']
         self.Partner = self.env['res.partner']
         self.Content = self.env['letter.content_type']
-        self.Layout = self.env['letter.layout']
+        self.Header = self.env['letter.layout']
 
-        self.create_layout = self.Layout.create({
+        self.create_header = self.Header.create({
             'name': 'template',
             'language_id': 1,
         })
@@ -31,10 +31,10 @@ class TestLetter(TransactionCase):
             'subject': 'Outgoing Letter test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
-            'delivery_method': 'fax',
+            'media_type': 'fax',
             'signatory_id': 1,
             'content_id': self.create_content.id,
-            'layout_id': self.create_layout.id,
+            'layout_id': self.create_header.id,
             'state': 'draft',
 
         })
