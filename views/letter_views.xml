@@ -152,11 +152,11 @@
                                        attrs="{'invisible': [('media_type', '!=', 'email')],
                                        'required': [('media_type', '=', 'email')],'readonly': [('state','!=','draft')]}"/>
                                 <field name="content_id" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="header_id"
+                                <field name="layout_id"
                                        attrs="{'readonly': [('state','!=','draft')] , 'invisible': [('type', '=', 'in')], 'required': [('type', '=', 'out')],}"
                                        options="{'no_create': True,'no_open': True}"/>
 
-                                <field name="letter_format_id" required="True"
+                                <field name="letter_magnitude_id" required="True"
                                        options="{'no_create': True,'no_open': True}"
                                        attrs="{'invisible': [('type', '=', 'in')]}"/>
 
@@ -330,9 +330,9 @@
         </record>
 
         <!--action mod letter-->
-        <record id="letter_format_action" model="ir.actions.act_window">
-            <field name="name">Letter Format</field>
-            <field name="res_model">letter.format</field>
+        <record id="letter_magnitude_action" model="ir.actions.act_window">
+            <field name="name">Letter magnitude</field>
+            <field name="res_model">letter.magnitude</field>
             <field name="view_mode">tree,form</field>
             <field name="context"/>
         </record>
@@ -348,14 +348,14 @@
         <!--menu item view-->
         <menuitem id="main_letters_menu" name="Letters" web_icon="letter,static/description/icon.png"/>
         <menuitem id="letter_letter_menu_outgoing" name="Outgoing Letter" parent="main_letters_menu" action="letter.letter_letter_action_outgoing"
-                  sequence="10" groups="letter.group_letter_see_follower"/>
+                  sequence="10" groups="letter.group_letter_see_following"/>
         <menuitem id="letter_letter_menu_incomming" name="Incoming Letter" parent="main_letters_menu" action="letter.letter_letter_action_incoming"
-                  sequence="15" groups="letter.group_letter_see_follower"/>
+                  sequence="15" groups="letter.group_letter_see_following"/>
         <menuitem id="letter_menu_config" name="Configuration" parent="main_letters_menu" sequence="20"
                   groups="letter.group_letter_manager"/>
         <menuitem id="letter_content_type_menu" name="Content Type" parent="letter_menu_config"
                   action="letter.letter_content_type_action" sequence="10"/>
-        <menuitem id="letter_format_menu" name="Format" parent="letter_menu_config" action="letter.letter_format_action"
+        <menuitem id="letter_magnitude_menu" name="magnitude" parent="letter_menu_config" action="letter.letter_magnitude_action"
                   sequence="15"/>
 
         <record id="letter_content_type_view_list" model="ir.ui.view">
@@ -389,10 +389,10 @@
                 </form>
             </field>
         </record>
-        <!--view and action letter.format-->
-        <record id="letter_format_view_list" model="ir.ui.view">
-            <field name="name">letter.format.view.list</field>
-            <field name="model">letter.format</field>
+        <!--view and action letter.magnitude-->
+        <record id="letter_magnitude_view_list" model="ir.ui.view">
+            <field name="name">letter.magnitude.view.list</field>
+            <field name="model">letter.magnitude</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
@@ -403,9 +403,9 @@
             </field>
         </record>
 
-        <record id="letter_format_view_form" model="ir.ui.view">
-            <field name="name">letter.format.view.form</field>
-            <field name="model">letter.format</field>
+        <record id="letter_magnitude_view_form" model="ir.ui.view">
+            <field name="name">letter.magnitude.view.form</field>
+            <field name="model">letter.magnitude</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>

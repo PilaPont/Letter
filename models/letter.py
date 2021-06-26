@@ -16,8 +16,8 @@ class Letter(models.Model):
         if self.type == 'in':
             res['type'] = 'in'
         elif self.type == 'out':
-            letter_format = self.env['letter.format'].search([('is_default', '=', True)])
-            res['letter_format_id'] = letter_format[0].id if len(letter_format) > 0 else False
+            letter_magnitude = self.env['letter.magnitude'].search([('is_default', '=', True)])
+            res['letter_magnitude_id'] = letter_magnitude[0].id if len(letter_magnitude) > 0 else False
             res['type'] = 'out'
         return res
 
@@ -29,12 +29,12 @@ class Letter(models.Model):
                                  required=True, tracking=True)
     date_deadline = fields.Date(string='Response Deadline')
     has_attachment = fields.Boolean(compute='_compute_has_attachment', store=True)
-    header_id = fields.Many2one('letter.header', string='Letter Header')
+    layout_id = fields.Many2one('letter.layout', string='Letter Layout')
     is_current_user = fields.Boolean(compute='_compute_check_user', store=False)
     is_final = fields.Boolean(compute='_compute_is_final')
     letter_date = fields.Date()
-    letter_format_id = fields.Many2one('letter.format', string='Letter Format',
-                                       default=lambda self: self.env.ref('letter.normal_format'))
+    letter_magnitude_id = fields.Many2one('letter.magnitude', string='Letter Magnitude',
+                                       default=lambda self: self.env.ref('letter.normal_magnitude'))
     letter_text = fields.Html(string='Letter Text')
     media_type = fields.Selection([
         ('fax', 'Fax'),
@@ -43,7 +43,7 @@ class Letter(models.Model):
         ('post', 'Post'),
         ('in_person', 'In person'),
         ('network', 'Social Networks')])
-    meeting_id = fields.Many2one('mail.activity',
+    meeting_id = fields.Many2one('mail.activity', #fixme: use calendar.event
                                  domain=lambda self: ['|',
                                                       ('activity_type_id.category', '=', 'meeting'),
                                                       ('activity_type_id', '=', self.env.ref(
@@ -279,7 +279,7 @@ class Letter(models.Model):
     def _concealed_letter_ids(self, data):
         invisible_letters = []
         for record in data:
-            if self.env.user.has_group('letter.group_letter_see_follower') and self.env.user.partner_id.id not in \
+            if self.env.user.has_group('letter.group_letter_see_following') and self.env.user.partner_id.id not in \
                     record['message_partner_ids']:
                 invisible_letters.append(record)
         return invisible_letters
@@ -288,11 +288,11 @@ class Letter(models.Model):
         self.activity_schedule('letter.mail_activity_letter', user_id=user_id)
 
 
-class LetterFormat(models.Model):
-    _name = 'letter.format'
-    _description = 'Letter Format'
+class LetterMagnitude(models.Model):
+    _name = 'letter.magnitude'
+    _description = 'Letter Magnitude'
 
-    name = fields.Char(string="Compact Format Name", required=True, translate=True)
+    name = fields.Char(string="Magnitude Name", required=True, translate=True)
     font_size = fields.Integer(string='Font Size', required=True)
     is_default = fields.Boolean(string='Default')
     active = fields.Boolean(string='Active', default=True)

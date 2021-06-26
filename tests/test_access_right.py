@@ -10,7 +10,7 @@ class TestAccessRights(TestLetter):
         Users = self.env['res.users'].with_context(no_reset_password=True)
 
         group_see_all = self.env.ref('letter.group_letter_out_see_all')
-        group_follower = self.env.ref('letter.group_letter_out_see_follower')
+        group_follower = self.env.ref('letter.group_letter_out_see_following')
         group_signature = self.env.ref('letter.group_can_sign_letter')
         group_secretariat = self.env.ref('letter.group_access_secretariat')
         group_config = self.env.ref('base.group_no_one')
@@ -54,7 +54,7 @@ class TestAccessRights(TestLetter):
             'media_type': 'fax',
             'signatory_id': 1,
             'content_id': self.create_content.id,
-            'header_id': self.create_header.id,
+            'layout_id': self.create_header.id,
             'state': 'draft',
         })
 
@@ -110,12 +110,12 @@ class TestAccessRights(TestLetter):
                 'name': 'test3',
             })
 
-        self.env['letter.header'].with_user(self.user_config).create({
+        self.env['letter.layout'].with_user(self.user_config).create({
             'name': 'header aria',
             'language_id': 1,
         })
         with self.assertRaises(AccessError):
-            self.env['letter.header'].with_user(self.user_see_all).create({
+            self.env['letter.layout'].with_user(self.user_see_all).create({
                 'name': 'header aria',
                 'language_id': 1,
             })

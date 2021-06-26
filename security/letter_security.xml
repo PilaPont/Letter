@@ -12,17 +12,24 @@
             <field name="sequence">1000</field>
         </record>
 
+        <record id="sign_letter" model="ir.module.category">
+            <field name="parent_id" ref="letter.letter_category"/>
+            <field name="name">Sign Letter</field>
+            <field name="sequence">1006</field>
+        </record>
+
         <!--SEE FOLLOWING-->
-        <record id="group_letter_see_follower" model="res.groups">
+        <record id="group_letter_see_following" model="res.groups">
             <field name="name">See Following</field>
             <field name="category_id" ref="access_letter_category"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
 
         <!--SEE ALL-->
         <record model="res.groups" id="group_letter_see_all">
             <field name="name">See All</field>
             <field name="category_id" ref="access_letter_category"/>
-            <field name="implied_ids" eval="[(4,ref('group_letter_see_follower'))]"/>
+            <field name="implied_ids" eval="[(4,ref('group_letter_see_following'))]"/>
         </record>
 
         <!--SECRETARIAT-->
@@ -32,8 +39,15 @@
             <field name="implied_ids" eval="[(4,ref('group_letter_see_all'))]"/>
         </record>
 
+        <!-- CAN SIGN -->
+        <record id="group_can_sign_letter" model="res.groups">
+            <field name="name">Can Sign Letter</field>
+            <field name="implied_ids" eval="[(4,ref('letter.group_letter_see_following'))]"/>
+            <field name="category_id" ref="letter.sign_letter"/>
+        </record>
+
         <record model="ir.rule" id="letter_rule">
-            <field name="name">Letter</field>
+            <field name="name">Letter Company</field>
             <field name="model_id" ref="model_letter_letter"/>
             <field name="global" eval="True"/>
             <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>

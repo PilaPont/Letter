@@ -16,23 +16,23 @@
             <field name="company_id" eval="False"/>
         </record>
 
-        <record id="ultra_format" model="letter.format">
+        <record id="ultra_magnitude" model="letter.magnitude">
             <field name="name">Ultra Compact</field>
             <field name="font_size">80</field>
         </record>
 
-        <record id="compact_format" model="letter.format">
+        <record id="compact_magnitude" model="letter.magnitude">
             <field name="name">Compact</field>
             <field name="font_size">90</field>
         </record>
 
-        <record id="normal_format" model="letter.format">
+        <record id="normal_magnitude" model="letter.magnitude">
             <field name="name">Normal</field>
             <field name="font_size">110</field>
             <field name="is_default">True</field>
         </record>
 
-        <record id="large_format" model="letter.format">
+        <record id="large_magnitude" model="letter.magnitude">
             <field name="name">Large</field>
             <field name="font_size">115</field>
         </record>
