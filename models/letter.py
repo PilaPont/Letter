@@ -35,7 +35,7 @@ class Letter(models.Model):
     letter_magnitude_id = fields.Many2one('letter.magnitude', string='Letter Magnitude',
                                        default=lambda self: self.env.ref('letter.normal_magnitude'))
     letter_text = fields.Html(string='Letter Text')
-    media_type = fields.Selection([
+    delivery_method = fields.Selection([
         ('fax', 'Fax'),
         ('email', 'E-mail'),
         ('delivery', 'Delivery Man'),
@@ -43,6 +43,7 @@ class Letter(models.Model):
         ('in_person', 'In person'),
         ('network', 'Social Networks')])
     meeting_id = fields.Many2one(comodel_name='calendar.event')
+    messenger = fields.Char()
     partner_id = fields.Many2one(comodel_name='res.partner', required=True, tracking=True)
     phone_id = fields.Many2one('mail.activity',
                                domain=lambda self: ['|', ('activity_type_id.category', '=', 'phonecall'),
@@ -59,7 +60,7 @@ class Letter(models.Model):
         ('phone', 'Following a Phone Call')], string='Reference', required=True, default='draft')
     related_letter_ids = fields.Many2many('letter.letter', string='Child letter', compute='_compute_related_letter_ids',
                                           store=False, copy=False)
-    role_based_email = fields.Many2one(comodel_name='ir.mail_server', string='E-mail')
+    outgoing_mail_server_id = fields.Many2one(comodel_name='ir.mail_server', string='E-mail')
     series = fields.Integer('Series', copy=False)
     send_receive_date = fields.Date(tracking=True)
     sender_letter_number = fields.Char(string='Sender Letter Number')

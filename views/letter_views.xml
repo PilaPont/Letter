@@ -111,16 +111,14 @@
                                 </div>
                                 <field name="send_receive_date" nolabel="1"
                                        attrs="{'readonly': [('type', '=', 'out')], 'required': [('type', '=', 'in')]}"/>
-                                <field name="media_type" string='Send Media'
-                                       attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'in')]}"
-                                       required="True"/>
-                                <field name="media_type" string='Delivery Media'
+                                <field name="delivery_method" string='Delivery Media'
                                        required="True"
                                        attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'out')]}"/>
-
-                                <field name="role_based_email"
-                                       attrs="{'invisible': [('media_type', '!=', 'email')],
-                                       'required': [('media_type', '=', 'email')],'readonly': [('state','!=','draft')]}"/>
+                                <field name="outgoing_mail_server_id"
+                                       attrs="{'invisible': ['!',('delivery_method', '!=', 'email'),('type','!=','out')],
+                                       'readonly': [('state','!=','draft')]}"/>
+                                <field name="messenger" attrs="{'invisible': ['!',('delivery_method', '!=', 'in_person'),('type','!=','in')],
+                                       'readonly': [('state','!=','draft')]}"/>
                                 <field name="content_id" attrs="{'readonly': [('state','!=','draft')]}"/>
                             </group>
                             <group name="follow_up" string="Follow up">

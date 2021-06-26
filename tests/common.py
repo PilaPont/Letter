@@ -31,7 +31,7 @@ class TestLetter(TransactionCase):
             'subject': 'Outgoing Letter test',
             'partner_id': self.create_partner.id,
             'reference_type': 'new',
-            'media_type': 'fax',
+            'delivery_method': 'fax',
             'signatory_id': 1,
             'content_id': self.create_content.id,
             'layout_id': self.create_header.id,
