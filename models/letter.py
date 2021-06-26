@@ -208,7 +208,7 @@ class Letter(models.Model):
             letter.write({'user_id': self.create_uid.id, 'state': 'draft'})
 
     def action_print(self):
-        return self.env.ref('letter.report_letter_out').report_action(self)
+        return self.env.ref('letter.report_letter').report_action(self)
 
     def action_register(self):
         for letter in self:
