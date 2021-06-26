@@ -14,6 +14,7 @@ class LetterLayout(models.Model):
     footer_image = fields.Image(string="Footer Image", attachment=True)
     header_height = fields.Integer('Header Height (mm)')
     header_image = fields.Image(string="Header Image", attachment=True)
+    is_default = fields.Boolean(string="Use as default")
     language_id = fields.Many2one('res.lang', string="language", required=True)
     layout_type = fields.Selection(selection=[('full', 'Full page'), ('split', 'Different header and Footer')],
                                    default='full')

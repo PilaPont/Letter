@@ -83,25 +83,10 @@
                     </header>
                     <sheet>
                         <group>
-                            <group name="date_and_ref">
+                            <group name="summery" string="Summery">
                                 <field name="name"/>
                                 <field name="letter_date"
                                        attrs="{'readonly': ['|', ('state','!=','draft'), ('type', '=', 'out')], 'required': [('type', '=', 'in')]}"/>
-                                <div class="o_td_label">
-                                    <label for="send_receive_date" string="Receiving Date" style="font-weight:bold;"
-                                           attrs="{'invisible': [('type', '=', 'out')]}"/>
-                                    <label for="send_receive_date" string="Sending date" style="font-weight:bold;"
-                                           attrs="{'invisible': [('type', '=', 'in')]}"/>
-                                </div>
-                                <field name="send_receive_date" nolabel="1"
-                                       attrs="{'readonly': [('type', '=', 'out')], 'required': [('type', '=', 'in')]}"/>
-                            </group>
-                        </group>
-                        <group colspan="2" col="2">
-                            <group>
-                                <field name="subject"
-                                       attrs="{'readonly': [('state','!=','draft')]}"
-                                       required="True" placeholder="Subject"/>
                                 <div class="o_td_label">
                                     <label for="partner_id" string="Addressee" style="font-weight:bold;"
                                            attrs="{'invisible': [('type', '=', 'in')]}"/>
@@ -113,34 +98,19 @@
                                        required="True"/>
                                 <field name="sender_letter_number"
                                        attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'out')]}"/>
-                                <field name="user_id"
-                                       attrs="{'readonly': [('state','!=','draft')],'required': True}"/>
-                                <field name="company_id" groups="base.group_multi_company"/>
-                                <field name="reference_type" attrs="{'readonly': [('state','!=','draft')]}"
-                                       required="True"/>
-
-                                <div class="o_td_label">
-                                    <label for="reference_letter_id" string="Following" style="font-weight:bold;"
-                                           attrs="{'invisible': [('reference_type', '!=', 'following')],}"/>
-                                    <label for="reference_letter_id" string="Reply To" style="font-weight:bold;"
-                                           attrs="{'invisible': [('reference_type', '!=', 'reply_to')]}"/>
-                                </div>
-                                <field name="reference_letter_id" widget="selection" nolabel="1"
-                                       attrs="{'required': [('reference_type', 'in', ('following', 'reply_to'))],
-                                        'invisible': [('reference_type', 'not in', ('following', 'reply_to'))],'readonly': [('state','!=','draft')]}"
-                                       domain="[('type', '=', reference_letter_type),('name','!=',False)]"/>
-
-                                <field name="phone_id"
-                                       attrs="{'required': [('reference_type', '=', 'phone')],
-                                                       'invisible': [('reference_type', '!=', 'phone')]}"
-                                       options="{'no_create': True, 'no_create_edit':True}"/>
-                                <field name="meeting_id"
-                                       attrs="{'required': [('reference_type', '=', 'meeting')],
-                                                       'invisible': [('reference_type', '!=', 'meeting')]}"
-                                       options="{'no_create': True, 'no_create_edit':True}"/>
-
+                                <field name="subject"
+                                       attrs="{'readonly': [('state','!=','draft')]}"
+                                       required="True" placeholder="Subject"/>
                             </group>
-                            <group>
+                            <group name="send_receive" string="Send/Receive">
+                                <div class="o_td_label">
+                                    <label for="send_receive_date" string="Receiving Date" style="font-weight:bold;"
+                                           attrs="{'invisible': [('type', '=', 'out')]}"/>
+                                    <label for="send_receive_date" string="Sending date" style="font-weight:bold;"
+                                           attrs="{'invisible': [('type', '=', 'in')]}"/>
+                                </div>
+                                <field name="send_receive_date" nolabel="1"
+                                       attrs="{'readonly': [('type', '=', 'out')], 'required': [('type', '=', 'in')]}"/>
                                 <field name="media_type" string='Send Media'
                                        attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'in')]}"
                                        required="True"/>
@@ -152,6 +122,40 @@
                                        attrs="{'invisible': [('media_type', '!=', 'email')],
                                        'required': [('media_type', '=', 'email')],'readonly': [('state','!=','draft')]}"/>
                                 <field name="content_id" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            </group>
+                            <group name="follow_up" string="Follow up">
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="user_id"
+                                       attrs="{'readonly': [('state','!=','draft')],'required': True}"/>
+                                <field name="date_deadline"
+                                       attrs="{'required': [('state','!=','draft'),('type', '=', 'in')], 'invisible': [('type', '=', 'out')]}"/>
+                                <field name="signatory_id"
+                                       attrs="{'readonly': [('state','!=','draft')] , 'invisible': [('type', '=', 'in')], 'required': [('type', '=', 'out')]}"/>
+
+                                <field name="reference_type" attrs="{'readonly': [('state','!=','draft')]}"
+                                       required="True"/>
+                                <div class="o_td_label">
+                                    <label for="reference_letter_id" string="Following" style="font-weight:bold;"
+                                           attrs="{'invisible': [('reference_type', '!=', 'following')],}"/>
+                                    <label for="reference_letter_id" string="Reply To" style="font-weight:bold;"
+                                           attrs="{'invisible': [('reference_type', '!=', 'reply_to')]}"/>
+                                </div>
+                                <field name="reference_letter_id" widget="selection" nolabel="1"
+                                       attrs="{'required': [('reference_type', 'in', ('following', 'reply_to'))],
+                                        'invisible': [('reference_type', 'not in', ('following', 'reply_to'))],'readonly': [('state','!=','draft')]}"
+                                       domain="[('type', '=', reference_letter_type),('name','!=',False)]"/>
+                                <field name="phone_id"
+                                       attrs="{'required': [('reference_type', '=', 'phone')],
+                                                       'invisible': [('reference_type', '!=', 'phone')]}"
+                                       options="{'no_create': True, 'no_create_edit':True}"/>
+                                <field name="meeting_id"
+                                       attrs="{'required': [('reference_type', '=', 'meeting')],
+                                                       'invisible': [('reference_type', '!=', 'meeting')]}"
+                                       options="{'no_create': True, 'no_create_edit':True}"/>
+
+                            </group>
+                            <group name="content" string="Content">
+
                                 <field name="layout_id"
                                        attrs="{'readonly': [('state','!=','draft')] , 'invisible': [('type', '=', 'in')], 'required': [('type', '=', 'out')],}"
                                        options="{'no_create': True,'no_open': True}"/>
@@ -160,12 +164,8 @@
                                        options="{'no_create': True,'no_open': True}"
                                        attrs="{'invisible': [('type', '=', 'in')]}"/>
 
-                                <field name="signatory_id"
-                                       attrs="{'readonly': [('state','!=','draft')] , 'invisible': [('type', '=', 'in')], 'required': [('type', '=', 'out')]}"/>
                                 <field name="use_signature_image"
                                        attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'in')], 'required': [('type', '=', 'out')]}"/>
-                                <field name="date_deadline"
-                                       attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'out')]}"/>
                                 <field name="attachment_ids" attrs="{'readonly': [('state','!=','draft')]}"
                                        widget="many2many_binary"/>
 
@@ -347,15 +347,18 @@
 
         <!--menu item view-->
         <menuitem id="main_letters_menu" name="Letters" web_icon="letter,static/description/icon.png"/>
-        <menuitem id="letter_letter_menu_outgoing" name="Outgoing Letter" parent="main_letters_menu" action="letter.letter_letter_action_outgoing"
+        <menuitem id="letter_letter_menu_outgoing" name="Outgoing Letter" parent="main_letters_menu"
+                  action="letter.letter_letter_action_outgoing"
                   sequence="10" groups="letter.group_letter_see_following"/>
-        <menuitem id="letter_letter_menu_incomming" name="Incoming Letter" parent="main_letters_menu" action="letter.letter_letter_action_incoming"
+        <menuitem id="letter_letter_menu_incomming" name="Incoming Letter" parent="main_letters_menu"
+                  action="letter.letter_letter_action_incoming"
                   sequence="15" groups="letter.group_letter_see_following"/>
         <menuitem id="letter_menu_config" name="Configuration" parent="main_letters_menu" sequence="20"
                   groups="letter.group_letter_manager"/>
         <menuitem id="letter_content_type_menu" name="Content Type" parent="letter_menu_config"
                   action="letter.letter_content_type_action" sequence="10"/>
-        <menuitem id="letter_magnitude_menu" name="magnitude" parent="letter_menu_config" action="letter.letter_magnitude_action"
+        <menuitem id="letter_magnitude_menu" name="magnitude" parent="letter_menu_config"
+                  action="letter.letter_magnitude_action"
                   sequence="15"/>
 
         <record id="letter_content_type_view_list" model="ir.ui.view">

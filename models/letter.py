@@ -11,14 +11,13 @@ class Letter(models.Model):
     _description = 'Letter'
 
     @api.model
-    def default_get(self, fields):
-        res = super(Letter, self).default_get(fields)
-        if self.type == 'in':
-            res['type'] = 'in'
-        elif self.type == 'out':
-            letter_magnitude = self.env['letter.magnitude'].search([('is_default', '=', True)])
-            res['letter_magnitude_id'] = letter_magnitude[0].id if len(letter_magnitude) > 0 else False
-            res['type'] = 'out'
+    def default_get(self, fields_list):
+        res = super(Letter, self).default_get(fields_list)
+        if res.get('type') == 'in':
+            res['send_receive_date'] = fields.Date.today()
+        elif res.get('type') == 'out':
+            res['letter_magnitude_id'] = self.env['letter.magnitude'].search([('is_default', '=', True)], limit=1).id
+            res['layout_id'] = self.env['letter.layout'].search([('is_default', '=', True)], limit=1).id
         return res
 
     name = fields.Char(string="Letter Number", readonly=True, copy=False)
@@ -27,7 +26,7 @@ class Letter(models.Model):
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id.id)
     content_id = fields.Many2one(comodel_name='letter.content_type', string='Content Type',
                                  required=True, tracking=True)
-    date_deadline = fields.Date(string='Response Deadline')
+    date_deadline = fields.Date(string='Response Deadline', tracking=True)
     has_attachment = fields.Boolean(compute='_compute_has_attachment', store=True)
     layout_id = fields.Many2one('letter.layout', string='Letter Layout')
     is_current_user = fields.Boolean(compute='_compute_check_user', store=False)
@@ -128,7 +127,7 @@ class Letter(models.Model):
             letter = super(Letter, self).create(values)
             letter.series = letter.id
         if values.get('type') == 'out' and values.get('user_id'):
-            letter.__notify_user(values['user_id'])
+            letter._notify_user(values['user_id'])
         return letter
 
     def read(self, fields=None, load='_classic_read'):
