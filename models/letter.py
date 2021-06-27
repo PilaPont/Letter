@@ -28,21 +28,22 @@ class Letter(models.Model):
                                  required=True, tracking=True)
     date_deadline = fields.Datetime(string='Response Deadline', tracking=True,
                                     default=lambda *a: datetime.now().replace(second=0) + timedelta(days=2))
-    has_attachment = fields.Boolean(compute='_compute_has_attachment', store=True)
-    layout_id = fields.Many2one('letter.layout', string='Letter Layout')
-    is_current_user = fields.Boolean(compute='_compute_check_user', store=False)
-    is_final = fields.Boolean(compute='_compute_is_final')
-    letter_date = fields.Date()
-    letter_magnitude_id = fields.Many2one('letter.magnitude', string='Letter Magnitude',
-                                          default=lambda self: self.env.ref('letter.normal_magnitude'))
-    letter_text = fields.Html(string='Letter Text')
     delivery_method = fields.Selection([
         ('fax', 'Fax'),
         ('email', 'E-mail'),
         ('delivery', 'Delivery Man'),
         ('post', 'Post'),
         ('in_person', 'In person'),
-        ('network', 'Social Networks')])
+        ('network', 'Social Networks')],
+        readonly=True, states={'draft': [('readonly', False)]})
+    has_attachment = fields.Boolean(compute='_compute_has_attachment', store=True)
+    is_current_user = fields.Boolean(compute='_compute_check_user', store=False)
+    is_final = fields.Boolean(compute='_compute_is_final')
+    layout_id = fields.Many2one('letter.layout', string='Letter Layout')
+    letter_date = fields.Date()
+    letter_magnitude_id = fields.Many2one('letter.magnitude', string='Letter Magnitude',
+                                          default=lambda self: self.env.ref('letter.normal_magnitude'))
+    letter_text = fields.Html(string='Letter Text')
     meeting_id = fields.Many2one(comodel_name='calendar.event')
     messenger = fields.Char()
     partner_id = fields.Many2one(comodel_name='res.partner', required=True, tracking=True)
