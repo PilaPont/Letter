@@ -4,7 +4,7 @@
             <field name="name">letter.letter.view.list</field>
             <field name="model">letter.letter</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree decoration-danger="type=='in' and state not in ('done', 'cancel') and date_deadline &lt; now">
                     <field name="name"/>
                     <field name="type" invisible="True"/>
                     <field name="subject"/>
@@ -17,6 +17,7 @@
                            invisible="context.get('default_type','') in ('in')"/>
                     <field name="send_receive_date" string="Receiving Date"
                            invisible="context.get('default_type','') in ('out')"/>
+                    <field name="date_deadline" invisible="context.get('default_type','') in ('out')"/>
                     <field name="signatory_id" invisible="context.get('default_type','') in ('in')"/>
                     <field name="state"/>
                 </tree>
@@ -52,7 +53,7 @@
                                 groups="letter.group_access_secretariat" icon="fa-check"/>
 
                         <button name="action_cancel" type="object"
-                                string="Cancel" attrs="{'invisible':['|','|',('type', '=', 'in'), ('state','in',('sent','done','draft','canceled'))
+                                string="Cancel" attrs="{'invisible':['|','|',('type', '=', 'in'), ('state','in',('sent','done','draft','cancel'))
                             ,('is_current_user','=',False)]}" class="oe_highlight" icon="fa-times"/>
 
                         <button name="action_register" type="object" class="oe_highlight" string="Register"
@@ -115,9 +116,9 @@
                                        required="True"
                                        attrs="{'readonly': [('state','!=','draft')], 'invisible': [('type', '=', 'out')]}"/>
                                 <field name="outgoing_mail_server_id"
-                                       attrs="{'invisible': ['!',('delivery_method', '!=', 'email'),('type','!=','out')],
+                                       attrs="{'invisible': ['|',('delivery_method', '!=', 'email'),('type','!=','out')],
                                        'readonly': [('state','!=','draft')]}"/>
-                                <field name="messenger" attrs="{'invisible': ['!',('delivery_method', '!=', 'in_person'),('type','!=','in')],
+                                <field name="messenger" attrs="{'invisible': ['|',('delivery_method', '!=', 'in_person'),('type','!=','in')],
                                        'readonly': [('state','!=','draft')]}"/>
                                 <field name="content_id" attrs="{'readonly': [('state','!=','draft')]}"/>
                             </group>

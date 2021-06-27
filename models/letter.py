@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
 
 from odoo import models, fields, api, exceptions, _
@@ -26,14 +26,15 @@ class Letter(models.Model):
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id.id)
     content_id = fields.Many2one(comodel_name='letter.content_type', string='Content Type',
                                  required=True, tracking=True)
-    date_deadline = fields.Date(string='Response Deadline', tracking=True)
+    date_deadline = fields.Datetime(string='Response Deadline', tracking=True,
+                                    default=lambda *a: datetime.now().replace(second=0) + timedelta(days=2))
     has_attachment = fields.Boolean(compute='_compute_has_attachment', store=True)
     layout_id = fields.Many2one('letter.layout', string='Letter Layout')
     is_current_user = fields.Boolean(compute='_compute_check_user', store=False)
     is_final = fields.Boolean(compute='_compute_is_final')
     letter_date = fields.Date()
     letter_magnitude_id = fields.Many2one('letter.magnitude', string='Letter Magnitude',
-                                       default=lambda self: self.env.ref('letter.normal_magnitude'))
+                                          default=lambda self: self.env.ref('letter.normal_magnitude'))
     letter_text = fields.Html(string='Letter Text')
     delivery_method = fields.Selection([
         ('fax', 'Fax'),
@@ -75,7 +76,7 @@ class Letter(models.Model):
         ('to_do', 'To Do'),
         ('sent', 'Sent'),
         ('done', 'Done'),
-        ('canceled', 'Canceled')],
+        ('cancel', 'Canceled')],
         default='draft', readonly=True, tracking=True)
     subject = fields.Char(string='Subject', required=True, tracking=True)
     type = fields.Selection([('in', 'Incoming Letter'), ('out', 'Outgoing Letter')], required=True, readonly=True)
@@ -189,7 +190,7 @@ class Letter(models.Model):
         }
 
     def action_cancel(self):
-        self.write({'state': 'canceled'})
+        self.write({'state': 'cancel'})
 
     def action_done(self):
         for letter in self:

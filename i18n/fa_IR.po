@@ -150,7 +150,7 @@ msgid "Cancel"
 msgstr "لغو"
 
 #. module: letter
-#: model:ir.model.fields.selection,name:letter.selection__letter_letter__state__canceled
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__state__cancel
 msgid "Canceled"
 msgstr "لغو‌شده"
 
