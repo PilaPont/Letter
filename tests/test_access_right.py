@@ -54,7 +54,7 @@ class TestAccessRights(TestLetter):
             'delivery_method': 'fax',
             'signatory_id': 1,
             'content_id': self.create_content.id,
-            'layout_id': self.create_header.id,
+            'layout_id': self.create_layout.id,
             'state': 'draft',
         })
 
@@ -62,7 +62,7 @@ class TestAccessRights(TestLetter):
             'name': 'test1',
         })
 
-        self.header = self.Header.create({
+        self.layout = self.Layout.create({
             'name': 'temp',
             'language_id': 2,
         })
@@ -87,18 +87,18 @@ class TestAccessRights(TestLetter):
             self.content.with_user(self.user_signa).read()
 
         self.content.with_user(self.user_config).read()
-        self.header.with_user(self.user_config).read()
+        self.layout.with_user(self.user_config).read()
 
         self.content.with_user(self.user_config).write({
             'name': 'testk',
         })
 
-        self.header.with_user(self.user_config).write({
+        self.layout.with_user(self.user_config).write({
             'name': 'temp two',
             'language_id': 1,
         })
         with self.assertRaises(AccessError):
-            self.header.with_user(self.user_signa).write({
+            self.layout.with_user(self.user_signa).write({
                 'name': 'temp two',
             })
 
@@ -111,22 +111,22 @@ class TestAccessRights(TestLetter):
             })
 
         self.env['letter.layout'].with_user(self.user_config).create({
-            'name': 'header aria',
+            'name': 'layout aria',
             'language_id': 1,
         })
         with self.assertRaises(AccessError):
             self.env['letter.layout'].with_user(self.user_see_all).create({
-                'name': 'header aria',
+                'name': 'layout aria',
                 'language_id': 1,
             })
 
         with self.assertRaises(AccessError):
-            self.header.with_user(self.user_see_all).unlink()
+            self.layout.with_user(self.user_see_all).unlink()
 
         with self.assertRaises(AccessError):
             self.content.with_user(self.user_signa).unlink()
 
         self.content.with_user(self.user_config).unlink()
-        self.header.with_user(self.user_config).unlink()
+        self.layout.with_user(self.user_config).unlink()
 
         print('ended config user 222')

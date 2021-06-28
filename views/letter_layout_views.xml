@@ -2,7 +2,7 @@
     <data>
 
 
-        <record id="letter_header_view_list" model="ir.ui.view">
+        <record id="letter_layout_view_list" model="ir.ui.view">
             <field name="name">letter.layout.view.list</field>
             <field name="model">letter.layout</field>
             <field name="arch" type="xml">
@@ -13,7 +13,7 @@
             </field>
         </record>
 
-        <record id="letter_header_view_form" model="ir.ui.view">
+        <record id="letter_layout_view_form" model="ir.ui.view">
             <field name="name">letter.layout.view.form</field>
             <field name="model">letter.layout</field>
             <field name="arch" type="xml">
@@ -57,14 +57,14 @@
                 </form>
             </field>
         </record>
-        <!--action header letter-->
-        <record model="ir.actions.act_window" id="letter.action_header">
-            <field name="name">Header</field>
+        <!--action layout letter-->
+        <record model="ir.actions.act_window" id="letter.action_layout">
+            <field name="name">Layout</field>
             <field name="res_model">letter.layout</field>
             <field name="view_mode">tree,form</field>
             <field name="context"/>
         </record>
-        <menuitem id="letter_menu_header" name="Letter Header" parent="letter_menu_config" action="letter.action_header"
+        <menuitem id="letter_menu_layout" name="Layouts" parent="letter_menu_config" action="letter.action_layout"
                   sequence="5"/>
 
     </data>

@@ -3,77 +3,77 @@
 
         <template id="report_letter">
 
-            <t t-set="h" t-value="doc.layout_id"/>
-            <t t-set="data_report_margin_top" t-value="doc.layout_id.header_height + doc.layout_id.text_start if "/>
-            <t t-set="data_report_margin_bottom" t-value="10"/>
-            <t t-set="data_report_margin_left" t-value="'0mm'"/>
-            <t t-set="data_report_margin_right" t-value="'0mm'"/>
-            <t t-set="data_report_page_size" t-value="'custom'"/>
-            <t t-set="data_report_page_width" t-value="80"/>
-            <t t-set="data_report_page_height" t-value="280"/>
-            <t t-set="data_report_header_spacing" t-value="'0'"/>
-            <t t-set="data_report_dpi" t-value="False"/>
-<!--            <t t-set="full_width" t-value="True"/>-->
-            <t t-set="web_base_url" t-value="'http://localhost:8069'"/>
-            <t t-call="web.html_container">
-
-                <style>
-                    @font-face {
-                    font-family: 'PersianDigits';
-                    src:url('https://cdn.kenevist.ir/fonts/sahel/Sahel-FD.ttf')
-                    format('truetype');
-                    font-weight: Normal;
-                    }
-                    body {margin:0; padding:0;}
-                </style>
-
-                <div class="header">
-                    <style>
-                    @font-face {
-                    font-family: 'PersianDigits';
-                    src:url('https://cdn.kenevist.ir/fonts/sahel/Sahel-FD.ttf')
-                    format('truetype');
-                    font-weight: Normal;
-                    }
-                    body {margin:0; padding:0;}
-                </style>
-
-                    <div class="k-letter-header" style="font-family: 'PersianDigits';border: 2px solid red;">
-                        Header هدر 11234
-                        <span t-esc="web_base_url"/>
-                    </div>
-                </div>
-                <div class="article" style="font-family: 'PersianDigits';">
-
-                    Article آرتیکل 123 gholi2
-                </div>
-                <div class="footer" style="font-family: 'PersianDigits';">
-                    Footer فوتر 1233
-                </div>
+            <t t-set="ly" t-value="docs.mapped('layout_id')"/>
+            <t t-if="not ly or (ly and len(ly)!=1)">
+                <t t-call="web.html_container">
+                    <p1>It is not possible to print letters with different header and paper format in one pdf file</p1>
+                </t>
             </t>
-        </template>
-        <record id="report_letter_out" model="ir.actions.report">
-            <field name="model">letter.letter</field>
-            <field name="name">Letter Report</field>
-            <field name="report_name">letter.report_letter</field>
-            <field name="report_file">letter.report_letter</field>
-            <field name="report_type">qweb-pdf</field>
-            <field name="paperformat_id" ref="base.paperformat_euro"/>
-            <field name="print_report_name">'Letter Number -%s' %(object.name)</field>
-            <field name="binding_model_id" eval="False"/>
-        </record>
-        <template id="report_assets_common" name="letter_assets_common" inherit_id="web.report_assets_common">
-            <xpath expr="." position="inside">
-                <link rel="stylesheet" type="text/scss" href="/letter/static/src/css/letter.scss"/>
-                <style>
-                    @font-face {
-                    font-family: 'PersianDigits';
-                    src:url('https://cdn.kenevist.ir/fonts/sahel/Sahel-FD.ttf')
-                    format("woff");
-                    font-weight: Normal;
-                    }
-                </style>
-            </xpath>
+            <t t-else="">
+
+
+                <t t-set="split" t-value="ly.layout_type=='split'"/>
+                <t t-set="data_report_margin_top" t-value="'%s' % ly.header_height"/>
+                <t t-set="data_report_margin_bottom" t-value="'%s' % ly.footer_height"/>
+                <t t-set="data_report_margin_left" t-value="'0'"/>
+                <t t-set="data_report_margin_right" t-value="'0'"/>
+                <t t-set="data_report_page_size" t-value="ly.page_size"/>
+                <!--                <t t-set="data_report_page_width" t-value="'%smm' % ly.page_width"/>-->
+                <!--                <t t-set="data_report_page_height" t-value="'%smm' % ly.page_height"/>-->
+                <t t-set="data_report_header_spacing" t-value="'%s' % ly.header_height"/>
+                <t t-set="data_report_footer_spacing" t-value="'%s' % ly.footer_height"/>
+                <t t-set="data_report_dpi" t-value="'76'"/>
+                <t t-set="title" t-value="Letter"/> <!--html title-->
+                <t t-set="full_width" t-value="True"/>
+                <t t-call="web.html_container">
+                    <style>
+                        @font-face {
+                        font-family: 'PersianDigits';
+                        src:url('https://cdn.kenevist.ir/fonts/sahel/Sahel-FD.ttf')
+                        format("woff");
+                        font-weight: Normal;
+                        }
+                        body {margin:0 !important; padding:0 !important;}
+                    </style>
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="header"
+                             t-attf-style="min-height:{{ly.header_height}}mm;font-family: 'PersianDigits';
+                                           background-image:url('{{image_data_uri(ly.header_image if split else ly.background_image)}}');
+                                           background-size:cover;background-position:0 0;background-repeat: no-repeat;">
+                            <style>
+                                @font-face {
+                                font-family: 'PersianDigits';
+                                src:url('https://cdn.kenevist.ir/fonts/sahel/Sahel-FD.ttf')
+                                format("woff");
+                                font-weight: Normal;
+                                }
+                                body {margin:0 !important; padding:0 !important;}
+                            </style>
+
+                            <div class="k-letter-header">
+                                Header هدر 11234
+                                <span t-esc="web_base_url"/>
+                            </div>
+                        </div>
+                        <div class="article"
+                             t-attf-style="height:{{ly.page_height-ly.header_height-ly.footer_height}}mm;font-family: 'PersianDigits';
+                                           background-image:url('{{image_data_uri(ly.background_image)}}');
+                                           background-size:{{ly.page_width}}mm {{ly.page_height}}mm;background-position:0 -{{ly.header_height}}mm;background-repeat: repeat;">
+                            <div >
+                                Article آرتیکل 123 gholi2
+                                <div style="page-break-after: always;" t-field="doc.letter_text"/><div style="page-break-after: always;" t-field="doc.letter_text"/>
+                            </div>
+                            <div style="page-break-after: always;"/>
+                        </div>
+                        <div class="footer"
+                             t-attf-style="min-height:{{ly.footer_height}}mm;font-family: 'PersianDigits';
+                             background-image:url('{{image_data_uri(ly.footer_image if split else ly.background_image)}}');
+                                           background-size:cover;background-position:0 -{{ly.page_height-ly.footer_height}}mm;background-repeat: no-repeat;">">
+                            Footer فوتر 1233
+                        </div>
+                    </t>
+                </t>
+            </t>
         </template>
 
 
