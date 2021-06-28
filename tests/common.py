@@ -11,9 +11,9 @@ class TestLetter(TransactionCase):
         self.ResUser = self.env['res.users']
         self.Partner = self.env['res.partner']
         self.Content = self.env['letter.content_type']
-        self.Header = self.env['letter.layout']
+        self.Layout = self.env['letter.layout']
 
-        self.create_header = self.Header.create({
+        self.create_layout = self.Layout.create({
             'name': 'template',
             'language_id': 1,
         })
@@ -34,7 +34,7 @@ class TestLetter(TransactionCase):
             'media_type': 'fax',
             'signatory_id': 1,
             'content_id': self.create_content.id,
-            'layout_id': self.create_header.id,
+            'layout_id': self.create_layout.id,
             'state': 'draft',
 
         })

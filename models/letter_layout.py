@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 from odoo.addons.base.models.report_paperformat import PAPER_SIZES
 
 
@@ -23,3 +23,10 @@ class LetterLayout(models.Model):
                                  help="Select Proper Paper size")
     page_width = fields.Integer('Page width (mm)', default=False)
     text_start = fields.Integer('Start text from top (mm)')
+
+    @api.onchange('page_size')
+    def _onchange_page_size(self):
+        paper_size = list(filter(lambda x: x['key'] == self.page_size, PAPER_SIZES))[0]
+        if paper_size['key'] != 'custom':
+            self.page_width = paper_size['width']
+            self.page_height = paper_size['height']
