@@ -27,7 +27,7 @@ class LetterLayout(models.Model):
 
     @api.onchange('page_size')
     def _onchange_page_size(self):
-        paper_size = list(filter(lambda x: x['key'] == self.page_size, PAPER_SIZES))[0]
-        if paper_size['key'] != 'custom':
+        if self.page_size != 'custom':
+            paper_size = next(ps for ps in PAPER_SIZES if ps['key'] == self.page_size)
             self.page_width = paper_size['width']
             self.page_height = paper_size['height']
