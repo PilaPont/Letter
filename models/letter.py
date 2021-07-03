@@ -1,14 +1,68 @@
 from datetime import datetime, timedelta
 import random
+import io
+import base64
 
+from odoo.modules.module import get_module_resource
 from odoo import models, fields, api, exceptions, _
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
+from odoo.tools.pdf import PdfFileReader, PdfFileWriter
+from odoo.exceptions import UserError
+
+
+def watermark_pdf(pdf, watermark, different_first_page=False):
+    """
+    put the pdf on watermark, the contents will be put on top of watermark. If
+    the watermark has more than one page, the watermark pages are applied to corresponding
+    pages of original file, if the water makr has less pages than the pdf, it will start from
+    the first page again and repeat
+    :param pdf: PDF datastring
+    :param watermark: PDF datastring for background
+    :param different_first_page: boolean
+    :return: a unique merged PDF datastring
+    """
+
+    if different_first_page:
+        raise NotImplementedError
+
+    writer = PdfFileWriter()
+    original = PdfFileReader(io.BytesIO(pdf), strict=False)
+    watermark = PdfFileReader(io.BytesIO(watermark), strict=False)
+    watermark_pages = watermark.getNumPages()
+
+    def get_watermark_page(page_no: int):
+        watermark_page = page_no % watermark_pages or watermark_pages
+        return watermark.getPage(watermark_page)
+
+    for pageno in range(0, original.getNumPages()):
+        writer.addPage(get_watermark_page(pageno).mergePage(original.getPage(pageno)))
+    with io.BytesIO() as _buffer:
+        writer.write(_buffer)
+        return _buffer.getvalue()
+
+
+def stamp_pdf(pdf, stamp):
+    writer = PdfFileWriter()
+    original = PdfFileReader(io.BytesIO(pdf), strict=False)
+    stamp_page = PdfFileReader(io.BytesIO(stamp), strict=False).getPage(0)
+
+    for page_no in range(0, original.getNumPages()):
+        writer.addPage(original.getPage(page_no).mergePage(stamp_page))
+    with io.BytesIO() as _buffer:
+        writer.write(_buffer)
+        return _buffer.getvalue()
 
 
 class Letter(models.Model):
     _name = 'letter.letter'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Letter'
+
+    STATES = ['draft', 'registered', 'returned', 'in_department', 'to_do',
+              'sent', 'done', 'cancel', ]
+    STATE_NAMES = ['New', 'Registered', 'Returned', 'Department Manager',
+                   'To Do', 'Sent', 'Done', 'Canceled', ]
+    DRAFT_STATES = ['draft', 'registered', 'returned', 'in_department', 'cancel', ]
 
     @api.model
     def default_get(self, fields_list):
@@ -69,16 +123,7 @@ class Letter(models.Model):
     signatory_id = fields.Many2one('res.users', string='Final Endorser',
                                    domain=lambda self: "[('groups_id','in',[" + str(
                                        self.env.ref('letter.group_can_sign_letter').id) + "])]", tracking=True)
-    state = fields.Selection([
-        ('draft', 'New'),
-        ('registered', 'Registered'),
-        ('returned', 'Returned'),
-        ('in_department', 'Department Manager'),
-        ('to_do', 'To Do'),
-        ('sent', 'Sent'),
-        ('done', 'Done'),
-        ('cancel', 'Canceled')],
-        default='draft', readonly=True, tracking=True)
+    state = fields.Selection(zip(STATES, STATE_NAMES), default='draft', readonly=True, tracking=True)
     subject = fields.Char(string='Subject', required=True, tracking=True)
     type = fields.Selection([('in', 'Incoming Letter'), ('out', 'Outgoing Letter')], required=True, readonly=True)
     use_signature_image = fields.Boolean(string='Print Signature', default=True)
@@ -96,7 +141,7 @@ class Letter(models.Model):
 
     @api.depends('state')
     def _compute_is_final(self):
-        final_letters = self.filtered([('state', 'in', ['to_do', 'sent', 'done'])])
+        final_letters = self.filtered([('state', 'not in', self.DRAFT_STATES)])
         final_letters.is_final = True
         (self - final_letters).is_final = False
 
@@ -128,18 +173,18 @@ class Letter(models.Model):
             letter._notify_user(values['user_id'])
         return letter
 
-    def read(self, fields=None, load='_classic_read'):
-        PRIVATEFIELDS = ('letter_text', 'attachment_ids')
+    def read(self, fields_list=None, load='_classic_read'):
+        private_fields = ('letter_text', 'attachment_ids')
 
         if (self.env.user.has_group('letter.group_letter_see_all') or not any(
-                field in fields for field in PRIVATEFIELDS)):
-            return super(Letter, self).read(fields=fields, load=load)
+                field in fields_list for field in private_fields)):
+            return super(Letter, self).read(fields=fields_list, load=load)
         else:
             extra_fields = []
-            if fields and 'message_partner_ids' not in fields:
+            if fields_list and 'message_partner_ids' not in fields_list:
                 extra_fields.append('message_partner_ids')
 
-            data = super(Letter, self).read(fields=fields + extra_fields, load=load)
+            data = super(Letter, self).read(fields=fields_list + extra_fields, load=load)
             invisible_letters = self._concealed_letter_ids(data)
             for record in invisible_letters:
                 record['attachment_ids'] = []
@@ -205,7 +250,55 @@ class Letter(models.Model):
             letter.write({'user_id': self.create_uid.id, 'state': 'draft'})
 
     def action_print(self):
-        return self.env.ref('letter.report_letter').report_action(self)
+        layout = self.mapped('layout_id')
+        if len(layout) > 1:
+            raise UserError(
+                _('It is not possible to print letters with different header and paper format in one pdf file'))
+
+        final_letters = self.filtered(lambda letter: letter.is_final)
+        draft_letters = self - final_letters
+        final_pdf = draft_pdf = None
+
+        if final_letters:
+            final_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(final_letters.ids)
+
+        if draft_letters:
+            draft_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(draft_letters.ids)
+
+            # todo: use dynamic stamp
+            # find some way to render stamp, because of papersize mismatch
+            stamp_file_path = get_module_resource('letter', 'static/pdf',
+                                                  'preview-fa.pdf' if layout.language_id == self.env.ref(
+                                                      'base.lang_fa_IR') else 'preview-en.pdf')
+            stamp_file = open(stamp_file_path, 'rb').read()
+            stamp = io.BytesIO(stamp_file)
+            draft_pdf = stamp_pdf(draft_pdf, stamp)
+
+        if draft_letters and final_letters:
+            from odoo.tools.pdf import merge_pdf
+            pdf = merge_pdf([draft_pdf,final_pdf])
+        else:
+            pdf = draft_pdf or final_pdf
+
+        if layout.layout_type == 'full':
+            pdf = watermark_pdf(pdf, io.BytesIO(base64.b64decode(layout.background_image)))
+
+        # todo: do something with the pdf
+
+    # todo: action_print_multi
+    # def action_print_multi(self)
+    # layout = self.mapped('layout_id')
+    #   if len(layout) > 1:
+    #         output_file = zip
+    #   else:
+    #         output_file = pdf
+    #   for letter in self:
+    #        letter_pdfs+=get_letter_pdf
+    #   if output_file = pdf: return pdf
+    #   with zipfile
+    #        append letters
+    #   return zipfile
+    # or group letters by draft/final state and layout size, type and language
 
     def action_register(self):
         for letter in self:

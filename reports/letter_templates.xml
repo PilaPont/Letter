@@ -58,7 +58,7 @@
                         <div class="article"
                              t-attf-style="height:{{ly.page_height-ly.header_height-ly.footer_height}}mm;font-family: 'PersianDigits';
                                            background-image:url('{{image_data_uri(ly.background_image)}}');
-                                           background-size:{{ly.page_width}}mm {{ly.page_height}}mm;background-position:0 -{{ly.header_height}}mm;background-repeat: repeat;">
+                                           background-size:{{ly.page_width}}mm {{ly.page_height}}mm;background-position:0 -{{ly.header_height}}mm;background-repeat: repeat-y;">
                             <div >
                                 Article آرتیکل 123 gholi2
                                 <div style="page-break-after: always;" t-field="doc.letter_text"/><div style="page-break-after: always;" t-field="doc.letter_text"/>

@@ -8,7 +8,7 @@ class LetterLayout(models.Model):
     # _inherits = {'report.paperformat': 'paperformat_id'}
 
     name = fields.Char()
-    background_image = fields.Image(string="Background Image", attachment=True)
+    background_image = fields.Binary(string="Background Image", attachment=True)
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id.id)
     footer_height = fields.Integer('Footer Height (mm)')
     footer_image = fields.Image(string="Footer Image", attachment=True)

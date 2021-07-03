@@ -1,7 +1,7 @@
 <odoo>
     <data>
 
-        <record id="report_letter_out" model="ir.actions.report">
+        <record id="action_report_letter" model="ir.actions.report">
             <field name="model">letter.letter</field>
             <field name="name">Letter Report</field>
             <field name="report_name">letter.report_letter</field>

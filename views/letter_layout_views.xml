@@ -48,7 +48,7 @@
                             <field name="header_image" widget="image" nolabel="1" class="text-center"/>
                         </group>
                         <group string="Background">
-                            <field name="background_image" widget="image" nolabel="1" class="text-center"/>
+                            <field name="background_image" widget="pdf_viewer" nolabel="1" class="text-center"/>
                         </group>
                         <group string="Footer" attrs="{'invisible':[('layout_type','!=','split')]}">
                             <field name="footer_image" widget="image" nolabel="1" class="text-center"/>
