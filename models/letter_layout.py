@@ -17,7 +17,6 @@ class LetterLayout(models.Model):
     language_id = fields.Many2one('res.lang', string="language", required=True)
     layout_type = fields.Selection(selection=[('full', 'Full page'), ('split', 'Different header and Footer')],
                                    default='full')
-    orientation = fields.Selection([('Landscape', 'Landscape'), ('Portrait', 'Portrait')], default='Landscape')
     page_height = fields.Integer('Page height (mm)', default=False)
     page_size = fields.Selection([(ps['key'], ps['description']) for ps in PAPER_SIZES], 'Paper size', default='A4',
                                  help="Select Proper Paper size")
