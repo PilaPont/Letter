@@ -35,7 +35,6 @@
                                 <field name="page_size"/>
                                 <field name="page_height" attrs="{'invisible':[('page_size','!=','custom')]}"/>
                                 <field name="page_width" attrs="{'invisible':[('page_size','!=','custom')]}"/>
-                                <field name="orientation"/>
                             </group>
                             <group>
                                 <field name="is_default"/>
