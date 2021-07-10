@@ -40,29 +40,9 @@ body {
   border-top: none !important;
 }
 
-.o_letter_header_img {
-  //min-height: 200px;
-  //height: 200px;
-  //background-size: 100%;
-  //background-repeat: no-repeat;
-  //width: 100%;
-  //margin-top: -5mm;
-  width: 100%;
-  height: 100%;
-
-  margin: 0 !important;
-  display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.split {
-  background-attachment: fixed;
-  width: 100%;
-  height: 100%;
-  margin: 0 !important;
-  background-size: cover;
-  background-position: center;
-  display: inline-block;
-
+@font-face {
+  font-family: 'PersianDigits';
+  src:url('https://cdn.kenevist.ir/fonts/sahel/Sahel-FD.ttf')
+  format("woff");
+  font-weight: Normal;
 }

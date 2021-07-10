@@ -15,18 +15,8 @@
         <template id="report_assets_common" name="letter_assets_common" inherit_id="web.report_assets_common">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" type="text/scss" href="/letter/static/src/css/letter.scss"/>
-                <style>
-                    @font-face {
-                    font-family: 'PersianDigits';
-                    src:url('https://cdn.kenevist.ir/fonts/sahel/Sahel-FD.ttf')
-                    format("woff");
-                    font-weight: Normal;
-                    }
-                    body {margin:0 !important; padding:0 !important;}
-                </style>
             </xpath>
         </template>
-
 
     </data>
 </odoo>
