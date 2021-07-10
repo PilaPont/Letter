@@ -12,7 +12,6 @@
             <t t-else="">
 
 
-                <t t-set="split" t-value="ly.layout_type=='split'"/>
                 <t t-set="data_report_margin_top" t-value="'%s' % ly.header_height"/>
                 <t t-set="data_report_margin_bottom" t-value="'%s' % ly.footer_height"/>
                 <t t-set="data_report_margin_left" t-value="'0'"/>

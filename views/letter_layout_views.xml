@@ -29,25 +29,18 @@
                             <group>
                                 <field name="header_height"/>
                                 <field name="footer_height"/>
-                                <field name="text_start" attrs="{'invisible':[('layout_type','!=','split')]}"/>
                             </group>
                             <group>
                                 <field name="page_size"/>
                                 <field name="page_height" attrs="{'invisible':[('page_size','!=','custom')]}"/>
                                 <field name="page_width" attrs="{'invisible':[('page_size','!=','custom')]}"/>
                             </group>
-                        </group>
-                        <group>
-                            <field name="layout_type"/>
-                        </group>
-                        <group string="Header" attrs="{'invisible':[('layout_type','!=','split')]}">
-                            <field name="header_image" widget="image" nolabel="1"/>
+                            <group>
+                                <field name="is_default"/>
+                            </group>
                         </group>
                         <group string="Background">
-                            <field name="background_image" widget="image" nolabel="1"/>
-                        </group>
-                        <group string="Footer" attrs="{'invisible':[('layout_type','!=','split')]}">
-                            <field name="footer_image" widget="image" nolabel="1"/>
+                            <field name="background_image" widget="pdf_viewer" nolabel="1" class="text-center"/>
                         </group>
                     </sheet>
                 </form>
