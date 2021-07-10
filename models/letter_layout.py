@@ -14,6 +14,8 @@ class LetterLayout(models.Model):
     header_height = fields.Integer('Header Height (mm)')
     is_default = fields.Boolean(string="Use as default")
     language_id = fields.Many2one('res.lang', string="language", required=True)
+    margin_left = fields.Integer('Margin Left (mm)')
+    margin_right = fields.Integer('Margin Right (mm)')
     page_height = fields.Integer('Page height (mm)', default=False)
     page_size = fields.Selection([(ps['key'], ps['description']) for ps in PAPER_SIZES], 'Paper size', default='A4',
                                  help="Select Proper Paper size")

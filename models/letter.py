@@ -1,8 +1,11 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
+import base64
 
+from odoo.modules.module import get_module_resource
 from odoo import models, fields, api, exceptions, _
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
+from odoo.tools.pdf import watermark_and_stamp_pdf
 
 
 class Letter(models.Model):
@@ -10,15 +13,20 @@ class Letter(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Letter'
 
+    STATES = ['draft', 'registered', 'returned', 'in_department', 'to_do',
+              'sent', 'done', 'cancel', ]
+    STATE_NAMES = ['New', 'Registered', 'Returned', 'Department Manager',
+                   'To Do', 'Sent', 'Done', 'Canceled', ]
+    DRAFT_STATES = ['draft', 'registered', 'returned', 'in_department', 'cancel', ]
+
     @api.model
-    def default_get(self, fields):
-        res = super(Letter, self).default_get(fields)
-        if self.type == 'in':
-            res['type'] = 'in'
-        elif self.type == 'out':
-            letter_magnitude = self.env['letter.magnitude'].search([('is_default', '=', True)])
-            res['letter_magnitude_id'] = letter_magnitude[0].id if len(letter_magnitude) > 0 else False
-            res['type'] = 'out'
+    def default_get(self, fields_list):
+        res = super(Letter, self).default_get(fields_list)
+        if res.get('type') == 'in':
+            res['send_receive_date'] = fields.Date.today()
+        elif res.get('type') == 'out':
+            res['letter_magnitude_id'] = self.env['letter.magnitude'].search([('is_default', '=', True)], limit=1).id
+            res['layout_id'] = self.env['letter.layout'].search([('is_default', '=', True)], limit=1).id
         return res
 
     name = fields.Char(string="Letter Number", readonly=True, copy=False)
@@ -27,28 +35,26 @@ class Letter(models.Model):
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id.id)
     content_id = fields.Many2one(comodel_name='letter.content_type', string='Content Type',
                                  required=True, tracking=True)
-    date_deadline = fields.Date(string='Response Deadline')
-    has_attachment = fields.Boolean(compute='_compute_has_attachment', store=True)
-    layout_id = fields.Many2one('letter.layout', string='Letter Layout')
-    is_current_user = fields.Boolean(compute='_compute_check_user', store=False)
-    is_final = fields.Boolean(compute='_compute_is_final')
-    letter_date = fields.Date()
-    letter_magnitude_id = fields.Many2one('letter.magnitude', string='Letter Magnitude',
-                                       default=lambda self: self.env.ref('letter.normal_magnitude'))
-    letter_text = fields.Html(string='Letter Text')
-    media_type = fields.Selection([
+    date_deadline = fields.Datetime(string='Response Deadline', tracking=True,
+                                    default=lambda *a: datetime.now().replace(second=0) + timedelta(days=2))
+    delivery_method = fields.Selection([
         ('fax', 'Fax'),
         ('email', 'E-mail'),
         ('delivery', 'Delivery Man'),
         ('post', 'Post'),
         ('in_person', 'In person'),
-        ('network', 'Social Networks')])
-    meeting_id = fields.Many2one('mail.activity', #fixme: use calendar.event
-                                 domain=lambda self: ['|',
-                                                      ('activity_type_id.category', '=', 'meeting'),
-                                                      ('activity_type_id', '=', self.env.ref(
-                                                          'mail.mail_activity_data_meeting').id)],
-                                 string='Meeting')
+        ('network', 'Social Networks')],
+        readonly=True, states={'draft': [('readonly', False)]})
+    has_attachment = fields.Boolean(compute='_compute_has_attachment', store=True)
+    is_current_user = fields.Boolean(compute='_compute_check_user', store=False)
+    is_final = fields.Boolean(compute='_compute_is_final')
+    layout_id = fields.Many2one('letter.layout', string='Letter Layout')
+    letter_date = fields.Date()
+    letter_magnitude_id = fields.Many2one('letter.magnitude', string='Letter Magnitude',
+                                          default=lambda self: self.env.ref('letter.normal_magnitude'))
+    letter_text = fields.Html(string='Letter Text')
+    meeting_id = fields.Many2one(comodel_name='calendar.event')
+    messenger = fields.Char()
     partner_id = fields.Many2one(comodel_name='res.partner', required=True, tracking=True)
     phone_id = fields.Many2one('mail.activity',
                                domain=lambda self: ['|', ('activity_type_id.category', '=', 'phonecall'),
@@ -65,23 +71,15 @@ class Letter(models.Model):
         ('phone', 'Following a Phone Call')], string='Reference', required=True, default='draft')
     related_letter_ids = fields.Many2many('letter.letter', string='Child letter', compute='_compute_related_letter_ids',
                                           store=False, copy=False)
-    role_based_email = fields.Many2one(comodel_name='ir.mail_server', string='E-mail')
+    outgoing_mail_server_id = fields.Many2one(comodel_name='ir.mail_server', string='E-mail')
+    print_preview = fields.Binary(compute='_compute_print_preview', store=True, attachment=True)
     series = fields.Integer('Series', copy=False)
     send_receive_date = fields.Date(tracking=True)
     sender_letter_number = fields.Char(string='Sender Letter Number')
     signatory_id = fields.Many2one('res.users', string='Final Endorser',
                                    domain=lambda self: "[('groups_id','in',[" + str(
                                        self.env.ref('letter.group_can_sign_letter').id) + "])]", tracking=True)
-    state = fields.Selection([
-        ('draft', 'New'),
-        ('registered', 'Registered'),
-        ('returned', 'Returned'),
-        ('in_department', 'Department Manager'),
-        ('to_do', 'To Do'),
-        ('sent', 'Sent'),
-        ('done', 'Done'),
-        ('canceled', 'Canceled')],
-        default='draft', readonly=True, tracking=True)
+    state = fields.Selection(list(zip(STATES, STATE_NAMES)), default='draft', readonly=True, tracking=True)
     subject = fields.Char(string='Subject', required=True, tracking=True)
     type = fields.Selection([('in', 'Incoming Letter'), ('out', 'Outgoing Letter')], required=True, readonly=True)
     use_signature_image = fields.Boolean(string='Print Signature', default=True)
@@ -99,9 +97,32 @@ class Letter(models.Model):
 
     @api.depends('state')
     def _compute_is_final(self):
-        final_letters = self.filtered([('state', 'in', ['to_do', 'sent', 'done'])])
+        final_letters = self.filtered_domain([('state', 'not in', self.DRAFT_STATES)])
         final_letters.is_final = True
         (self - final_letters).is_final = False
+
+    @api.depends('name', 'attachment_ids', 'cc_ids', 'company_id', 'has_attachment',
+                 'layout_id', 'letter_date', 'letter_text', 'meeting_id', 'phone_id',
+                 'reference_letter_id', 'reference_type', 'signatory_id', 'state',
+                 'subject', 'use_signature_image')
+    def _compute_print_preview(self):
+        for letter in self:
+            layout = letter.layout_id
+            pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(letter.ids)
+
+            if not letter.is_final:
+                # todo: use dynamic stamp
+                # find some way to render stamp, because of papersize mismatch
+                stamp_file_path = get_module_resource('letter', 'static/pdf',
+                                                      'preview-fa.pdf' if layout.language_id == self.env.ref(
+                                                          'base.lang_fa_IR') else 'preview-en.pdf')
+                stamp = open(stamp_file_path, 'rb').read()
+            else:
+                stamp = None
+
+            watermark = base64.b64decode(layout.background_image) if layout.background_image else None
+
+            letter.print_preview = base64.encodebytes(watermark_and_stamp_pdf(pdf, watermark, stamp))
 
     @api.depends('series')
     def _compute_related_letter_ids(self):
@@ -128,21 +149,21 @@ class Letter(models.Model):
             letter = super(Letter, self).create(values)
             letter.series = letter.id
         if values.get('type') == 'out' and values.get('user_id'):
-            letter.__notify_user(values['user_id'])
+            letter._notify_user(values['user_id'])
         return letter
 
-    def read(self, fields=None, load='_classic_read'):
-        PRIVATEFIELDS = ('letter_text', 'attachment_ids')
+    def read(self, fields_list=None, load='_classic_read'):
+        private_fields = ('letter_text', 'attachment_ids')
 
         if (self.env.user.has_group('letter.group_letter_see_all') or not any(
-                field in fields for field in PRIVATEFIELDS)):
-            return super(Letter, self).read(fields=fields, load=load)
+                field in fields_list for field in private_fields)):
+            return super(Letter, self).read(fields=fields_list, load=load)
         else:
             extra_fields = []
-            if fields and 'message_partner_ids' not in fields:
+            if fields_list and 'message_partner_ids' not in fields_list:
                 extra_fields.append('message_partner_ids')
 
-            data = super(Letter, self).read(fields=fields + extra_fields, load=load)
+            data = super(Letter, self).read(fields=fields_list + extra_fields, load=load)
             invisible_letters = self._concealed_letter_ids(data)
             for record in invisible_letters:
                 record['attachment_ids'] = []
@@ -194,7 +215,7 @@ class Letter(models.Model):
         }
 
     def action_cancel(self):
-        self.write({'state': 'canceled'})
+        self.write({'state': 'cancel'})
 
     def action_done(self):
         for letter in self:
@@ -208,7 +229,94 @@ class Letter(models.Model):
             letter.write({'user_id': self.create_uid.id, 'state': 'draft'})
 
     def action_print(self):
-        return self.env.ref('letter.report_letter').report_action(self)
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{self._name}/{self.id}/print_preview/{self.name}?download=true',
+            'target': 'self',
+        }
+
+    # def action_print(self):
+    #     layout = self.mapped('layout_id')
+    #     if len(layout) > 1:
+    #         raise UserError(
+    #             _('It is not possible to print letters with different header and paper format in one pdf file'))
+    #
+    #     final_letters = self.filtered(lambda letter: letter.is_final)
+    #     draft_letters = self - final_letters
+    #     watermark = base64.b64decode(layout.background_image)
+    #     final_pdf = draft_pdf = None
+    #
+    #     if final_letters:
+    #         final_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(final_letters.ids)
+    #         final_pdf = watermark_and_stamp_pdf(final_pdf,watermark)
+    #     if draft_letters:
+    #         draft_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(draft_letters.ids)
+    #
+    #         # todo: use dynamic stamp
+    #         # find some way to render stamp, because of papersize mismatch
+    #         stamp_file_path = get_module_resource('letter', 'static/pdf',
+    #                                               'preview-fa.pdf' if layout.language_id == self.env.ref(
+    #                                                   'base.lang_fa_IR') else 'preview-en.pdf')
+    #         stamp = open(stamp_file_path, 'rb').read()
+    #         final_pdf = watermark_and_stamp_pdf(final_pdf, watermark, stamp)
+    #
+    #     if draft_letters and final_letters:
+    #         from odoo.tools.pdf import merge_pdf
+    #         pdf = merge_pdf([draft_pdf, final_pdf])
+    #     else:
+    #         pdf = draft_pdf or final_pdf
+
+    # todo: do something with the pdf
+
+    # todo: action_print_multi
+    # def action_print_multi(self)
+    # layout = self.mapped('layout_id')
+    #   if len(layout) > 1:
+    #         output_file = zip
+    #   else:
+    #         output_file = pdf
+    #   for letter in self:
+    #        letter_pdfs+=get_letter_pdf
+    #   if output_file = pdf: return pdf
+    #   with zipfile
+    #        append letters
+    #   return zipfile
+    # or group letters by draft/final state and layout size, type and language
+    #
+    # sample code (partial)
+    #     layout = self.mapped('layout_id')
+    #     if len(layout) > 1:
+    #         raise UserError(
+    #             _('It is not possible to print letters with different header and paper format in one pdf file'))
+    #
+    #     final_letters = self.filtered(lambda letter: letter.is_final)
+    #     draft_letters = self - final_letters
+    #     final_pdf = draft_pdf = None
+    #
+    #     if final_letters:
+    #         final_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(final_letters.ids)
+    #
+    #     if draft_letters:
+    #         draft_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(draft_letters.ids)
+    #
+    #         # todo: use dynamic stamp
+    #         # find some way to render stamp, because of papersize mismatch
+    #         stamp_file_path = get_module_resource('letter', 'static/pdf',
+    #                                               'preview-fa.pdf' if layout.language_id == self.env.ref(
+    #                                                   'base.lang_fa_IR') else 'preview-en.pdf')
+    #         stamp_file = open(stamp_file_path, 'rb').read()
+    #         stamp = io.BytesIO(stamp_file)
+    #         draft_pdf = stamp_pdf(draft_pdf, stamp)
+    #
+    #     if draft_letters and final_letters:
+    #         from odoo.tools.pdf import merge_pdf
+    #         pdf = merge_pdf([draft_pdf, final_pdf])
+    #     else:
+    #         pdf = draft_pdf or final_pdf
+    #
+    #     if layout.layout_type == 'full':
+    #         pdf = watermark_pdf(pdf, io.BytesIO(base64.b64decode(layout.background_image)))
 
     def action_register(self):
         for letter in self:
