@@ -33,10 +33,10 @@
                         format("woff");
                         font-weight: Normal;
                         }
-                        body {margin:0 !important; padding:0 !important;}
+                        body {margin:0 !important; padding:0 !important;background: transparent !important;}
                     </style>
                     <t t-foreach="docs" t-as="doc">
-                        <div class="header"
+                        <!--<div class="header"
                              t-attf-style="min-height:{{ly.header_height}}mm;font-family: 'PersianDigits';
                                            background-image:url('{{image_data_uri(ly.header_image if split else ly.background_image)}}');
                                            background-size:cover;background-position:0 0;background-repeat: no-repeat;">
@@ -54,23 +54,23 @@
                                 Header هدر 11234
                                 <span t-esc="web_base_url"/>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="article"
                              t-attf-style="height:{{ly.page_height-ly.header_height-ly.footer_height}}mm;font-family: 'PersianDigits';
-                                           background-image:url('{{image_data_uri(ly.background_image)}}');
-                                           background-size:{{ly.page_width}}mm {{ly.page_height}}mm;background-position:0 -{{ly.header_height}}mm;background-repeat: repeat-y;">
-                            <div >
+                                           ">
+
                                 Article آرتیکل 123 gholi2
-                                <div style="page-break-after: always;" t-field="doc.letter_text"/><div style="page-break-after: always;" t-field="doc.letter_text"/>
-                            </div>
-                            <div style="page-break-after: always;"/>
+                                <div style="" t-field="doc.letter_text"/>
+                                <div style="background:white;" t-field="doc.letter_text"/>
+                                <div style="background:transparent;" t-field="doc.letter_text"/>
+                                <div style="background-color:00000000;" t-field="doc.letter_text"/>
                         </div>
-                        <div class="footer"
+<!--                        <div class="footer"
                              t-attf-style="min-height:{{ly.footer_height}}mm;font-family: 'PersianDigits';
                              background-image:url('{{image_data_uri(ly.footer_image if split else ly.background_image)}}');
                                            background-size:cover;background-position:0 -{{ly.page_height-ly.footer_height}}mm;background-repeat: no-repeat;">">
                             Footer فوتر 1233
-                        </div>
+                        </div>-->
                     </t>
                 </t>
             </t>

@@ -8,7 +8,7 @@
     'author': "Kenevist, Maryam Kia, PmN",
     'website': "https://kenevist.ir",
 
-    'depends': ['base_core', 'mail', 'user_signature', 'calendar'],
+    'depends': ['report_core', 'mail', 'user_signature', 'calendar'],
     'data': [
         'security/letter_security.xml',
         'security/letter_layout_security.xml',

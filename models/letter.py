@@ -3,54 +3,15 @@ import random
 import io
 import base64
 
+import copy
+
 from odoo.modules.module import get_module_resource
 from odoo import models, fields, api, exceptions, _
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
-from odoo.tools.pdf import PdfFileReader, PdfFileWriter
+from odoo.tools.pdf import watermark_and_stamp_pdf
 from odoo.exceptions import UserError
 
-
-def watermark_pdf(pdf, watermark, different_first_page=False):
-    """
-    put the pdf on watermark, the contents will be put on top of watermark. If
-    the watermark has more than one page, the watermark pages are applied to corresponding
-    pages of original file, if the water makr has less pages than the pdf, it will start from
-    the first page again and repeat
-    :param pdf: PDF datastring
-    :param watermark: PDF datastring for background
-    :param different_first_page: boolean
-    :return: a unique merged PDF datastring
-    """
-
-    if different_first_page:
-        raise NotImplementedError
-
-    writer = PdfFileWriter()
-    original = PdfFileReader(io.BytesIO(pdf), strict=False)
-    watermark = PdfFileReader(io.BytesIO(watermark), strict=False)
-    watermark_pages = watermark.getNumPages()
-
-    def get_watermark_page(page_no: int):
-        watermark_page = page_no % watermark_pages or watermark_pages
-        return watermark.getPage(watermark_page)
-
-    for pageno in range(0, original.getNumPages()):
-        writer.addPage(get_watermark_page(pageno).mergePage(original.getPage(pageno)))
-    with io.BytesIO() as _buffer:
-        writer.write(_buffer)
-        return _buffer.getvalue()
-
-
-def stamp_pdf(pdf, stamp):
-    writer = PdfFileWriter()
-    original = PdfFileReader(io.BytesIO(pdf), strict=False)
-    stamp_page = PdfFileReader(io.BytesIO(stamp), strict=False).getPage(0)
-
-    for page_no in range(0, original.getNumPages()):
-        writer.addPage(original.getPage(page_no).mergePage(stamp_page))
-    with io.BytesIO() as _buffer:
-        writer.write(_buffer)
-        return _buffer.getvalue()
+import logging
 
 
 class Letter(models.Model):
@@ -117,6 +78,7 @@ class Letter(models.Model):
     related_letter_ids = fields.Many2many('letter.letter', string='Child letter', compute='_compute_related_letter_ids',
                                           store=False, copy=False)
     outgoing_mail_server_id = fields.Many2one(comodel_name='ir.mail_server', string='E-mail')
+    print_preview = fields.Binary(compute='_compute_print_preview', store=True, attachment=True)
     series = fields.Integer('Series', copy=False)
     send_receive_date = fields.Date(tracking=True)
     sender_letter_number = fields.Char(string='Sender Letter Number')
@@ -141,9 +103,32 @@ class Letter(models.Model):
 
     @api.depends('state')
     def _compute_is_final(self):
-        final_letters = self.filtered([('state', 'not in', self.DRAFT_STATES)])
+        final_letters = self.filtered_domain([('state', 'not in', self.DRAFT_STATES)])
         final_letters.is_final = True
         (self - final_letters).is_final = False
+
+    @api.depends('name', 'attachment_ids', 'cc_ids', 'company_id', 'has_attachment',
+                 'layout_id', 'letter_date', 'letter_text', 'meeting_id', 'phone_id',
+                 'reference_letter_id', 'reference_type', 'signatory_id', 'state',
+                 'subject', 'use_signature_image')
+    def _compute_print_preview(self):
+        for letter in self:
+            layout = letter.layout_id
+            pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(letter.ids)
+
+            if not letter.is_final:
+                # todo: use dynamic stamp
+                # find some way to render stamp, because of papersize mismatch
+                stamp_file_path = get_module_resource('letter', 'static/pdf',
+                                                      'preview-fa.pdf' if layout.language_id == self.env.ref(
+                                                          'base.lang_fa_IR') else 'preview-en.pdf')
+                stamp = open(stamp_file_path, 'rb').read()
+            else:
+                stamp = None
+
+            watermark = base64.b64decode(layout.background_image) if layout.background_image else None
+
+            letter.print_preview = base64.encodebytes(watermark_and_stamp_pdf(pdf, watermark, stamp))
 
     @api.depends('series')
     def _compute_related_letter_ids(self):
@@ -250,38 +235,42 @@ class Letter(models.Model):
             letter.write({'user_id': self.create_uid.id, 'state': 'draft'})
 
     def action_print(self):
-        layout = self.mapped('layout_id')
-        if len(layout) > 1:
-            raise UserError(
-                _('It is not possible to print letters with different header and paper format in one pdf file'))
-
-        final_letters = self.filtered(lambda letter: letter.is_final)
-        draft_letters = self - final_letters
-        final_pdf = draft_pdf = None
-
-        if final_letters:
-            final_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(final_letters.ids)
-
-        if draft_letters:
-            draft_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(draft_letters.ids)
-
-            # todo: use dynamic stamp
-            # find some way to render stamp, because of papersize mismatch
-            stamp_file_path = get_module_resource('letter', 'static/pdf',
-                                                  'preview-fa.pdf' if layout.language_id == self.env.ref(
-                                                      'base.lang_fa_IR') else 'preview-en.pdf')
-            stamp_file = open(stamp_file_path, 'rb').read()
-            stamp = io.BytesIO(stamp_file)
-            draft_pdf = stamp_pdf(draft_pdf, stamp)
-
-        if draft_letters and final_letters:
-            from odoo.tools.pdf import merge_pdf
-            pdf = merge_pdf([draft_pdf,final_pdf])
-        else:
-            pdf = draft_pdf or final_pdf
-
-        if layout.layout_type == 'full':
-            pdf = watermark_pdf(pdf, io.BytesIO(base64.b64decode(layout.background_image)))
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{self._model}/{self.id}/print_preview/{self.name}?download=true',
+            'target': 'self',
+        }
+    # def action_print(self):
+    #     layout = self.mapped('layout_id')
+    #     if len(layout) > 1:
+    #         raise UserError(
+    #             _('It is not possible to print letters with different header and paper format in one pdf file'))
+    #
+    #     final_letters = self.filtered(lambda letter: letter.is_final)
+    #     draft_letters = self - final_letters
+    #     watermark = base64.b64decode(layout.background_image)
+    #     final_pdf = draft_pdf = None
+    #
+    #     if final_letters:
+    #         final_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(final_letters.ids)
+    #         final_pdf = watermark_and_stamp_pdf(final_pdf,watermark)
+    #     if draft_letters:
+    #         draft_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(draft_letters.ids)
+    #
+    #         # todo: use dynamic stamp
+    #         # find some way to render stamp, because of papersize mismatch
+    #         stamp_file_path = get_module_resource('letter', 'static/pdf',
+    #                                               'preview-fa.pdf' if layout.language_id == self.env.ref(
+    #                                                   'base.lang_fa_IR') else 'preview-en.pdf')
+    #         stamp = open(stamp_file_path, 'rb').read()
+    #         final_pdf = watermark_and_stamp_pdf(final_pdf, watermark, stamp)
+    #
+    #     if draft_letters and final_letters:
+    #         from odoo.tools.pdf import merge_pdf
+    #         pdf = merge_pdf([draft_pdf, final_pdf])
+    #     else:
+    #         pdf = draft_pdf or final_pdf
 
         # todo: do something with the pdf
 
@@ -299,6 +288,40 @@ class Letter(models.Model):
     #        append letters
     #   return zipfile
     # or group letters by draft/final state and layout size, type and language
+    #
+    # sample code (partial)
+    #     layout = self.mapped('layout_id')
+    #     if len(layout) > 1:
+    #         raise UserError(
+    #             _('It is not possible to print letters with different header and paper format in one pdf file'))
+    #
+    #     final_letters = self.filtered(lambda letter: letter.is_final)
+    #     draft_letters = self - final_letters
+    #     final_pdf = draft_pdf = None
+    #
+    #     if final_letters:
+    #         final_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(final_letters.ids)
+    #
+    #     if draft_letters:
+    #         draft_pdf, _dummy_ = self.env.ref('letter.action_report_letter')._render_qweb_pdf(draft_letters.ids)
+    #
+    #         # todo: use dynamic stamp
+    #         # find some way to render stamp, because of papersize mismatch
+    #         stamp_file_path = get_module_resource('letter', 'static/pdf',
+    #                                               'preview-fa.pdf' if layout.language_id == self.env.ref(
+    #                                                   'base.lang_fa_IR') else 'preview-en.pdf')
+    #         stamp_file = open(stamp_file_path, 'rb').read()
+    #         stamp = io.BytesIO(stamp_file)
+    #         draft_pdf = stamp_pdf(draft_pdf, stamp)
+    #
+    #     if draft_letters and final_letters:
+    #         from odoo.tools.pdf import merge_pdf
+    #         pdf = merge_pdf([draft_pdf, final_pdf])
+    #     else:
+    #         pdf = draft_pdf or final_pdf
+    #
+    #     if layout.layout_type == 'full':
+    #         pdf = watermark_pdf(pdf, io.BytesIO(base64.b64decode(layout.background_image)))
 
     def action_register(self):
         for letter in self:
