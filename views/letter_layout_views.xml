@@ -38,6 +38,10 @@
                                 <field name="page_width" attrs="{'invisible':[('page_size','!=','custom')]}"/>
                             </group>
                             <group>
+                                <field name="header_content_margin_right"/>
+                                <field name="header_content_margin_top"/>
+                            </group>
+                            <group>
                                 <field name="is_default"/>
                             </group>
                         </group>

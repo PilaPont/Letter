@@ -5,13 +5,14 @@ from odoo.addons.base.models.report_paperformat import PAPER_SIZES
 class LetterLayout(models.Model):
     _name = 'letter.layout'
     _description = 'Letter Layout'
-    # _inherits = {'report.paperformat': 'paperformat_id'}
 
     name = fields.Char()
     background_image = fields.Binary(string="Background Image", attachment=True)
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id.id)
     footer_height = fields.Integer('Footer Height (mm)')
     header_height = fields.Integer('Header Height (mm)')
+    header_content_margin_right = fields.Integer('Header Content Margin Right (mm)')
+    header_content_margin_top = fields.Integer('Header Content Margin Top (mm)')
     is_default = fields.Boolean(string="Use as default")
     language_id = fields.Many2one('res.lang', string="language", required=True)
     margin_left = fields.Integer('Margin Left (mm)')

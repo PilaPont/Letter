@@ -173,12 +173,12 @@
                         </group>
                         <notebook>
                             <page string="Letter text" name="text" attrs="{'invisible': [('type', '=', 'in')]}">
-                                <field name="letter_text" attrs="{'readonly': [('state','!=','draft')]}" class="oe_edit_only"/>
-                                <field name="print_preview" widget="pdf_viewer" nolabel="1" class="oe_read_only" onchange="0" />
+                                <field name="letter_text"
+                                       attrs="{'readonly': [('state','!=','draft')], 'required': [('type', '=', 'out')]}"
+                                       class="oe_edit_only"/>
+                                <field name="print_preview" widget="pdf_viewer" nolabel="1" class="oe_read_only"
+                                       onchange="0"/>
                             </page>
-<!--                            <page string="Print Preview" name="preview" attrs="{'invisible': [('type', '=', 'in')]}">-->
-<!--                                <field name="print_preview" widget="pdf_viewer" nolabel="1" class="text-center" onchange="0"/>-->
-<!--                            </page>-->
                             <page string="Cc" attrs="{'invisible': [('type', '=', 'in')]}">
                                 <field name="cc_ids" attrs="{'readonly': [('state','!=','draft')]}"
                                        mode="tree">

@@ -55,7 +55,7 @@ class Letter(models.Model):
     letter_date = fields.Date()
     letter_magnitude_id = fields.Many2one('letter.magnitude', string='Letter Magnitude',
                                           default=lambda self: self.env.ref('letter.normal_magnitude'))
-    letter_text = fields.Html(string='Letter Text', required=True)
+    letter_text = fields.Html(string='Letter Text')
     meeting_id = fields.Many2one(comodel_name='calendar.event')
     messenger = fields.Char()
     partner_id = fields.Many2one(comodel_name='res.partner', required=True, tracking=True)
@@ -144,8 +144,9 @@ class Letter(models.Model):
 
     @api.model
     def create(self, values):
-        content = values.get('letter_text')
-        values['font_size_title'], values['font_size_signature'] = self._get_font_size(content)
+        if values.get('type') == 'out':
+            content = values.get('letter_text')
+            values['font_size_title'], values['font_size_signature'] = self._get_font_size(content)
         if values.get('reference_letter_id'):
             parent = self.env['letter.letter'].browse(values.get('reference_letter_id'))
             values['series'] = parent.series
@@ -182,7 +183,7 @@ class Letter(models.Model):
 
     def write(self, values):
         for letter in self:
-            if values.get('letter_text'):
+            if values.get('type') == 'out' and values.get('letter_text'):
                 content = values.get('letter_text')
                 letter['font_size_title'], letter['font_size_signature'] = letter._get_font_size(content)
         if values.get('reference_letter_id'):
@@ -330,8 +331,7 @@ class Letter(models.Model):
     def action_register(self):
         for letter in self:
             if 'company_id' in self and (not letter.name):
-                letter.name = self.env['ir.sequence'].with_context(
-                    force_company=letter.company_id.id).next_by_code('letter.letter.in')
+                letter.name = self.env['ir.sequence'].with_company(letter.company_id).next_by_code('letter.letter.in')
             else:
                 letter.name = self.env['ir.sequence'].next_by_code('letter.letter.in')
 
@@ -375,8 +375,7 @@ class Letter(models.Model):
         """add letter number , change department user , change user to manager department """
         for letter in self:
             if 'company_id' in letter and (not letter.name):
-                letter.name = letter.env['ir.sequence'].with_context(
-                    force_company=letter.company_id.id).next_by_code('letter.letter.out')
+                letter.name = letter.env['ir.sequence'].with_company(letter.company_id).next_by_code('letter.letter.out')
             else:
                 letter.name = letter.env['ir.sequence'].next_by_code('letter.letter.out')
             if letter.user_id and letter.user_id != letter.signatory_id:

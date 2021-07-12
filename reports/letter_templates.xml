@@ -16,6 +16,8 @@
                 <t t-set="data_report_footer_spacing" t-value="'%s' % ly.footer_height"/>
                 <t t-set="data_report_margin_left" t-value="'%s' % ly.margin_left"/>
                 <t t-set="data_report_margin_right" t-value="'%s' % ly.margin_right"/>
+                <t t-set="data_report_header_margin_right" t-value="'%s' % ly.header_content_margin_right"/>
+                <t t-set="data_report_header_margin_top" t-value="'%s' % ly.header_content_margin_top"/>
                 <t t-set="data_report_dpi" t-value="'76'"/>
                 <t t-set="title" t-value="Letter"/> <!--html title-->
                 <t t-set="full_width" t-value="True"/>
@@ -43,9 +45,9 @@
                             <div class="header"
                                  t-attf-style="min-height:{{ly.header_height}}mm;{{'font-family:PersianDigits;' if lang=='fa_IR' else ''}};">
                                 <div class="row text-left no-gutters">
-                                    <div class="col-9"/>
-                                    <div class="col-3 o_letter_header_content">
-                                        <table class="table">
+                                    <div class="col-12 o_letter_header_content"
+                                         t-attf-style="padding-right:{{data_report_header_margin_right}}mm; padding-top:{{data_report_header_margin_top}}mm;">
+                                        <table class="table" style="width: 50mm;">
                                             <tr>
                                                 <td class="align-middle o_letter_header_td_param">
                                                     Date:
@@ -151,7 +153,7 @@
                                         <t t-if="doc.is_final">
                                             <div class="o_letter_signature_div">
                                                 <div class="o_letter_signature_img"
-                                                     t-attf-style="{{ '' if doc.is_digital_signature and doc.signatory_id.signature_image else 'background-image:url('+image_data_uri(doc.signatory_id.signature_image)+');'}}">
+                                                     t-attf-style="{{ ('background-image:url('+image_data_uri(doc.signatory_id.signature_image)+');') if doc.use_signature_image and doc.signatory_id.signature_image else ''}}">
                                                     <div class="o_letter_signature_content">
                                                         <div>Best Regards</div>
                                                         <span t-field="doc.signatory_id.partner_id.name"
