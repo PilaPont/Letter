@@ -29,6 +29,8 @@
                             <group>
                                 <field name="header_height"/>
                                 <field name="footer_height"/>
+                                <field name="margin_left"/>
+                                <field name="margin_right"/>
                             </group>
                             <group>
                                 <field name="page_size"/>

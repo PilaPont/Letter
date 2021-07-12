@@ -11,8 +11,6 @@
             <t t-else="">
                 <t t-set="data_report_margin_top" t-value="'%s' % ly.header_height"/>
                 <t t-set="data_report_margin_bottom" t-value="'%s' % ly.footer_height"/>
-                <t t-set="data_report_margin_left" t-value="'0'"/>
-                <t t-set="data_report_margin_right" t-value="'0'"/>
                 <t t-set="data_report_page_size" t-value="ly.page_size"/>
                 <t t-set="data_report_header_spacing" t-value="'%s' % ly.header_height"/>
                 <t t-set="data_report_footer_spacing" t-value="'%s' % ly.footer_height"/>
@@ -41,212 +39,213 @@
                             <t t-set="client_full_name"
                                t-value="'%s %s' % (client.title.shortcut or '',client.name)"/>
                         </t>
-
-                        <div class="header"
-                             t-attf-style="min-height:{{ly.header_height}}mm;{{'font-family:PersianDigits;' if lang=='fa_IR' else ''}};">
-                            <div class="row text-left no-gutters">
-                                <div class="col-9"/>
-                                <div class="col-3 o_letter_header_content">
-                                    <table class="table">
-                                        <tr>
-                                            <td class="align-middle o_letter_header_td_param">
-                                                Date:
-                                            </td>
-                                            <td class="align-middle o_letter_header_td_value">
-                                                <t t-if="lang=='fa_IR'" t-esc="doc.letter_date"
-                                                   t-options='{"widget": "date", "calender": "jalali"}'/>
-                                                <t t-else="" t-esc="doc.letter_date"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle o_letter_header_td_param">
-                                                Number:
-                                            </td>
-                                            <td class="align-middle o_letter_header_td_value">
-                                                <span t-field="doc.name"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle o_letter_header_td_param">
-                                                Attachments:
-                                            </td>
-                                            <td class="align-middle o_letter_header_td_value">
-                                                <t t-if="doc.has_attachment">
-                                                    <span>Included</span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span>-</span>
-                                                </t>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle o_letter_header_td_param">
-                                                Page:
-                                            </td>
-                                            <td class="align-middle o_letter_header_td_value">
-                                                <span class="page"/>
-                                                <t>of</t>
-                                                <span class="topage"/>
-                                            </td>
-                                        </tr>
-                                    </table>
+                        <div t-attf-style="margin-left:{{data_report_margin_left}}mm; margin-right:{{data_report_margin_right}}mm;">
+                            <div class="header"
+                                 t-attf-style="min-height:{{ly.header_height}}mm;{{'font-family:PersianDigits;' if lang=='fa_IR' else ''}};">
+                                <div class="row text-left no-gutters">
+                                    <div class="col-9"/>
+                                    <div class="col-3 o_letter_header_content">
+                                        <table class="table">
+                                            <tr>
+                                                <td class="align-middle o_letter_header_td_param">
+                                                    Date:
+                                                </td>
+                                                <td class="align-middle o_letter_header_td_value">
+                                                    <t t-if="lang=='fa_IR'" t-esc="doc.letter_date"
+                                                       t-options='{"widget": "date", "calender": "jalali"}'/>
+                                                    <t t-else="" t-esc="doc.letter_date"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle o_letter_header_td_param">
+                                                    Number:
+                                                </td>
+                                                <td class="align-middle o_letter_header_td_value">
+                                                    <span t-field="doc.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle o_letter_header_td_param">
+                                                    Attachments:
+                                                </td>
+                                                <td class="align-middle o_letter_header_td_value">
+                                                    <t t-if="doc.has_attachment">
+                                                        <span>Included</span>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span>-</span>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle o_letter_header_td_param">
+                                                    Page:
+                                                </td>
+                                                <td class="align-middle o_letter_header_td_value">
+                                                    <span class="page"/>
+                                                    <t>of</t>
+                                                    <span class="topage"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="article"
-                             t-attf-style="height:{{ly.page_height-ly.header_height-ly.footer_height}}mm;{{'font-family:PersianDigits;' if lang=='fa_IR' else ''}};"
-                             t-att-data-oe-model="doc and doc._name" t-att-data-oe-id="doc and doc.id">
-                            <div class="page">
-                                <br/>
-                                <br/>
-                                <div t-attf-style="font-size:{{font_size_title}};font-weight:bold;">
-                                    <t t-if="doc.partner_id.parent_id">
-                                        <t t-if="doc.partner_id.parent_id.parent_id">
-                                            <div t-attf-style="font-weight:bold;">
-                                                <t t-esc="'%s %s, %s %s' % (doc.partner_id.parent_id.parent_id.title.shortcut or '',
+                            <div class="article"
+                                 t-attf-style="height:{{ly.page_height-ly.header_height-ly.footer_height}}mm;{{'font-family:PersianDigits;' if lang=='fa_IR' else ''}};"
+                                 t-att-data-oe-model="doc and doc._name" t-att-data-oe-id="doc and doc.id">
+                                <div class="page">
+                                    <br/>
+                                    <br/>
+                                    <div t-attf-style="font-size:{{font_size_title}};font-weight:bold;">
+                                        <t t-if="doc.partner_id.parent_id">
+                                            <t t-if="doc.partner_id.parent_id.parent_id">
+                                                <div t-attf-style="font-weight:bold;">
+                                                    <t t-esc="'%s %s, %s %s' % (doc.partner_id.parent_id.parent_id.title.shortcut or '',
                                             doc.partner_id.parent_id.parent_id.name,doc.partner_id.parent_id.title.shortcut or '',
                                             doc.partner_id.parent_id.name)"/>
+                                                </div>
+                                            </t>
+                                            <t t-else="">
+                                                <div>
+                                                    <t t-esc="'%s %s'% (doc.partner_id.parent_id.title.name or'',doc.partner_id.parent_id.name)"/>
+                                                </div>
+                                            </t>
+                                        </t>
+                                        <t t-if="doc.partner_id.function">
+                                            <div t-attf-style="font-weight:bold;">
+                                                <t t-esc="doc.partner_id.function"/>
+                                            </div>
+                                        </t>
+                                        <div class="autofit col-xs-12">
+                                            <t t-esc="client_full_name"/>
+                                        </div>
+                                        <br/>
+                                    </div>
+
+                                    <div t-attf-style="font-size:{{font_size_title}}; font-weight:bold;">
+                                        <span>Subject:
+                                            <span t-field="doc.subject"/>
+                                        </span>
+                                        <br/>
+                                        <t t-if="doc.reference_type == 'reply_to'">
+                                            <span>Answer letter:
+                                                <span t-field="doc.reference_letter_id"/>
+                                            </span>
+                                        </t>
+                                        <t t-if="doc.reference_type == 'following'">
+                                            <span>Follow letter:
+                                                <span t-field="doc.reference_letter_id"/>
+                                            </span>
+                                        </t>
+                                    </div>
+                                    <br/>
+
+                                    <div t-attf-style="font-size:{{font_size_tiitle}};">
+                                        <span t-field="doc.letter_text"/>
+                                    </div>
+
+                                    <br/>
+
+                                    <div t-attf-style="font-size:{{font_size_signature}}; font-weight:bold;">
+                                        <t t-if="doc.is_final">
+                                            <div class="o_letter_signature_div">
+                                                <div class="o_letter_signature_img"
+                                                     t-attf-style="{{ '' if doc.is_digital_signature and doc.signatory_id.signature_image else 'background-image:url('+image_data_uri(doc.signatory_id.signature_image)+');'}}">
+                                                    <div class="o_letter_signature_content">
+                                                        <div>Best Regards</div>
+                                                        <span t-field="doc.signatory_id.partner_id.name"
+                                                        />
+                                                        <br/>
+                                                        <span t-field="doc.signatory_id.partner_id.function"
+                                                        />
+                                                        <br/>
+                                                        <t t-if="doc.signatory_id.partner_id.mobile">Mobile:
+                                                            <t t-esc="doc.signatory_id.partner_id.mobile"
+                                                            />
+                                                        </t>
+                                                        <br/>
+                                                        <t t-if="doc.signatory_id.partner_id.email">E-Mail:
+                                                            <span t-field="doc.signatory_id.partner_id.email"
+                                                            />
+                                                        </t>
+                                                        <br/>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </t>
                                         <t t-else="">
-                                            <div>
-                                                <t t-esc="'%s %s'% (doc.partner_id.parent_id.title.name or'',doc.partner_id.parent_id.name)"/>
+                                            <div calss="autofit col-xs-10"
+                                                 t-attf-style="font-weight:bold;">
+                                                This letter has not been confirmed yet.
                                             </div>
                                         </t>
-                                    </t>
-                                    <t t-if="doc.partner_id.function">
-                                        <div t-attf-style="font-weight:bold;">
-                                            <t t-esc="doc.partner_id.function"/>
-                                        </div>
-                                    </t>
-                                    <div class="autofit col-xs-12">
-                                        <t t-esc="client_full_name"/>
                                     </div>
+
                                     <br/>
-                                </div>
-
-                                <div t-attf-style="font-size:{{font_size_title}}; font-weight:bold;">
-                                    <span>Subject:
-                                        <span t-field="doc.subject"/>
-                                    </span>
                                     <br/>
-                                    <t t-if="doc.reference_type == 'reply_to'">
-                                        <span>Answer letter:
-                                            <span t-field="doc.reference_letter_id"/>
-                                        </span>
-                                    </t>
-                                    <t t-if="doc.reference_type == 'following'">
-                                        <span>Follow letter:
-                                            <span t-field="doc.reference_letter_id"/>
-                                        </span>
-                                    </t>
-                                </div>
-                                <br/>
 
-                                <div t-attf-style="font-size:{{font_size_tiitle}};">
-                                    <span t-field="doc.letter_text"/>
-                                </div>
-
-                                <br/>
-
-                                <div t-attf-style="font-size:{{font_size_signature}}; font-weight:bold;">
-                                    <t t-if="doc.is_final">
-                                        <div class="o_letter_signature_div">
-                                            <div class="o_letter_signature_img"
-                                                 t-attf-style="{{ '' if doc.is_digital_signature and doc.signatory_id.signature_image else 'background-image:url('+image_data_uri(doc.signatory_id.signature_image)+');'}}">
-                                                <div class="o_letter_signature_content">
-                                                    <div>Best Regards</div>
-                                                    <span t-field="doc.signatory_id.partner_id.name"
-                                                    />
-                                                    <br/>
-                                                    <span t-field="doc.signatory_id.partner_id.function"
-                                                    />
-                                                    <br/>
-                                                    <t t-if="doc.signatory_id.partner_id.mobile">Mobile:
-                                                        <t t-esc="doc.signatory_id.partner_id.mobile"
-                                                        />
-                                                    </t>
-                                                    <br/>
-                                                    <t t-if="doc.signatory_id.partner_id.email">E-Mail:
-                                                        <span t-field="doc.signatory_id.partner_id.email"
-                                                        />
-                                                    </t>
-                                                    <br/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </t>
-                                    <t t-else="">
-                                        <div calss="autofit col-xs-10"
-                                             t-attf-style="font-weight:bold;">
-                                            This letter has not been confirmed yet.
-                                        </div>
-                                    </t>
-                                </div>
-
-                                <br/>
-                                <br/>
-
-                                <div class="mt-2" style="font-size:10px;">
-                                    <span t-attf-style="font-weight:bold;">Executor:
-                                        <span t-field="doc.create_uid.partner_id.name"/>
-                                    </span>
-                                    <t t-if="doc.create_uid.partner_id.function">
-                                        <span>/</span>
-                                        <span t-field="doc.create_uid.partner_id.function"/>
-                                    </t>
-                                    <t t-if="doc.create_uid.partner_id.mobile">
-                                        <span>/</span>
-                                        Mobile:<t t-esc="doc.create_uid.partner_id.mobile"/>
-                                    </t>
-                                    <t t-if="doc.create_uid.partner_id.email">
-                                        <span>/</span>
-                                        E-Mail:<span t-field="doc.create_uid.partner_id.email"/>
-                                    </t>
-                                    <br/>
-                                </div>
-
-                                <t t-if="doc.cc_ids">
                                     <div class="mt-2" style="font-size:10px;">
-                                        <div style="font-weight:bold;">Cc:</div>
-                                        <t t-foreach="doc.cc_ids" t-as="cc">
-                                            <t t-esc="cc_index + 1"/>
-                                            <span>-</span>
-                                            <t t-if="cc.title.name">
-                                                <span t-field="cc.title.name"/>
-                                            </t>
-                                            <span t-field="cc.name"/>
-                                            <t t-if="cc.function">
-                                                <span>/</span>
-                                                <span t-field="cc.function"/>
-                                            </t>
-                                            <t t-if="cc.parent_id">
-                                                <span>/</span>
-                                                <span t-field="cc.parent_id.title.name"/>
-                                                <span t-field="cc.parent_id"/>
-                                            </t>
-                                            <br/>
+                                        <span t-attf-style="font-weight:bold;">Executor:
+                                            <span t-field="doc.create_uid.partner_id.name"/>
+                                        </span>
+                                        <t t-if="doc.create_uid.partner_id.function">
+                                            <span>/</span>
+                                            <span t-field="doc.create_uid.partner_id.function"/>
                                         </t>
+                                        <t t-if="doc.create_uid.partner_id.mobile">
+                                            <span>/</span>
+                                            Mobile:<t t-esc="doc.create_uid.partner_id.mobile"/>
+                                        </t>
+                                        <t t-if="doc.create_uid.partner_id.email">
+                                            <span>/</span>
+                                            E-Mail:<span t-field="doc.create_uid.partner_id.email"/>
+                                        </t>
+                                        <br/>
                                     </div>
-                                </t>
 
-                                <t t-if="doc.attachment_ids">
-                                    <div class="mt-2" style="font-size:10px;">
-                                        <div style="font-weight:bold;">Attachments:</div>
-                                        <t t-foreach="doc.attachment_ids" t-as="at">
-                                            <t t-esc="at_index + 1"/>
-                                            <span>-</span>
-                                            <span t-field="at.name"/>
-                                            <br/>
-                                        </t>
-                                    </div>
-                                </t>
+                                    <t t-if="doc.cc_ids">
+                                        <div class="mt-2" style="font-size:10px;">
+                                            <div style="font-weight:bold;">Cc:</div>
+                                            <t t-foreach="doc.cc_ids" t-as="cc">
+                                                <t t-esc="cc_index + 1"/>
+                                                <span>-</span>
+                                                <t t-if="cc.title.name">
+                                                    <span t-field="cc.title.name"/>
+                                                </t>
+                                                <span t-field="cc.name"/>
+                                                <t t-if="cc.function">
+                                                    <span>/</span>
+                                                    <span t-field="cc.function"/>
+                                                </t>
+                                                <t t-if="cc.parent_id">
+                                                    <span>/</span>
+                                                    <span t-field="cc.parent_id.title.name"/>
+                                                    <span t-field="cc.parent_id"/>
+                                                </t>
+                                                <br/>
+                                            </t>
+                                        </div>
+                                    </t>
+
+                                    <t t-if="doc.attachment_ids">
+                                        <div class="mt-2" style="font-size:10px;">
+                                            <div style="font-weight:bold;">Attachments:</div>
+                                            <t t-foreach="doc.attachment_ids" t-as="at">
+                                                <t t-esc="at_index + 1"/>
+                                                <span>-</span>
+                                                <span t-field="at.name"/>
+                                                <br/>
+                                            </t>
+                                        </div>
+                                    </t>
+
+                                </div>
 
                             </div>
-
-                        </div>
-                        <div class="footer"
-                             t-attf-style="min-height:{{ly.footer_height}}mm;">
+                            <div class="footer"
+                                 t-attf-style="min-height:{{ly.footer_height}}mm;">
+                            </div>
                         </div>
                     </t>
                 </t>
