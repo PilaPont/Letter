@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import random
 import base64
+import re
 
 from odoo.modules.module import get_module_resource
 from odoo import models, fields, api, exceptions, _
@@ -45,14 +46,16 @@ class Letter(models.Model):
         ('in_person', 'In person'),
         ('network', 'Social Networks')],
         readonly=True, states={'draft': [('readonly', False)]})
+    font_size_title = fields.Char()
+    font_size_signature = fields.Char()
     has_attachment = fields.Boolean(compute='_compute_has_attachment', store=True)
     is_current_user = fields.Boolean(compute='_compute_check_user', store=False)
-    is_final = fields.Boolean(compute='_compute_is_final')
+    is_final = fields.Boolean(compute='_compute_is_final', store=True)
     layout_id = fields.Many2one('letter.layout', string='Letter Layout')
     letter_date = fields.Date()
     letter_magnitude_id = fields.Many2one('letter.magnitude', string='Letter Magnitude',
                                           default=lambda self: self.env.ref('letter.normal_magnitude'))
-    letter_text = fields.Html(string='Letter Text')
+    letter_text = fields.Html(string='Letter Text', required=True)
     meeting_id = fields.Many2one(comodel_name='calendar.event')
     messenger = fields.Char()
     partner_id = fields.Many2one(comodel_name='res.partner', required=True, tracking=True)
@@ -141,6 +144,8 @@ class Letter(models.Model):
 
     @api.model
     def create(self, values):
+        content = values.get('letter_text')
+        values['font_size_title'], values['font_size_signature'] = self._get_font_size(content)
         if values.get('reference_letter_id'):
             parent = self.env['letter.letter'].browse(values.get('reference_letter_id'))
             values['series'] = parent.series
@@ -176,6 +181,10 @@ class Letter(models.Model):
             return data
 
     def write(self, values):
+        for letter in self:
+            if values.get('letter_text'):
+                content = values.get('letter_text')
+                letter['font_size_title'], letter['font_size_signature'] = letter._get_font_size(content)
         if values.get('reference_letter_id'):
             parent = self.env['letter.letter'].browse(values.get('reference_letter_id'))
             values['series'] = parent.series
@@ -391,6 +400,12 @@ class Letter(models.Model):
                     record['message_partner_ids']:
                 invisible_letters.append(record)
         return invisible_letters
+
+    @staticmethod
+    def _get_font_size(content):
+        font_size_title = re.findall('(?<=font-size:)\s?\d+.*?(?=;)', content)[0].strip()
+        font_size_signature = re.findall('(?<=font-size:)\s?\d+.*?(?=;)', content)[-1].strip()
+        return font_size_title, font_size_signature
 
     def _notify_user(self, user_id):
         self.activity_schedule('letter.mail_activity_letter', user_id=user_id)
