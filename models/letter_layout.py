@@ -13,6 +13,7 @@ class LetterLayout(models.Model):
     header_height = fields.Integer('Header Height (mm)')
     header_content_margin_right = fields.Integer('Header Content Margin Right (mm)')
     header_content_margin_top = fields.Integer('Header Content Margin Top (mm)')
+    header_content_visible = fields.Boolean()
     is_default = fields.Boolean(string="Use as default")
     language_id = fields.Many2one('res.lang', string="language", required=True)
     margin_left = fields.Integer('Margin Left (mm)')

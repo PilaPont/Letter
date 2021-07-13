@@ -40,6 +40,7 @@
                             <group>
                                 <field name="header_content_margin_right"/>
                                 <field name="header_content_margin_top"/>
+                                <field name="header_content_visible"/>
                             </group>
                             <group>
                                 <field name="is_default"/>

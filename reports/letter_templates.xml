@@ -51,7 +51,7 @@
                                         <table class="table" style="width: 50mm;">
                                             <tr>
                                                 <td class="align-middle o_letter_header_td_param">
-                                                    Date:
+                                                    <t t-if="ly.header_content_visible">Date:</t>
                                                 </td>
                                                 <td class="align-middle o_letter_header_td_value">
                                                     <t t-if="lang=='fa_IR'" t-esc="doc.letter_date"
@@ -61,7 +61,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="align-middle o_letter_header_td_param">
-                                                    Number:
+                                                    <t t-if="ly.header_content_visible">Number:</t>
                                                 </td>
                                                 <td class="align-middle o_letter_header_td_value">
                                                     <span t-field="doc.name"/>
@@ -69,7 +69,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="align-middle o_letter_header_td_param">
-                                                    Attachments:
+                                                    <t t-if="ly.header_content_visible">Attachments:</t>
                                                 </td>
                                                 <td class="align-middle o_letter_header_td_value">
                                                     <t t-if="doc.has_attachment">
@@ -82,7 +82,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="align-middle o_letter_header_td_param">
-                                                    Page:
+                                                    <t t-if="ly.header_content_visible">Page:</t>
                                                 </td>
                                                 <td class="align-middle o_letter_header_td_value">
                                                     <span class="page"/>
