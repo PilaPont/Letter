@@ -73,7 +73,6 @@ class Letter(models.Model):
                                           store=False, copy=False)
     outgoing_mail_server_id = fields.Many2one(comodel_name='ir.mail_server', string='E-mail')
     print_preview = fields.Binary(compute='_compute_print_preview', store=True, attachment=True)
-    series = fields.Integer('Series', copy=False)
     send_receive_date = fields.Date(tracking=True)
     sender_letter_number = fields.Char(string='Sender Letter Number')
     signatory_id = fields.Many2one('res.users', string='Final Endorser',
@@ -125,20 +124,18 @@ class Letter(models.Model):
 
             letter.print_preview = base64.encodebytes(watermark_and_stamp_pdf(pdf, watermark, stamp))
 
-    @api.depends('series')
+    @api.depends('reference_letter_id')
     def _compute_related_letter_ids(self):
         for letter in self:
-            letter.related_letter_ids = self.env['letter.letter'].search([('series', '=', letter.series)])
+            letter.related_letter_ids = letter.reference_letter_id | letter.reference_letter_id.related_letter_ids
 
     @api.onchange('reference_type')
     def _onchange_reference_type(self):
+        self.reference_letter_id = None
         if self.type == 'in':
             self.reference_letter_type = 'in' if self.reference_type == 'following' else 'out'
         elif self.type == 'out':
             self.reference_letter_type = 'out' if self.reference_type == 'following' else 'in'
-
-        if self.reference_type == 'new':
-            self.reference_letter_id = None
 
     @api.model
     def create(self, values):
@@ -146,13 +143,8 @@ class Letter(models.Model):
             content = values.get('letter_text')
             values['font_size_title'], values['font_size_signature'] = self._get_font_size(content)
             values['text_color'] = self._get_text_color(content)
-        if values.get('reference_letter_id'):
-            parent = self.env['letter.letter'].browse(values.get('reference_letter_id'))
-            values['series'] = parent.series
-            letter = super(Letter, self).create(values)
-        else:
-            letter = super(Letter, self).create(values)
-            letter.series = letter.id
+
+        letter = super(Letter, self).create(values)
         if values.get('type') == 'out' and values.get('user_id'):
             letter._notify_user(values['user_id'])
         return letter
@@ -188,7 +180,7 @@ class Letter(models.Model):
                 letter['text_color'] = letter._get_text_color(content)
         if values.get('reference_letter_id'):
             parent = self.env['letter.letter'].browse(values.get('reference_letter_id'))
-            values['series'] = parent.series
+            values['related_letter_ids'] = parent.related_letter_ids
         if values.get('user_id'):
             self._notify_user(values['user_id'])
         return super(Letter, self).write(values)
@@ -375,7 +367,8 @@ class Letter(models.Model):
         """add letter number , change department user , change user to manager department """
         for letter in self:
             if 'company_id' in letter and (not letter.name):
-                letter.name = letter.env['ir.sequence'].with_company(letter.company_id).next_by_code('letter.letter.out')
+                letter.name = letter.env['ir.sequence'].with_company(letter.company_id).next_by_code(
+                    'letter.letter.out')
             else:
                 letter.name = letter.env['ir.sequence'].next_by_code('letter.letter.out')
             if letter.user_id and letter.user_id != letter.signatory_id:
