@@ -4,20 +4,24 @@ body {
 
 .o_letter_signature_div {
   width: 65%;
-  margin-left: 100px;
+  position: relative;
+  min-height: 5em;
 }
 
 .o_letter_signature_img {
-  width: 170px;
-  height: 170px;
-  max-height: 170px;
-  max-width: 170px;
-  background-size: contain;
-  background-repeat: no-repeat;
+  width: 145px;
+  height: 145px;
+  max-height: 145px;
+  max-width: 145px;
+  position: absolute;
+  top: -45px;
+  left: 0;
 }
 
 .o_letter_signature_content {
-  margin-left: -100px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .o_letter_header_content {

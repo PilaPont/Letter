@@ -152,27 +152,17 @@
                                     <div t-attf-style="font-size:{{font_size_signature}}; font-weight:bold;">
                                         <t t-if="doc.is_final">
                                             <div class="o_letter_signature_div">
-                                                <div class="o_letter_signature_img"
-                                                     t-attf-style="{{ ('background-image:url('+image_data_uri(doc.signatory_id.signature_image)+');') if doc.use_signature_image and doc.signatory_id.signature_image else ''}}">
-                                                    <div class="o_letter_signature_content">
-                                                        <div>Best Regards</div>
-                                                        <span t-field="doc.signatory_id.partner_id.name"
-                                                        />
-                                                        <br/>
-                                                        <span t-field="doc.signatory_id.partner_id.function"
-                                                        />
-                                                        <br/>
-                                                        <t t-if="doc.signatory_id.partner_id.mobile">Mobile:
-                                                            <t t-esc="doc.signatory_id.partner_id.mobile"
-                                                            />
-                                                        </t>
-                                                        <br/>
-                                                        <t t-if="doc.signatory_id.partner_id.email">E-Mail:
-                                                            <span t-field="doc.signatory_id.partner_id.email"
-                                                            />
-                                                        </t>
-                                                        <br/>
-                                                    </div>
+                                                <img class="o_letter_signature_img"
+                                                     t-if="doc.use_signature_image and doc.signatory_id.signature_image"
+                                                     t-att-src="image_data_uri(doc.signatory_id.signature_image)"/>
+                                                <div class="o_letter_signature_content">
+                                                    <div>Best Regards</div>
+                                                    <span t-field="doc.signatory_id.partner_id.name"
+                                                    />
+                                                    <br/>
+                                                    <span t-field="doc.signatory_id.partner_id.function"
+                                                    />
+                                                    <br/>
                                                 </div>
                                             </div>
                                         </t>
