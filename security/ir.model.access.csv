@@ -8,9 +8,5 @@ access_letter_assign_wizard,letter.assign_letter_wizard,model_letter_assign_lett
 acc_letter_out_content_type_user,letter.content_type,model_letter_content_type,base.group_user,1,0,0,0
 acc_letter_out_content_type_manager,letter.content_type,model_letter_content_type,group_letter_manager,1,1,1,1
 
-
-acc_letter_magnitude_user,letter.magnitude,model_letter_magnitude,base.group_user,1,0,0,0
-acc_letter_magnitude,letter.magnitude,model_letter_magnitude,group_letter_manager,1,1,1,1
-
 acc_letter_layout_user,letter.layout,model_letter_layout,base.group_user,1,0,0,0
 acc_letter_layout,letter.layout,model_letter_layout,group_letter_manager,1,1,1,1

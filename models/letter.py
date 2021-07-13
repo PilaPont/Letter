@@ -26,7 +26,6 @@ class Letter(models.Model):
         if res.get('type') == 'in':
             res['send_receive_date'] = fields.Date.today()
         elif res.get('type') == 'out':
-            res['letter_magnitude_id'] = self.env['letter.magnitude'].search([('is_default', '=', True)], limit=1).id
             res['layout_id'] = self.env['letter.layout'].search([('is_default', '=', True)], limit=1).id
         return res
 
@@ -53,8 +52,6 @@ class Letter(models.Model):
     is_final = fields.Boolean(compute='_compute_is_final', store=True)
     layout_id = fields.Many2one('letter.layout', string='Letter Layout')
     letter_date = fields.Date()
-    letter_magnitude_id = fields.Many2one('letter.magnitude', string='Letter Magnitude',
-                                          default=lambda self: self.env.ref('letter.normal_magnitude'))
     letter_text = fields.Html(string='Letter Text')
     meeting_id = fields.Many2one(comodel_name='calendar.event')
     messenger = fields.Char()
@@ -422,16 +419,6 @@ class Letter(models.Model):
 
     def _notify_user(self, user_id):
         self.activity_schedule('letter.mail_activity_letter', user_id=user_id)
-
-
-class LetterMagnitude(models.Model):
-    _name = 'letter.magnitude'
-    _description = 'Letter Magnitude'
-
-    name = fields.Char(string="Magnitude Name", required=True, translate=True)
-    font_size = fields.Integer(string='Font Size', required=True)
-    is_default = fields.Boolean(string='Default')
-    active = fields.Boolean(string='Active', default=True)
 
 
 class ContentType(models.Model):
