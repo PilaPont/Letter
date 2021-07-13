@@ -84,7 +84,8 @@ class Letter(models.Model):
                                        self.env.ref('letter.group_can_sign_letter').id) + "])]", tracking=True)
     state = fields.Selection(list(zip(STATES, STATE_NAMES)), default='draft', readonly=True, tracking=True)
     subject = fields.Char(string='Subject', required=True, tracking=True)
-    type = fields.Selection([('in', 'Incoming Letter'), ('out', 'Outgoing Letter')], required=True, readonly=True)
+    text_color = fields.Char()
+    type = fields.Selection([('in', 'Incoming Letter'), ('out', 'Outgoing Letter')], required=True)
     use_signature_image = fields.Boolean(string='Print Signature', default=True)
     user_id = fields.Many2one('res.users', string='Responsible',
                               default=lambda self: self.env.user, tracking=True)
@@ -147,6 +148,7 @@ class Letter(models.Model):
         if values.get('type') == 'out':
             content = values.get('letter_text')
             values['font_size_title'], values['font_size_signature'] = self._get_font_size(content)
+            values['text_color'] = self._get_text_color(content)
         if values.get('reference_letter_id'):
             parent = self.env['letter.letter'].browse(values.get('reference_letter_id'))
             values['series'] = parent.series
@@ -183,9 +185,10 @@ class Letter(models.Model):
 
     def write(self, values):
         for letter in self:
-            if values.get('type') == 'out' and values.get('letter_text'):
+            if letter.type == 'out' and values.get('letter_text'):
                 content = values.get('letter_text')
                 letter['font_size_title'], letter['font_size_signature'] = letter._get_font_size(content)
+                letter['text_color'] = letter._get_text_color(content)
         if values.get('reference_letter_id'):
             parent = self.env['letter.letter'].browse(values.get('reference_letter_id'))
             values['series'] = parent.series
@@ -402,9 +405,20 @@ class Letter(models.Model):
 
     @staticmethod
     def _get_font_size(content):
-        font_size_title = re.findall('(?<=font-size:)\s?\d+.*?(?=;)', content)[0].strip()
-        font_size_signature = re.findall('(?<=font-size:)\s?\d+.*?(?=;)', content)[-1].strip()
+        if re.findall('(?<=font-size:)\s?\d+.*?(?=;)', content):
+            font_size_title = re.findall('(?<=font-size:)\s?\d+.*?(?=;)', content)[0].strip()
+            font_size_signature = re.findall('(?<=font-size:)\s?\d+.*?(?=;)', content)[-1].strip()
+        else:
+            font_size_title, font_size_signature = '13px', '13px'
         return font_size_title, font_size_signature
+
+    @staticmethod
+    def _get_text_color(content):
+        if re.findall('(?<=color:)\s?rgb\(\d+.*?(?=;)', content):
+            text_color = re.findall('(?<=color:)\s?rgb\(\d+.*?(?=;)', content)[0].strip()
+        else:
+            text_color = '#2e3532'
+        return text_color
 
     def _notify_user(self, user_id):
         self.activity_schedule('letter.mail_activity_letter', user_id=user_id)

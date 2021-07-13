@@ -26,6 +26,7 @@
                     <t t-foreach="docs" t-as="doc">
                         <t t-set="font_size_title" t-value="doc.font_size_title"/>
                         <t t-set="font_size_signature" t-value="doc.font_size_signature"/>
+                        <t t-set="text_color" t-value="doc.text_color"/>
                         <t t-set="client" t-value="doc.partner_id"/>
                         <t t-if="client.is_company">
                             <t t-if="doc.user_id.lang=='fa_IR'">
@@ -43,7 +44,7 @@
                         </t>
                         <div t-attf-style="margin-left:{{data_report_margin_left}}mm; margin-right:{{data_report_margin_right}}mm;">
                             <div class="header"
-                                 t-attf-style="min-height:{{ly.header_height}}mm;{{'font-family:PersianDigits;' if lang=='fa_IR' else ''}};">
+                                 t-attf-style="color: #2e3532; min-height:{{ly.header_height}}mm;{{'font-family:PersianDigits;' if lang=='fa_IR' else ''}};">
                                 <div class="row text-left no-gutters">
                                     <div class="col-12 o_letter_header_content"
                                          t-attf-style="padding-right:{{data_report_header_margin_right}}mm; padding-top:{{data_report_header_margin_top}}mm;">
@@ -99,7 +100,7 @@
                                 <div class="page">
                                     <br/>
                                     <br/>
-                                    <div t-attf-style="font-size:{{font_size_title}};font-weight:bold;">
+                                    <div t-attf-style="color: {{doc.text_color}}; font-size:{{font_size_title}};font-weight:bold;">
                                         <t t-if="doc.partner_id.parent_id">
                                             <t t-if="doc.partner_id.parent_id.parent_id">
                                                 <div t-attf-style="font-weight:bold;">
@@ -125,7 +126,7 @@
                                         <br/>
                                     </div>
 
-                                    <div t-attf-style="font-size:{{font_size_title}}; font-weight:bold;">
+                                    <div t-attf-style="color: {{doc.text_color}}; font-size:{{font_size_title}}; font-weight:bold;">
                                         <span>Subject:
                                             <span t-field="doc.subject"/>
                                         </span>
@@ -149,7 +150,7 @@
 
                                     <br/>
 
-                                    <div t-attf-style="font-size:{{font_size_signature}}; font-weight:bold;">
+                                    <div t-attf-style="color: #2e3532; font-size:{{font_size_signature}}; font-weight:bold;">
                                         <t t-if="doc.is_final">
                                             <div class="o_letter_signature_div">
                                                 <img class="o_letter_signature_img"
@@ -177,7 +178,7 @@
                                     <br/>
                                     <br/>
 
-                                    <div class="mt-2" style="font-size:10px;">
+                                    <div class="mt-2" t-attf-style="color: {{doc.text_color}}; font-size:10px;">
                                         <span t-attf-style="font-weight:bold;">Executor:
                                             <span t-field="doc.create_uid.partner_id.name"/>
                                         </span>
@@ -197,7 +198,7 @@
                                     </div>
 
                                     <t t-if="doc.cc_ids">
-                                        <div class="mt-2" style="font-size:10px;">
+                                        <div class="mt-2" t-attf-style="color: {{doc.text_color}}; font-size:10px;">
                                             <div style="font-weight:bold;">Cc:</div>
                                             <t t-foreach="doc.cc_ids" t-as="cc">
                                                 <t t-esc="cc_index + 1"/>
@@ -221,7 +222,7 @@
                                     </t>
 
                                     <t t-if="doc.attachment_ids">
-                                        <div class="mt-2" style="font-size:10px;">
+                                        <div class="mt-2" t-attf-style="color: {{doc.text_color}}; font-size:10px;">
                                             <div style="font-weight:bold;">Attachments:</div>
                                             <t t-foreach="doc.attachment_ids" t-as="at">
                                                 <t t-esc="at_index + 1"/>
