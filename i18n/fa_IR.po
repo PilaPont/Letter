@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-21 12:29+0000\n"
-"PO-Revision-Date: 2021-06-21 12:29+0000\n"
+"POT-Creation-Date: 2021-07-14 07:56+0000\n"
+"PO-Revision-Date: 2021-07-14 07:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,29 +16,82 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: letter
-#: model:ir.actions.report,print_report_name:letter.report_letter_out
+#: model:ir.actions.report,print_report_name:letter.action_report_letter
 msgid "'Letter Number -%s' %(object.name)"
 msgstr "'شماره نامه -%s' %(object.name)"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
-msgid "<span>Answer letter:</span>"
-msgstr "در جواب نامه: "
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
+msgid ""
+"<span>/</span>\n"
+"                                            E-Mail:"
+msgstr ""
+"<span>/</span>\n"
+"                                            ایمیل: "
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
-msgid "<span>E-Mail:</span>"
-msgstr "ایمیل: "
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
+msgid ""
+"<span>/</span>\n"
+"                                            Mobile:"
+msgstr ""
+"<span>/</span>\n"
+"                                            موبایل: "
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
-msgid "<span>Follow letter:</span>"
-msgstr "پیرونامه: "
-
-#. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
 msgid "<span>Included</span>"
-msgstr "دارد"
+msgstr "<span>دارد</span>"
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__a0
+msgid "A0  5   841 x 1189 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__a1
+msgid "A1  6   594 x 841 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__a2
+msgid "A2  7   420 x 594 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__a3
+msgid "A3  8   297 x 420 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__a4
+msgid "A4  0   210 x 297 mm, 8.26 x 11.69 inches"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__a5
+msgid "A5  9   148 x 210 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__a6
+msgid "A6  10  105 x 148 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__a7
+msgid "A7  11  74 x 105 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__a8
+msgid "A8  12  52 x 74 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__a9
+msgid "A9  13  37 x 52 mm"
+msgstr ""
 
 #. module: letter
 #: model:ir.module.category,name:letter.access_letter_category
@@ -57,7 +110,6 @@ msgstr "اقدام مورد نیاز است"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_content_type__active
-#: model:ir.model.fields,field_description:letter.field_letter_format__active
 msgid "Active"
 msgstr "فعال"
 
@@ -86,6 +138,11 @@ msgstr "آیکون نوع فعالیت"
 #: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_list
 msgid "Addressee"
 msgstr "گیرنده"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
+msgid "Answer letter:"
+msgstr "در جواب نامه:"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
@@ -124,15 +181,84 @@ msgid "Attachments"
 msgstr "پیوست‌ها"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
 msgid "Attachments:"
-msgstr "پیوست: "
+msgstr "پیوست:"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__b0
+msgid "B0  14  1000 x 1414 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__b1
+msgid "B1  15  707 x 1000 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__b10
+msgid "B10    16  31 x 44 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__b2
+msgid "B2  17  500 x 707 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__b3
+msgid "B3  18  353 x 500 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__b4
+msgid "B4  19  250 x 353 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__b5
+msgid "B5  1   176 x 250 mm, 6.93 x 9.84 inches"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__b6
+msgid "B6  20  125 x 176 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__b7
+msgid "B7  21  88 x 125 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__b8
+msgid "B8  22  62 x 88 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__b9
+msgid "B9  23  33 x 62 mm"
+msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_layout_view_form
+msgid "Background"
+msgstr "پس‌زمینه"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_layout__background_image
+msgid "Background Image"
+msgstr "تصویر پس‌زمینه"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
 msgid "Best Regards"
 msgstr "با احترام"
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__c5e
+msgid "C5E 24  163 x 229 mm"
+msgstr ""
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__cc_ids
@@ -165,9 +291,9 @@ msgid "Cc"
 msgstr "رونوشت"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
 msgid "Cc:"
-msgstr "رونوشت: "
+msgstr "رونوشت:"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__related_letter_ids
@@ -175,18 +301,13 @@ msgid "Child letter"
 msgstr "سابقه نامه"
 
 #. module: letter
-#: model:letter.format,name:letter.compact_format
-msgid "Compact"
-msgstr "فشرده"
-
-#. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_format__name
-msgid "Compact Format Name"
-msgstr "حالت فشرده‌سازی"
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__comm10e
+msgid "Comm10E 25  105 x 241 mm, U.S. Common 10 Envelope"
+msgstr ""
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_content_type__company_id
-#: model:ir.model.fields,field_description:letter.field_letter_header__company_id
+#: model:ir.model.fields,field_description:letter.field_letter_layout__company_id
 #: model:ir.model.fields,field_description:letter.field_letter_letter__company_id
 msgid "Company"
 msgstr "شرکت"
@@ -198,6 +319,7 @@ msgstr "پیکربندی"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_content_type__name
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Content"
 msgstr "محتوا"
 
@@ -211,8 +333,7 @@ msgstr "نوع محتوا"
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__create_uid
 #: model:ir.model.fields,field_description:letter.field_letter_content_type__create_uid
-#: model:ir.model.fields,field_description:letter.field_letter_format__create_uid
-#: model:ir.model.fields,field_description:letter.field_letter_header__create_uid
+#: model:ir.model.fields,field_description:letter.field_letter_layout__create_uid
 #: model:ir.model.fields,field_description:letter.field_letter_letter__create_uid
 msgid "Created by"
 msgstr "ایجاد شده توسط"
@@ -220,41 +341,40 @@ msgstr "ایجاد شده توسط"
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__create_date
 #: model:ir.model.fields,field_description:letter.field_letter_content_type__create_date
-#: model:ir.model.fields,field_description:letter.field_letter_format__create_date
-#: model:ir.model.fields,field_description:letter.field_letter_header__create_date
+#: model:ir.model.fields,field_description:letter.field_letter_layout__create_date
 #: model:ir.model.fields,field_description:letter.field_letter_letter__create_date
 msgid "Created on"
 msgstr "ایجاد شده در"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__custom
+msgid "Custom"
+msgstr "دلخواه"
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__dle
+msgid "DLE 26 110 x 220 mm"
+msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
 msgid "Date:"
 msgstr "تاریخ:‌"
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_format__is_default
-msgid "Default"
-msgstr "پیش‌فرض"
-
-#. module: letter
-#: model:ir.model.fields.selection,name:letter.selection__letter_letter__media_type__delivery
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__delivery_method__delivery
 msgid "Delivery Man"
 msgstr "پیک"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
-msgid "Delivery Media"
+#: model:ir.model.fields,field_description:letter.field_letter_letter__delivery_method
+msgid "Delivery Method"
 msgstr "نحوه دریافت"
 
 #. module: letter
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter__state__in_department
 msgid "Department Manager"
 msgstr "مدیر واحد"
-
-#. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_letter__use_signature_image
-msgid "Print Signature"
-msgstr "چاپ امضا"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_assign_letter_wizard
@@ -264,8 +384,7 @@ msgstr "رها کردن"
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__display_name
 #: model:ir.model.fields,field_description:letter.field_letter_content_type__display_name
-#: model:ir.model.fields,field_description:letter.field_letter_format__display_name
-#: model:ir.model.fields,field_description:letter.field_letter_header__display_name
+#: model:ir.model.fields,field_description:letter.field_letter_layout__display_name
 #: model:ir.model.fields,field_description:letter.field_letter_letter__display_name
 msgid "Display Name"
 msgstr "نام نمایشی"
@@ -282,23 +401,23 @@ msgid "Draft"
 msgstr "پیش‌نویس"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
-msgid "E-Mail:"
+#: model:ir.model.fields,field_description:letter.field_letter_letter__outgoing_mail_server_id
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__delivery_method__email
+msgid "E-mail"
 msgstr "ایمیل:"
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_letter__role_based_email
-#: model:ir.model.fields.selection,name:letter.selection__letter_letter__media_type__email
-msgid "E-mail"
-msgstr "ایمیل"
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__executive
+msgid "Executive 4   7.5 x 10 inches, 190.5 x 254 mm"
+msgstr ""
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
 msgid "Executor:"
 msgstr "اقدام کننده:"
 
 #. module: letter
-#: model:ir.model.fields.selection,name:letter.selection__letter_letter__media_type__fax
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__delivery_method__fax
 msgid "Fax"
 msgstr "فکس"
 
@@ -306,6 +425,21 @@ msgstr "فکس"
 #: model:ir.model.fields,field_description:letter.field_letter_letter__signatory_id
 msgid "Final Endorser"
 msgstr "تاییدکننده نهایی"
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__folio
+msgid "Folio 27  210 x 330 mm"
+msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
+msgid "Follow letter:"
+msgstr "پیرونامه:"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
+msgid "Follow up"
+msgstr "رهگیری"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__message_follower_ids
@@ -343,9 +477,14 @@ msgid "Following a Phone Call"
 msgstr "پیرو تماس تلفنی"
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_format__font_size
-msgid "Font Size"
-msgstr "اندازه قلم"
+#: model:ir.model.fields,field_description:letter.field_letter_letter__font_size_signature
+msgid "Font Size Signature"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__font_size_title
+msgid "Font Size Title"
+msgstr ""
 
 #. module: letter
 #: model:ir.model.fields,help:letter.field_letter_letter__activity_type_icon
@@ -353,14 +492,9 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_header__footer_img
-msgid "Footer Image"
-msgstr "تصویرپایین صفحه"
-
-#. module: letter
-#: model:ir.ui.menu,name:letter.letter_format_menu
-msgid "Format"
-msgstr "قالب"
+#: model:ir.model.fields,field_description:letter.field_letter_layout__footer_height
+msgid "Footer Height (mm)"
+msgstr "ارتفاع فوتر (میلی‌متر)"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_incoming
@@ -380,25 +514,29 @@ msgid "Has Attachment"
 msgstr "پیوست"
 
 #. module: letter
-#: model:ir.actions.act_window,name:letter.action_header
-msgid "Header"
-msgstr "سربرگ"
+#: model:ir.model.fields,field_description:letter.field_letter_layout__header_content_margin_right
+msgid "Header Content Margin Right (mm)"
+msgstr "فاصله محتویات هدر از راست (میلی‌متر)"
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_header__header_img
-msgid "Header Image"
-msgstr "تصویر بالای صفحه"
+#: model:ir.model.fields,field_description:letter.field_letter_layout__header_content_margin_top
+msgid "Header Content Margin Top (mm)"
+msgstr "فاصله محتویات هدر از بالا (میلی‌متر)"
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_header__name
-msgid "Header Name"
-msgstr "نام سربرگ"
+#: model:ir.model.fields,field_description:letter.field_letter_layout__header_content_visible
+msgid "Header Content Visible"
+msgstr "نمایش محتویات هدر"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_layout__header_height
+msgid "Header Height (mm)"
+msgstr "ارتفاع هدر (میلی‌متر)"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__id
 #: model:ir.model.fields,field_description:letter.field_letter_content_type__id
-#: model:ir.model.fields,field_description:letter.field_letter_format__id
-#: model:ir.model.fields,field_description:letter.field_letter_header__id
+#: model:ir.model.fields,field_description:letter.field_letter_layout__id
 #: model:ir.model.fields,field_description:letter.field_letter_letter__id
 msgid "ID"
 msgstr "شناسه"
@@ -422,7 +560,6 @@ msgstr ""
 
 #. module: letter
 #: model:ir.model.fields,help:letter.field_letter_letter__message_has_error
-#: model:ir.model.fields,help:letter.field_letter_letter__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 "اگر این گزینه علامت خورده باشد، تحویل برخی از پیام‌ها با خطا مواجه شده است."
@@ -433,13 +570,25 @@ msgid "In Reply To a Letter"
 msgstr "در جواب نامه"
 
 #. module: letter
-#: model:ir.model.fields.selection,name:letter.selection__letter_letter__media_type__in_person
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__delivery_method__in_person
 msgid "In person"
 msgstr "حضوری"
 
 #. module: letter
+#: model:ir.actions.act_window,name:letter.letter_letter_action_incoming
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__type__in
+#: model:ir.ui.menu,name:letter.letter_letter_menu_incomming
+msgid "Incoming Letter"
+msgstr "نامه وارده"
+
+#. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__is_current_user
 msgid "Is Current User"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__is_final
+msgid "Is Final"
 msgstr ""
 
 #. module: letter
@@ -448,15 +597,9 @@ msgid "Is Follower"
 msgstr "دنبال‌کننده است"
 
 #. module: letter
-#: model:letter.format,name:letter.large_format
-msgid "Large"
-msgstr "بزرگ"
-
-#. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard____last_update
 #: model:ir.model.fields,field_description:letter.field_letter_content_type____last_update
-#: model:ir.model.fields,field_description:letter.field_letter_format____last_update
-#: model:ir.model.fields,field_description:letter.field_letter_header____last_update
+#: model:ir.model.fields,field_description:letter.field_letter_layout____last_update
 #: model:ir.model.fields,field_description:letter.field_letter_letter____last_update
 msgid "Last Modified on"
 msgstr "آخرین تغییر در"
@@ -464,8 +607,7 @@ msgstr "آخرین تغییر در"
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__write_uid
 #: model:ir.model.fields,field_description:letter.field_letter_content_type__write_uid
-#: model:ir.model.fields,field_description:letter.field_letter_format__write_uid
-#: model:ir.model.fields,field_description:letter.field_letter_header__write_uid
+#: model:ir.model.fields,field_description:letter.field_letter_layout__write_uid
 #: model:ir.model.fields,field_description:letter.field_letter_letter__write_uid
 msgid "Last Updated by"
 msgstr "آخرین تغییر توسط"
@@ -473,8 +615,7 @@ msgstr "آخرین تغییر توسط"
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__write_date
 #: model:ir.model.fields,field_description:letter.field_letter_content_type__write_date
-#: model:ir.model.fields,field_description:letter.field_letter_format__write_date
-#: model:ir.model.fields,field_description:letter.field_letter_header__write_date
+#: model:ir.model.fields,field_description:letter.field_letter_layout__write_date
 #: model:ir.model.fields,field_description:letter.field_letter_letter__write_date
 msgid "Last Updated on"
 msgstr "آخرین به‌روزرسانی در"
@@ -486,6 +627,26 @@ msgid "Late Activities"
 msgstr "اقدامات مهلت‌گذشته"
 
 #. module: letter
+#: model:ir.actions.act_window,name:letter.action_layout
+msgid "Layout"
+msgstr "چیدمان"
+
+#. module: letter
+#: model:ir.ui.menu,name:letter.letter_menu_layout
+msgid "Layouts"
+msgstr "چیدمان"
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__ledger
+msgid "Ledger  28  431.8 x 279.4 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__legal
+msgid "Legal    3   8.5 x 14 inches, 215.9 x 355.6 mm"
+msgstr ""
+
+#. module: letter
 #: model:ir.model,name:letter.model_letter_letter
 #: model:ir.model.fields,field_description:letter.field_letter_assign_letter_wizard__letter_id
 #: model:ir.module.category,name:letter.letter_category
@@ -493,6 +654,11 @@ msgstr "اقدامات مهلت‌گذشته"
 #: model:mail.activity.type,name:letter.mail_activity_letter
 msgid "Letter"
 msgstr "نامه"
+
+#. module: letter
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__letter
+msgid "Letter 2 8.5 x 11 inches, 215.9 x 279.4 mm"
+msgstr ""
 
 #. module: letter
 #: model:ir.model,name:letter.model_letter_assign_letter_wizard
@@ -510,25 +676,10 @@ msgid "Letter Date"
 msgstr "تاریخ نامه"
 
 #. module: letter
-#: model:ir.actions.act_window,name:letter.letter_format_action
-#: model:ir.model,name:letter.model_letter_format
-#: model:ir.model.fields,field_description:letter.field_letter_letter__letter_format_id
-msgid "Letter Format"
-msgstr "قالب نامه"
-
-#. module: letter
-#: model:ir.model,name:letter.model_letter_header
-#: model:ir.model.fields,field_description:letter.field_letter_letter__header_id
-#: model:ir.ui.menu,name:letter.letter_menu_header
-msgid "Letter Header"
-msgstr "سربرگ نامه"
-
-#. module: letter
-#: model:ir.actions.act_window,name:letter.letter_letter_action_incoming
-#: model:ir.model.fields.selection,name:letter.selection__letter_letter__type__in
-#: model:ir.ui.menu,name:letter.letter_letter_menu_incomming
-msgid "Incoming Letter"
-msgstr "نامه وارده"
+#: model:ir.model,name:letter.model_letter_layout
+#: model:ir.model.fields,field_description:letter.field_letter_letter__layout_id
+msgid "Letter Layout"
+msgstr "چیدمان نامه"
 
 #. module: letter
 #: model:ir.module.category,name:letter.model_manager
@@ -546,12 +697,9 @@ msgid "Letter Number"
 msgstr "شماره نامه"
 
 #. module: letter
-#: model:ir.actions.act_window,name:letter.letter_letter_action_outgoing
-#: model:ir.actions.report,name:letter.report_letter_out
-#: model:ir.model.fields.selection,name:letter.selection__letter_letter__type__out
-#: model:ir.ui.menu,name:letter.letter_letter_menu_outgoing
-msgid "Outgoing Letter"
-msgstr "نامه صادره"
+#: model:ir.actions.report,name:letter.action_report_letter
+msgid "Letter Report"
+msgstr "پرینت نامه"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
@@ -584,9 +732,14 @@ msgid "Main Attachment"
 msgstr "پیوست اصلی"
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_letter__media_type
-msgid "Media Type"
-msgstr "نحوه ارسال/دریافت"
+#: model:ir.model.fields,field_description:letter.field_letter_layout__margin_left
+msgid "Margin Left (mm)"
+msgstr "حاشیه چپ (میلی‌متر)"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_layout__margin_right
+msgid "Margin Right (mm)"
+msgstr "حاشیه راست (میلی‌متر)"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__meeting_id
@@ -604,14 +757,19 @@ msgid "Messages"
 msgstr "پیام‌ها"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
-msgid "Mobile:"
-msgstr "تلفن همراه:"
+#: model:ir.model.fields,field_description:letter.field_letter_letter__messenger
+msgid "Messenger"
+msgstr "نامه‌رسان"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "مهلت اقدام من"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_layout__name
+msgid "Name"
+msgstr "نام"
 
 #. module: letter
 #: model:ir.model.fields.selection,name:letter.selection__letter_letter__state__draft
@@ -643,11 +801,6 @@ msgstr "نوع اقدام بعدی"
 #, python-format
 msgid "No secretary has defined!"
 msgstr "منشی تعریف نشده است."
-
-#. module: letter
-#: model:letter.format,name:letter.normal_format
-msgid "Normal"
-msgstr "معمولی"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__message_needaction_counter
@@ -685,9 +838,16 @@ msgid "Number, Sender or Subject"
 msgstr "شماره نامه، فرستنده یا عنوان"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
 msgid "Number:"
 msgstr "شماره:"
+
+#. module: letter
+#: model:ir.actions.act_window,name:letter.letter_letter_action_outgoing
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__type__out
+#: model:ir.ui.menu,name:letter.letter_letter_menu_outgoing
+msgid "Outgoing Letter"
+msgstr "نامه صادره"
 
 #. module: letter
 #: model:letter.content_type,name:letter.letter_content_package
@@ -695,9 +855,24 @@ msgid "Package"
 msgstr "بسته"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+#: model:ir.model.fields,field_description:letter.field_letter_layout__page_height
+msgid "Page height (mm)"
+msgstr "ارتفاع صفحه (میلی‌متر)"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_layout__page_width
+msgid "Page width (mm)"
+msgstr "عرض صفحه (میلی‌متر)"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
 msgid "Page:"
 msgstr "صفحه:"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_layout__page_size
+msgid "Paper size"
+msgstr "اندازه کاغذ"
 
 #. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__partner_id
@@ -710,7 +885,7 @@ msgid "Phone Call"
 msgstr "تماس تلفنی"
 
 #. module: letter
-#: model:ir.model.fields.selection,name:letter.selection__letter_letter__media_type__post
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__delivery_method__post
 msgid "Post"
 msgstr "پست"
 
@@ -718,6 +893,16 @@ msgstr "پست"
 #: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
 msgid "Print"
 msgstr "چاپ"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__print_preview
+msgid "Print Preview"
+msgstr "پیش‌نمایش پرینت"
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__use_signature_image
+msgid "Print Signature"
+msgstr "چاپ امضا"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
@@ -788,11 +973,6 @@ msgid "Returned"
 msgstr "بازگردانده شده"
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_letter__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "خطای تحویل پیامک"
-
-#. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.view_assign_letter_wizard
 msgid "Save"
 msgstr "ذخیره"
@@ -808,9 +988,14 @@ msgid "See All"
 msgstr "مشاهده همه نامه‌ها"
 
 #. module: letter
-#: model:res.groups,name:letter.group_letter_see_follower
+#: model:res.groups,name:letter.group_letter_see_following
 msgid "See Following"
 msgstr "نامه‌های خود"
+
+#. module: letter
+#: model:ir.model.fields,help:letter.field_letter_layout__page_size
+msgid "Select Proper Paper size"
+msgstr "انتخاب اندازه کاغذ مناسب"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
@@ -818,14 +1003,14 @@ msgid "Send"
 msgstr "ارسال"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
-msgid "Send Media"
-msgstr "نحوه ارسال"
-
-#. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__send_receive_date
 msgid "Send Receive Date"
 msgstr "تاریخ ارسال/دریافت"
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
+msgid "Send/Receive"
+msgstr "ارسال/دریافت"
 
 #. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
@@ -854,11 +1039,6 @@ msgid "Sent"
 msgstr "اخذ تاییدیه"
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_letter__series
-msgid "Series"
-msgstr "سابقه"
-
-#. module: letter
 #: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_incoming
 #: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_search_outgoing
 msgid "Show all opportunities for which the next action date is before today"
@@ -871,7 +1051,7 @@ msgid "Sign Letter"
 msgstr "امضای نامه"
 
 #. module: letter
-#: model:ir.model.fields.selection,name:letter.selection__letter_letter__media_type__network
+#: model:ir.model.fields.selection,name:letter.selection__letter_letter__delivery_method__network
 msgid "Social Networks"
 msgstr "شبکه‌های اجتماعی"
 
@@ -903,7 +1083,7 @@ msgid "Subject"
 msgstr "موضوع"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
 msgid "Subject:"
 msgstr "موضوع:"
 
@@ -913,12 +1093,27 @@ msgid "Submit"
 msgstr "تکمیل"
 
 #. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.letter_letter_view_form
+msgid "Summery"
+msgstr "مشخصات"
+
+#. module: letter
 #: model:letter.content_type,name:letter.letter_content_summons
 msgid "Summons"
 msgstr "احضاریه"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.letter_out_report_doc
+#: model:ir.model.fields.selection,name:letter.selection__letter_layout__page_size__tabloid
+msgid "Tabloid 29 279.4 x 431.8 mm"
+msgstr ""
+
+#. module: letter
+#: model:ir.model.fields,field_description:letter.field_letter_letter__text_color
+msgid "Text Color"
+msgstr ""
+
+#. module: letter
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
 msgid "This letter has not been confirmed yet."
 msgstr "این نامه به تایید مدیریت نرسیده است."
 
@@ -944,11 +1139,6 @@ msgid "Type of the exception activity on record."
 msgstr "نوع فعالیت استثنایی برای رکورد."
 
 #. module: letter
-#: model:letter.format,name:letter.ultra_format
-msgid "Ultra Compact"
-msgstr "بسیار فشرده"
-
-#. module: letter
 #: model:ir.model.fields,field_description:letter.field_letter_letter__message_unread
 msgid "Unread Messages"
 msgstr "پیام‌های خوانده‌نشده"
@@ -959,14 +1149,9 @@ msgid "Unread Messages Counter"
 msgstr "شمارنده پیام‌های خوانده‌نشده"
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_letter__website_message_ids
-msgid "Website Messages"
-msgstr "پیام‌های وبسایت"
-
-#. module: letter
-#: model:ir.model.fields,help:letter.field_letter_letter__website_message_ids
-msgid "Website communication history"
-msgstr "تاریخچه ارتباط با وب‌سایت"
+#: model:ir.model.fields,field_description:letter.field_letter_layout__is_default
+msgid "Use as default"
+msgstr "استفاده به عنوان پیش‌فرض"
 
 #. module: letter
 #: code:addons/letter/models/letter.py:0
@@ -975,11 +1160,11 @@ msgid "You are not allowed to see letter content."
 msgstr "شما مجاز به دیدن متن نامه نیستید."
 
 #. module: letter
-#: model:ir.model.fields,field_description:letter.field_letter_header__language_id
+#: model:ir.model.fields,field_description:letter.field_letter_layout__language_id
 msgid "language"
 msgstr "زبان"
 
 #. module: letter
-#: model_terms:ir.ui.view,arch_db:letter.external_layout_header
+#: model_terms:ir.ui.view,arch_db:letter.report_letter
 msgid "of"
 msgstr "از"

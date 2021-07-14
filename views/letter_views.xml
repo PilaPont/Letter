@@ -112,7 +112,7 @@
                                 </div>
                                 <field name="send_receive_date" nolabel="1"
                                        attrs="{'readonly': [('type', '=', 'out')], 'required': [('type', '=', 'in')]}"/>
-                                <field name="delivery_method" string='Delivery Media' required="True"/>
+                                <field name="delivery_method" required="True"/>
                                 <field name="outgoing_mail_server_id"
                                        attrs="{'invisible': ['|',('delivery_method', '!=', 'email'),('type','!=','out')]}"/>
                                 <field name="messenger" attrs="{'invisible': ['|',('delivery_method', '!=', 'in_person'),('type','!=','in')],
