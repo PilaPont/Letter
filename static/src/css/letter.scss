@@ -1,53 +1,48 @@
+body {
+  background-color: #ffffff00 !important;
+}
 
 .o_letter_signature_div {
   width: 65%;
-  margin-left: 100px;
+  position: relative;
+  min-height: 5em;
 }
 
 .o_letter_signature_img {
-  width: 170px;
-  height: 170px;
-  max-height: 170px;
-  max-width: 170px;
-  background-size: contain;
-  background-repeat: no-repeat;
+  width: 145px;
+  height: 145px;
+  max-height: 145px;
+  max-width: 145px;
+  position: absolute;
+  top: -45px;
+  left: 0;
 }
 
 .o_letter_signature_content {
-  margin-left: -100px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .o_letter_header_content {
-  font-size: 4mm;
-  margin-right: 28mm;
-  margin-top: 2cm;
+  font-size: 9px;
 }
 
 .o_letter_header_td_param {
   padding: 0 !important;
   width: 15mm;
-  height: 6mm;
   border-top: none !important;
 }
 
 .o_letter_header_td_value {
   padding: 0 !important;
   width: 35mm;
-  height: 6mm;
   border-top: none !important;
 }
 
-.o_letter_header_img {
-  //min-height: 200px;
-  //height: 200px;
-  //background-size: 100%;
-  //background-repeat: no-repeat;
-  //width: 100%;
-  //margin-top: -5mm;
-  width: 100%;
-  height: 100%;
-  background-attachment: local;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+@font-face {
+  font-family: 'PersianDigits';
+  src:url('https://cdn.kenevist.ir/fonts/sahel/Sahel-FD.ttf')
+  format("woff");
+  font-weight: Normal;
 }

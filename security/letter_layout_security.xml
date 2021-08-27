@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <!-- CATEGORY -->
+        <record id="model_manager" model="ir.module.category">
+            <field name="parent_id" ref="letter.letter_category"/>
+            <field name="name">Letter Management</field>
+            <field name="sequence">1005</field>
+        </record>
+
+        <!--MANAGE CONFIG-->
+        <record id="group_letter_manager" model="res.groups">
+            <field name="name">Letter Manager</field>
+            <field name="category_id" ref="letter.model_manager"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+
+        </record>
+
+
+        <record model="ir.rule" id="letter_layout_rule">
+            <field name="name">Letter Layout Company</field>
+            <field name="model_id" ref="model_letter_layout"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+    </data>
+</odoo>
+
